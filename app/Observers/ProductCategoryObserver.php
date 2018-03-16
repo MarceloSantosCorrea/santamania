@@ -13,6 +13,7 @@ class ProductCategoryObserver
 
     public function updating(ProductCategory $productCategory)
     {
-        $productCategory->active = $productCategory->active == 'on' ? 1 : 0;
+//        if (is_string($productCategory->active))
+//            $productCategory->active = $productCategory->active == 'on' ? 1 : 0;
     }
 }

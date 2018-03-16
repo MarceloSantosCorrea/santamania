@@ -33,7 +33,7 @@ class ProductCategoryRequest extends FormRequest
                 $product_category = $this->route('product_category');
 
                 return [
-                    'name' => 'required|unique:product_categories,name,' . $product_category->id,
+                    'name' => 'required|unique:product_categories,name,' . $product_category,
                 ];
         }
     }

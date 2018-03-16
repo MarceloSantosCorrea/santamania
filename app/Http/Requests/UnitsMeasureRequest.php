@@ -33,7 +33,7 @@ class UnitsMeasureRequest extends FormRequest
                 $unitsMeasure = $this->route('units_measure');
 
                 return [
-                    "name" => "required|unique:units_measures,name," . $unitsMeasure->id,
+                    "name" => "required|unique:units_measures,name," . $unitsMeasure,
                 ];
         }
     }

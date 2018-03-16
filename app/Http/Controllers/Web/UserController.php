@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Requests\UserRequest;
 use App\Models\User;
-use function GuzzleHttp\Promise\all;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class UserController extends Controller

@@ -56,5 +56,3 @@ $this->group(['middleware' => ['auth']], function () {
         });
     });
 });
-
-

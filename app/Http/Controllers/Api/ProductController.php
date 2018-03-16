@@ -31,12 +31,12 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
      */
     public function store(ProductRequest $request)
     {
-        return Product::create($request->all());
+        $product = Product::create($request->all());
+
+        return Product::with($this->relationships())->find($product->id);
     }
 
     /**
@@ -47,7 +47,7 @@ class ProductController extends Controller
         $product = Product::find($id);
         $product->update($request->all());
 
-        return $product;
+        return Product::with($this->relationships())->find($product->id);
     }
 
     public function destroy(Product $product)
