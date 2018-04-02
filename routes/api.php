@@ -20,6 +20,6 @@ Route::prefix('v1')->middleware('auth:api')->group(function () {
     ]);
 
     Route::prefix('checklist-actions')->group(function () {
-        Route::get('{checklist}/close', 'Api\\ChecklistActionsController@close');
+        Route::post('{checklist}/close', 'Api\\ChecklistActionsController@close');
     });
 });

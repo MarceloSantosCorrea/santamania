@@ -30,7 +30,7 @@ class Checklist extends Model
             if ((!count($checklistProductCount)) || ($checklistProductCount < $productsCount))
                 return response()->json([
                     'success' => false,
-                    'message' => 'Some products have not been counted.',
+                    'message' => 'Alguns produtos não foram verificados.',
                 ]);
 
             foreach ($checklist->checklistProduct as $checklistProduct) {
@@ -45,9 +45,12 @@ class Checklist extends Model
                 ChecklistTotal::create($data);
             }
 
+            $checklist->status = 0;
+            $checklist->save();
+
             return response()->json([
                 'success' => true,
-                'message' => 'Checklist finalized successfully.',
+                'message' => 'Checklist finalizado com sucesso.',
             ]);
         }
 
