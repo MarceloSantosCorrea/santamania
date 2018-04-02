@@ -31,8 +31,12 @@ class WarehouseRequest extends FormRequest
             case'PUT':
                 $warehouse = $this->route('warehouse');
 
+                $id = is_object($warehouse) ? $warehouse->id : $warehouse;
+
+                $this->merge(['active' => $this->input('active', '0')]);
+
                 return [
-                    "name" => "required|min:3|unique:warehouses,name," . $warehouse->id,
+                    "name" => "required|min:3|unique:warehouses,name," . $id,
                 ];
         }
     }

@@ -11,9 +11,8 @@ class ProductCategoryObserver
         $productCategory->active = 1;
     }
 
-    public function updating(ProductCategory $productCategory)
+    public function saving(ProductCategory $productCategory)
     {
-//        if (is_string($productCategory->active))
-//            $productCategory->active = $productCategory->active == 'on' ? 1 : 0;
+        $productCategory->active = ($productCategory->active === 'on' || $productCategory->active == 1) ? 1 : 0;
     }
 }

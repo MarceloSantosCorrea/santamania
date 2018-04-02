@@ -29,7 +29,9 @@ class ChecklistController extends Controller
      */
     public function store(ChecklistRequest $request)
     {
-        return $this->model::create($request->all());
+        $checklist = Checklist::create($request->all());
+
+        return Checklist::with($this->relationships())->find($checklist->id);
     }
 
     /**
@@ -40,7 +42,7 @@ class ChecklistController extends Controller
         $checklist = Checklist::find($id);
         $checklist->update($request->all());
 
-        return $checklist;
+        return Checklist::with($this->relationships())->find($checklist->id);
     }
 
     public function destroy(Checklist $checklist)

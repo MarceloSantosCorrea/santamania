@@ -62,9 +62,9 @@ class WarehouseController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param WarehouseRequest $request
+     * @param Warehouse $warehouse
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(WarehouseRequest $request, Warehouse $warehouse)
     {

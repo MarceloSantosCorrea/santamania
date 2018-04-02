@@ -36,10 +36,14 @@ class UserRequest extends FormRequest
 
                 $user = $this->route('user');
 
+                $id = is_object($user) ? $user->id : $user;
+
+                //$this->merge(['active' => $this->input('active', '0')]);
+
                 return [
                     'firstname' => 'required|min:3',
                     'lastname'  => 'required|min:3',
-                    "email"     => "required|unique:user,email," . $user->id,
+                    "email"     => "required|unique:user,email," . $id,
                 ];
         }
     }

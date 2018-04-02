@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Checklist extends Model
@@ -54,5 +55,26 @@ class Checklist extends Model
             'success' => false,
             'message' => 'This checklist already been finalized.',
         ]);
+    }
+
+    public function getDateAttribute($value)
+    {
+        $c = Carbon::createFromFormat('Y-m-d H:i:s', $value);
+
+        return $c->toW3cString();
+    }
+
+    public function getCreatedAtAttribute($value)
+    {
+        $c = Carbon::createFromFormat('Y-m-d H:i:s', $value);
+
+        return $c->toW3cString();
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        $c = Carbon::createFromFormat('Y-m-d H:i:s', $value);
+
+        return $c->toW3cString();
     }
 }

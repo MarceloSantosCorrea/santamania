@@ -10,4 +10,9 @@ class ProductObserver
     {
         $product->active = 1;
     }
+
+    public function saving(Product $product)
+    {
+        $product->active = ($product->active === 'on' || $product->active == 1) ? 1 : 0;
+    }
 }

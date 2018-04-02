@@ -33,8 +33,12 @@ class ProductRequest extends FormRequest
             case'PUT':
                 $product = $this->route('product');
 
+                $id = is_object($product) ? $product->id : $product;
+
+                $this->merge(['active' => $this->input('active', '0')]);
+
                 return [
-                    "name" => "required|unique:products,name," . $product,
+                    "name" => "required|unique:products,name," . $id,
                 ];
         }
     }

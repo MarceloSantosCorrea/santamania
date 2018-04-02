@@ -30,10 +30,14 @@ class ProductCategoryRequest extends FormRequest
                     'name' => 'required|unique:product_categories',
                 ];
             case'PUT':
-                $product_category = $this->route('product_category');
+                $productCategory = $this->route('product_category');
+
+                $id = is_object($productCategory) ? $productCategory->id : $productCategory;
+
+                $this->merge(['active' => $this->input('active', '0')]);
 
                 return [
-                    'name' => 'required|unique:product_categories,name,' . $product_category,
+                    'name' => 'required|unique:product_categories,name,' . $id,
                 ];
         }
     }

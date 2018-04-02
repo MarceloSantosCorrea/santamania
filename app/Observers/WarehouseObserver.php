@@ -11,8 +11,8 @@ class WarehouseObserver
         $warehouse->active = 1;
     }
 
-    public function updating(Warehouse $warehouse)
+    public function saving(Warehouse $warehouse)
     {
-        $warehouse->active = $warehouse->active == 'on' ? 1 : 0;
+        $warehouse->active = ($warehouse->active === 'on' || $warehouse->active == 1) ? 1 : 0;
     }
 }

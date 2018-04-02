@@ -10,6 +10,9 @@ class ProductionController extends Controller
 {
     use ControllerTrait;
     protected $model;
+    protected $relationships = [
+        'product',
+    ];
 
     public function __construct(Production $model)
     {
@@ -26,7 +29,9 @@ class ProductionController extends Controller
      */
     public function store(ProductionRequest $request)
     {
-        return Production::create($request->all());
+        $production = Production::create($request->all());
+
+        return Production::with($this->relationships())->find($production->id);
     }
 
     /**
@@ -37,7 +42,7 @@ class ProductionController extends Controller
         $production = Production::find($id);
         $production->update($request->all());
 
-        return $production;
+        return Production::with($this->relationships())->find($production->id);
     }
 
     public function destroy(Production $production)
