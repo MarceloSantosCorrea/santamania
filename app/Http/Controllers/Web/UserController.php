@@ -15,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $data = User::paginate();
+        $data = User::paginate(10);
 
         return view('pages.user.index', compact('data'));
     }
@@ -38,7 +38,7 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        if ((new User)->save($request->all()))
+        if (User::create($request->all()))
             return redirect()
                 ->route('web.user.index')
                 ->with('success', 'Salvo com sucesso');
@@ -79,17 +79,33 @@ class UserController extends Controller
      */
     public function update(UserRequest $request, User $user)
     {
-        //
+        $user->fill($request->all());
+
+        if ($user->save())
+            return redirect()
+                ->route('web.user.index')
+                ->with('success', 'Salvo com sucesso');
+
+        return redirect()
+            ->route('web.user.index')
+            ->with('error', 'Erro ao salvar');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param User $user
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        if ($user->delete())
+            return redirect()
+                ->route('web.user.index')
+                ->with('success', 'Deletado com sucesso');
+
+        return redirect()
+            ->route('web.user.index')
+            ->with('error', 'Erro ao deletar');
     }
 }

@@ -5,18 +5,42 @@ Auth::routes();
 $this->group(['middleware' => ['auth']], function () {
     $this->group(['namespace' => 'Web'], function () {
         $this->resources([
-            '/product'                      => 'ProductController',
-            '/production'                   => 'ProductionController',
-            '/checklist'                    => 'ChecklistController',
             '/checklist-product'            => 'ChecklistProductController',
             '/checklist-warehouse-quantity' => 'ChecklistWarehouseQuantityController',
         ]);
 
         $this->get('/', 'IndexController@index')->name('home');
-        $this->get('/logout', 'IndexController@logout')->name('home');
+        $this->get('/logout', 'IndexController@logout')->name('logout');
 
         $this->group(['prefix' => 'checklist-actions'], function () {
             $this->get('close', 'ChecklistActionsController@close');
+        });
+
+        $this->group(['prefix' => 'checklist'], function () {
+            $this->get('/', 'ChecklistController@index')->name('web.checklist.index');
+            $this->get('/create', 'ChecklistController@create')->name('web.checklist.create');
+            $this->post('/store', 'ChecklistController@store')->name('web.checklist.store');
+            $this->get('/edit/{checklist}', 'ChecklistController@edit')->name('web.checklist.edit');
+            $this->put('/update/{checklist}', 'ChecklistController@update')->name('web.checklist.update');
+            $this->get('/destroy/{checklist}', 'ChecklistController@destroy')->name('web.checklist.destroy');
+        });
+
+        $this->group(['prefix' => 'production'], function () {
+            $this->get('/', 'ProductionController@index')->name('web.production.index');
+            $this->get('/create', 'ProductionController@create')->name('web.production.create');
+            $this->post('/store', 'ProductionController@store')->name('web.production.store');
+            $this->get('/edit/{production}', 'ProductionController@edit')->name('web.production.edit');
+            $this->put('/update/{production}', 'ProductionController@update')->name('web.production.update');
+            $this->get('/destroy/{production}', 'ProductionController@destroy')->name('web.production.destroy');
+        });
+
+        $this->group(['prefix' => 'product'], function () {
+            $this->get('/', 'ProductController@index')->name('web.product.index');
+            $this->get('/create', 'ProductController@create')->name('web.product.create');
+            $this->post('/store', 'ProductController@store')->name('web.product.store');
+            $this->get('/edit/{product}', 'ProductController@edit')->name('web.product.edit');
+            $this->put('/update/{product}', 'ProductController@update')->name('web.product.update');
+            $this->get('/destroy/{product}', 'ProductController@destroy')->name('web.product.destroy');
         });
 
         $this->group(['prefix' => 'product-category'], function () {

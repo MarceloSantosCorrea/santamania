@@ -169,9 +169,9 @@
                             </li>
                             <li class="divider"></li>
                             <li>
-                                {{--<a href="{{ route('logout') }}">--}}
+                                <a href="{{ route('logout') }}">
 
-                                <a href="#">
+                                {{--<a href="#">--}}
                                     <i class="ti-power-off m-r-10 text-danger"></i> Logout
                                 </a>
                             </li>

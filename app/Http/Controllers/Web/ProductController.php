@@ -17,11 +17,7 @@ class ProductController extends Controller
     {
         $data = Product::with([
             'productCategory',
-        ])->paginate();
-
-        //->with(compact('users'))
-
-        //return response()->json($data);
+        ])->paginate(10);
 
         return view('pages.product.index', compact('data'));
     }

@@ -38,12 +38,12 @@ class UserRequest extends FormRequest
 
                 $id = is_object($user) ? $user->id : $user;
 
-                //$this->merge(['active' => $this->input('active', '0')]);
+                $this->merge(['active' => $this->input('active', '0')]);
 
                 return [
                     'firstname' => 'required|min:3',
                     'lastname'  => 'required|min:3',
-                    "email"     => "required|unique:user,email," . $id,
+                    "email"     => "required|unique:users,email," . $id,
                 ];
         }
     }

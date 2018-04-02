@@ -63,6 +63,7 @@
                                         </table>
                                     </div>
                                     <div class="fixed-table-pagination">
+                                        {{ $data->links() }}
                                     </div>
                                 </div>
                             </div>

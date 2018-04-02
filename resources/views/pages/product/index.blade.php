@@ -10,23 +10,20 @@
                     <div class="col-sm-12">
                         <div class="page-header-2">
                             <div class="btn-group pull-right m-t-15">
-                                <button type="button" class="btn btn-default dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false">Settings
-                                    <span class="m-l-5"><i class="fa fa-cog"></i></span></button>
+                                <button type="button" class="btn btn-default dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false">
+                                    {{ __('Opções') }}<span class="m-l-5"><i class="fa fa-cog"></i></span>
+                                </button>
                                 <ul class="dropdown-menu drop-menu-right" role="menu">
-                                    <li><a href="#">Action</a></li>
-                                    <li><a href="#">Another action</a></li>
-                                    <li><a href="#">Something else here</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">Separated link</a></li>
+                                    <li><a href="{{ route('web.product.create') }}">{{ __('Novo') }}</a></li>
                                 </ul>
                             </div>
-                            <h4 class="page-title">Produtos</h4>
+                            <h4 class="page-title"> Produtos </h4>
                             <ol class="breadcrumb">
                                 <li>
                                     <a href="{{ route('home') }}">Home</a>
                                 </li>
                                 <li class="active">
-                                    <span>Produtos</span>
+                                    <span> Produtos </span>
                                 </li>
                             </ol>
                         </div>

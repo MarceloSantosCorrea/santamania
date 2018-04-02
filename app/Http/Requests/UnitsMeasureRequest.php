@@ -32,8 +32,10 @@ class UnitsMeasureRequest extends FormRequest
             case'PUT':
                 $unitsMeasure = $this->route('units_measure');
 
+                $id = is_object($unitsMeasure) ? $unitsMeasure->id : $unitsMeasure;
+
                 return [
-                    "name" => "required|unique:units_measures,name," . $unitsMeasure,
+                    "name" => "required|unique:units_measures,name," . $id,
                 ];
         }
     }

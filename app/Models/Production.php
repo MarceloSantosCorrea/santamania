@@ -22,4 +22,18 @@ class Production extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    public function getCreatedAtAttribute($value)
+    {
+        $c = Carbon::createFromFormat('Y-m-d H:i:s', $value);
+
+        return $c->toW3cString();
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        $c = Carbon::createFromFormat('Y-m-d H:i:s', $value);
+
+        return $c->toW3cString();
+    }
 }

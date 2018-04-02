@@ -2,9 +2,9 @@
     <div class="sidebar-inner slimscrollleft">
         <div id="sidebar-menu">
             <ul>
-                <li class="text-muted menu-title">Menu</li>
+                <li class="text-muted menu-title"> Menu </li>
                 <li class="has_sub">
-                    <a href="/" class="waves-effect"><i class="ti-home"></i><span> Início </span></a>
+                    <a href="{{ route('home') }}" class="waves-effect"><i class="ti-home"></i><span> Início </span></a>
                 </li>
                 <li class="has_sub">
                     <a href="/checklist" class="waves-effect"><i class="fa fa-check-circle"></i><span> Checklist </span></a>
@@ -17,11 +17,17 @@
                         <span> Configurações </span> <span class="menu-arrow"></span>
                     </a>
                     <ul class="list-unstyled">
-                        <li><a href="/product">Produtos</a></li>
-                        <li><a href="/product-category">Categorias de Produtos</a></li>
-                        <li><a href="/units-measure">Unidades de Medida</a></li>
-                        <li><a href="/warehouse">Local de Armazenamento</a></li>
+                        <li><a href="{{ route('web.product.index') }}"> Produtos </a></li>
+                        <li><a href="{{ route('web.product-category.index') }}"> Categorias de Produtos </a></li>
+                        <li><a href="{{ route('web.units-measure.index') }}"> Unidades de Medida </a></li>
+                        <li><a href="{{ route('web.warehouse.index') }}"> Local de Armazenamento </a></li>
                     </ul>
+                </li>
+                <li class="has_sub">
+                    <a href="{{ route('web.user.index') }}" class="waves-effect">
+                        <i class="fa fa-users"></i>
+                        <span> Usuários </span>
+                    </a>
                 </li>
             </ul>
             <div class="clearfix"></div>

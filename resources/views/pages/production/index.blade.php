@@ -77,3 +77,8 @@
         @include('layouts.components.footer')
     </div>
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('assets/plugins/bootbox/bootbox.min.js') }}"></script>
+    <script src="{{ asset('assets/js/bootbox_confirm.js') }}"></script>
+@endpush

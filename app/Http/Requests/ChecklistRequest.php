@@ -31,8 +31,10 @@ class ChecklistRequest extends FormRequest
             case'PUT':
                 $checklist = $this->route('checklist');
 
+                $id = is_object($checklist) ? $checklist->id : $checklist;
+
                 return [
-                    "date" => "required|unique:checklists,date," . $checklist,
+                    "date" => "required|unique:checklists,date," . $id,
                 ];
         }
     }

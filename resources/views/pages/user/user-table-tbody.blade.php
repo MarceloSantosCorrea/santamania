@@ -14,7 +14,7 @@
                     <i class="fa fa-pencil"></i>
                 </a>
 
-                <a onclick="bootbox_confirm('Tem certeza que deseja remover?', '{{ url("/user/destroy/" . $item->id) }}' )"
+                <a onclick="bootbox_confirm('Tem certeza que deseja remover <strong>{{$item->name}}</strong>?', '{{ url("/user/destroy/" . $item->id) }}' )"
                    class="btn btn-danger btn-sm tooltips user-delete"
                    data-toggle="tooltip" data-placement="top"
                    title="Deletar">

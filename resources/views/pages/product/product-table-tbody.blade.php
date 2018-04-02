@@ -9,14 +9,14 @@
             <td>{{ getStatus($item->active) }}</td>
             <td class="text-right">
 
-                <a href="/product-category/edit/{{ $item->id }}"
+                <a href="/product/edit/{{ $item->id }}"
                    class="btn btn-primary btn-sm tooltips"
                    data-toggle="tooltip" data-placement="top"
                    title="Editar">
                     <i class="fa fa-pencil"></i>
                 </a>
 
-                <button onclick="remove('product-categories', '/product-category/{{ $item->id }}/destroy')"
+                <button onclick="remove('Tem certeza que deseja remover <strong>{{$item->name}}</strong>?', '/product/{{ $item->id }}/destroy')"
                         class="btn btn-danger btn-sm tooltips user-delete"
                         data-toggle="tooltip" data-placement="top"
                         title="Deletar">

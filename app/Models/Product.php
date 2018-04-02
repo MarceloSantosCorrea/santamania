@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
@@ -18,5 +19,19 @@ class Product extends Model
     public function unitsMeasure()
     {
         return $this->belongsTo(UnitsMeasure::class);
+    }
+
+    public function getCreatedAtAttribute($value)
+    {
+        $c = Carbon::createFromFormat('Y-m-d H:i:s', $value);
+
+        return $c->toW3cString();
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        $c = Carbon::createFromFormat('Y-m-d H:i:s', $value);
+
+        return $c->toW3cString();
     }
 }
