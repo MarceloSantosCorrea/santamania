@@ -23,21 +23,24 @@ class ProductionRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'quantity' => 'required',
-        ];
+        switch ($this->method()) {
+            case 'POST':
 
-//        switch ($this->method()) {
-//            case 'POST':
-//                return [
-//                    'quantity' => 'required',
-//                ];
-//            case'PUT':
-//                $warehouse = $this->route('warehouse');
-//
-//                return [
-//                    "name" => "required|min:3|unique:warehouses,name," . $warehouse,
-//                ];
-//        }
+                return [
+                    'product_id' => 'required',
+                    'quantity'   => 'required',
+                    'date'       => 'required|uniqueProductAndDate:product_id',
+                ];
+            case'PUT':
+                $production = $this->route('production');
+
+                $id = is_object($production) ? $production->id : $production;
+
+                return [
+                    'product_id' => 'required',
+                    'quantity'   => 'required',
+                    'date'       => 'required|uniqueProductAndDate:product_id,' . $id,
+                ];
+        }
     }
 }

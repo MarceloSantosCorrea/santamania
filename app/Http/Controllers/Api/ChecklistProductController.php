@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ChecklistProductRequest;
 use App\Models\ChecklistProduct;
 use App\Models\ChecklistWarehouseQuantity;
+use Illuminate\Http\Request;
 
 class ChecklistProductController extends Controller
 {
@@ -20,6 +21,37 @@ class ChecklistProductController extends Controller
         $this->model = $model;
     }
 
+    public function index(Request $request)
+    {
+        $limit = $request->all()['limit'] ?? 20;
+        $order = $request->all()['order'] ?? null;
+        if ($order !== null) {
+            $order = explode(',', $order);
+        }
+        $order[0] = $order[0] ?? 'id';
+        $order[1] = $order[1] ?? 'asc';
+        $where    = $request->all()['where'] ?? [];
+        $like     = $request->all()['like'] ?? null;
+        if ($like) {
+            $like    = explode(',', $like);
+            $like[1] = '%' . $like[1] . '%';
+        }
+
+        $result = $this->model->orderBy($order[0], $order[1])
+            ->where(function ($query) use ($like) {
+                if ($like) {
+                    return $query->where($like[0], 'like', $like[1]);
+                }
+
+                return $query;
+            })
+            ->where($where)
+            ->with($this->relationships())
+            ->paginate($limit);
+
+        return response()->json($result);
+    }
+
     public function show(ChecklistProduct $checklistProduct)
     {
         return ChecklistProduct::with($this->relationships())->find($checklistProduct->id);
@@ -32,22 +64,13 @@ class ChecklistProductController extends Controller
     {
         $params = $request->all();
 
-        $quantities = [];
         if (isset($params['quantities'])) {
-            $quantities = $params['quantities'];
-            unset($params['quantities']);
+            $params['quantities'] = json_encode($params['quantities']);
         }
 
         $checklistProduct = ChecklistProduct::create($params);
 
-        if (count($quantities)) {
-            foreach ($quantities as $quantity) {
-                $quantity['checklist_product_id'] = $checklistProduct->id;
-                ChecklistWarehouseQuantity::create($quantity);
-            }
-        }
-
-        return $checklistProduct;
+        return ChecklistProduct::with($this->relationships())->find($checklistProduct->id);
     }
 
     /**
@@ -55,10 +78,17 @@ class ChecklistProductController extends Controller
      */
     public function update(ChecklistProductRequest $request, $id)
     {
-        $checklistProduct = ChecklistProduct::find($id);
-        $checklistProduct->update($request->all());
+        $params = $request->all();
 
-        return $checklistProduct;
+        $checklistProduct = ChecklistProduct::find($id);
+
+        if (isset($params['quantities'])) {
+            $params['quantities'] = json_encode($params['quantities']);
+        }
+
+        $checklistProduct->update($params);
+
+        return ChecklistProduct::with($this->relationships())->find($checklistProduct->id);
     }
 
     public function destroy(ChecklistProduct $checklistProduct)

@@ -24,6 +24,8 @@ class CreateChecklistProductsTable extends Migration
 
             $table->unsignedInteger('total')->nullable(true);
 
+            $table->longText('quantities')->nullable();
+
             $table->timestamps();
         });
     }

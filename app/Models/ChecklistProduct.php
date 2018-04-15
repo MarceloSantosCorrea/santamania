@@ -11,6 +11,11 @@ class ChecklistProduct extends Model
         'checklist_id', 'product_id', 'quantities',
     ];
 
+    protected $dispatchesEvents = [
+        'created' => \App\Events\ChecklistProductEvent::class,
+        'updated' => \App\Events\ChecklistProductEvent::class,
+    ];
+
     public function checklist()
     {
         return $this->belongsTo(Checklist::class);

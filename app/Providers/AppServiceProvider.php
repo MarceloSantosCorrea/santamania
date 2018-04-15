@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\ChecklistProduct;
 use App\Models\ProductCategory;
+use App\Observers\ChecklistProductObserver;
 use App\Observers\ProductCategoryObserver;
 use Laravel\Passport\Passport;
 use Illuminate\Support\ServiceProvider;
@@ -28,13 +30,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Passport::routes();
-
         Schema::defaultStringLength(191);
-
         User::observe(UserObserver::class);
         Warehouse::observe(WarehouseObserver::class);
         ProductCategory::observe(ProductCategoryObserver::class);
         Product::observe(ProductObserver::class);
+        ChecklistProduct::observe(ChecklistProductObserver::class);
         ChecklistWarehouseQuantity::observe(ChecklistWarehouseQuantityObserver::class);
     }
 

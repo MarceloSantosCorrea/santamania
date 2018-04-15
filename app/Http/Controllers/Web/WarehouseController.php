@@ -15,7 +15,7 @@ class WarehouseController extends Controller
      */
     public function index()
     {
-        $data = Warehouse::paginate();
+        $data = Warehouse::paginate(10);
 
         return view('pages.warehouse.index', compact('data'));
     }

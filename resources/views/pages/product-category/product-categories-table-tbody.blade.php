@@ -7,14 +7,14 @@
             <td>{{ getStatus($item->active) }}</td>
             <td class="text-right">
 
-                <a href="/product-category/edit/{{ $item->id }}"
+                <a href="{{ route('web.product-category.edit', $item) }}"
                    class="btn btn-primary btn-sm tooltips"
                    data-toggle="tooltip" data-placement="top"
                    title="Editar">
                     <i class="fa fa-pencil"></i>
                 </a>
 
-                <button onclick="bootbox_confirm('Tem certeza que deseja remover <strong>{{$item->name}}</strong>?', '{{ url("/product-category/destroy/" . $item->id) }}' )"
+                <button onclick="bootbox_confirm('Tem certeza que deseja remover <strong>{{$item->name}}</strong>?', '{{ route("web.product-category.destroy" , $item) }}' )"
                         class="btn btn-danger btn-sm tooltips user-delete"
                         data-toggle="tooltip" data-placement="top"
                         title="Deletar">

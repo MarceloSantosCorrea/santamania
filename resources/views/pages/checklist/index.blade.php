@@ -52,6 +52,7 @@
                                                     </th>
                                                     <th>#</th>
                                                     <th>Data</th>
+                                                    <th>Status</th>
                                                     <th class="text-center" style="width: 150px">Options</th>
                                                 </tr>
                                             </thead>
