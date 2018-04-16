@@ -6,10 +6,8 @@ use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\UnitsMeasure;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class ProductController extends Controller
+class ProductController extends AbstractController
 {
     /**
      * Display a listing of the resource.

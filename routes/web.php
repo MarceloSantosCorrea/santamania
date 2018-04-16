@@ -20,6 +20,7 @@ $this->group(['middleware' => ['auth']], function () {
             $this->get('/', 'ChecklistController@index')->name('web.checklist.index');
             $this->get('/create', 'ChecklistController@create')->name('web.checklist.create');
             $this->post('/store', 'ChecklistController@store')->name('web.checklist.store');
+            $this->get('/show/{checklist}', 'ChecklistController@show')->name('web.checklist.show');
             $this->get('/edit/{checklist}', 'ChecklistController@edit')->name('web.checklist.edit');
             $this->put('/update/{checklist}', 'ChecklistController@update')->name('web.checklist.update');
             $this->get('/destroy/{checklist}', 'ChecklistController@destroy')->name('web.checklist.destroy');

@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Web;
 
 use App\Models\ChecklistProduct;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class ChecklistProductController extends Controller
+class ChecklistProductController extends AbstractController
 {
     /**
      * Display a listing of the resource.

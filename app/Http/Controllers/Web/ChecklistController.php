@@ -4,11 +4,9 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Requests\ChecklistRequest;
 use App\Models\Checklist;
-use App\Models\ChecklistWarehouseQuantity;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Models\Product;
 
-class ChecklistController extends Controller
+class ChecklistController extends AbstractController
 {
     /**
      * Display a listing of the resource.
@@ -53,45 +51,64 @@ class ChecklistController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param Checklist $checklist
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show(Checklist $checklist)
     {
-        //
+        $products = Product::where(['active' => 1])->orderBy('name', 'asc')->get();
+
+        return view('pages.checklist.show', compact('checklist', 'products'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param Checklist $checklist
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Checklist $checklist)
     {
-        //
+        return view('pages.checklist.edit', compact('checklist'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param ChecklistRequest $request
+     * @param Checklist $checklist
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ChecklistRequest $request, Checklist $checklist)
     {
-        //
+        $checklist->fill($request->all());
+
+        if ($checklist->save())
+            return redirect()
+                ->route('web.checklist.index')
+                ->with('success', 'Salvo com sucesso');
+
+        return redirect()
+            ->route('web.checklist.index')
+            ->with('error', 'Erro ao salvar');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param Checklist $checklist
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(Checklist $checklist)
     {
-        //
+        if ($checklist->delete())
+            return redirect()
+                ->route('web.checklist.index')
+                ->with('success', 'Deletado com sucesso');
+
+        return redirect()
+            ->route('web.checklist.index')
+            ->with('error', 'Erro ao deletar');
     }
 }

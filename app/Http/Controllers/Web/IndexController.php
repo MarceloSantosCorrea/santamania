@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Web;
 
 use Auth;
-use App\Http\Controllers\Controller;
 
-class IndexController extends Controller
+class IndexController extends AbstractController
 {
     public function index()
     {

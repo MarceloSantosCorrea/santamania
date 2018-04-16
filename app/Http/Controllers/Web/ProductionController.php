@@ -5,9 +5,8 @@ namespace App\Http\Controllers\Web;
 use App\Http\Requests\ProductionRequest;
 use App\Models\Product;
 use App\Models\Production;
-use App\Http\Controllers\Controller;
 
-class ProductionController extends Controller
+class ProductionController extends AbstractController
 {
     /**
      * Display a listing of the resource.

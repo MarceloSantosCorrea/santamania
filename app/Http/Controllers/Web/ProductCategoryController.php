@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Requests\ProductCategoryRequest;
 use App\Models\ProductCategory;
-use App\Http\Controllers\Controller;
 
-class ProductCategoryController extends Controller
+class ProductCategoryController extends AbstractController
 {
     /**
      * Display a listing of the resource.

@@ -16,7 +16,7 @@
                     <i class="fa fa-pencil"></i>
                 </a>
 
-                <button onclick="bootbox_confirm('Tem certeza que deseja remover <strong>{{$item->name}}</strong>?', '{{ route('web.product.destroy', $item) }}')"
+                <button onclick="bootbox_confirm('Tem certeza que deseja remover <strong>{{ filterHtmlScape($item->name) }}</strong>?', '{{ route('web.product.destroy', $item) }}')"
                         class="btn btn-danger btn-sm tooltips user-delete"
                         data-toggle="tooltip" data-placement="top"
                         title="Deletar">

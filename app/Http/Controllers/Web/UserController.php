@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Requests\UserRequest;
 use App\Models\User;
-use App\Http\Controllers\Controller;
 
-class UserController extends Controller
+class UserController extends AbstractController
 {
     /**
      * Display a listing of the resource.

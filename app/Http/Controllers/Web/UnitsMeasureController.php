@@ -4,10 +4,8 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Requests\UnitsMeasureRequest;
 use App\Models\UnitsMeasure;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class UnitsMeasureController extends Controller
+class UnitsMeasureController extends AbstractController
 {
     /**
      * Display a listing of the resource.

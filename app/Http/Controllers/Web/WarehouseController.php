@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Requests\WarehouseRequest;
 use App\Models\Warehouse;
-use App\Http\Controllers\Controller;
 
-class WarehouseController extends Controller
+class WarehouseController extends AbstractController
 {
     /**
      * Display a listing of the resource.
