@@ -32,6 +32,7 @@
                 <div class="row page-content">
                     <div class="col-sm-12">
                         <div class="card-box">
+                            @include('layouts.components.alerts')
                             <div class="row">
                                 <div class="col-lg-6 m-b-10 pull-right">
                                     <div class="fixed-table-toolbar">
@@ -75,3 +76,8 @@
         @include('layouts.components.footer')
     </div>
 @endsection
+
+@push('scripts')
+    <script src="{{ asset('assets/plugins/bootbox/bootbox.min.js') }}"></script>
+    <script src="{{ asset('assets/js/bootbox_confirm.js') }}"></script>
+@endpush

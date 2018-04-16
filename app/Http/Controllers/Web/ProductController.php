@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Http\Requests\ProductRequest;
 use App\Models\Product;
+use App\Models\ProductCategory;
+use App\Models\UnitsMeasure;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -29,7 +32,10 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $productCategories = ProductCategory::where(['active' => 1])->get();
+        $unitsMeasures     = UnitsMeasure::all();
+
+        return view('pages.product.create', compact('productCategories', 'unitsMeasures'));
     }
 
     /**
@@ -38,9 +44,16 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        //
+        if (Product::create($request->all()))
+            return redirect()
+                ->route('web.product.index')
+                ->with('success', 'Salvo com sucesso');
+
+        return redirect()
+            ->route('web.product.index')
+            ->with('error', 'Erro ao salvar');
     }
 
     /**
@@ -57,12 +70,15 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param Product $product
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Product $product)
     {
-        //
+        $productCategories = ProductCategory::where(['active' => 1])->get();
+        $unitsMeasures     = UnitsMeasure::all();
+
+        return view('pages.product.edit', compact('product', 'productCategories', 'unitsMeasures'));
     }
 
     /**
@@ -72,19 +88,36 @@ class ProductController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProductRequest $request, Product $product)
     {
-        //
+        $product->fill($request->all());
+
+        if ($product->save())
+            return redirect()
+                ->route('web.product.index')
+                ->with('success', 'Salvo com sucesso');
+
+        return redirect()
+            ->route('web.product.index')
+            ->with('error', 'Erro ao salvar');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param Product $product
      * @return \Illuminate\Http\Response
+     * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(Product $product)
     {
-        //
+        if ($product->delete())
+            return redirect()
+                ->route('web.product.index')
+                ->with('success', 'Deletado com sucesso');
+
+        return redirect()
+            ->route('web.product.index')
+            ->with('error', 'Erro ao deletar');
     }
 }

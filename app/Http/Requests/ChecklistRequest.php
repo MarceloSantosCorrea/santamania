@@ -25,6 +25,9 @@ class ChecklistRequest extends FormRequest
     {
         switch ($this->method()) {
             case 'POST':
+
+                $this->merge(['active' => $this->input('active', '0')]);
+
                 return [
                     'date' => 'required|unique:checklists',
                 ];
@@ -32,6 +35,8 @@ class ChecklistRequest extends FormRequest
                 $checklist = $this->route('checklist');
 
                 $id = is_object($checklist) ? $checklist->id : $checklist;
+
+                $this->merge(['active' => $this->input('active', '0')]);
 
                 return [
                     "date" => "required|unique:checklists,date," . $id,

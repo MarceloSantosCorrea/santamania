@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Checklist;
 use App\Models\ChecklistProduct;
 use App\Models\ProductCategory;
+use App\Observers\ChecklistObserver;
 use App\Observers\ChecklistProductObserver;
 use App\Observers\ProductCategoryObserver;
 use Laravel\Passport\Passport;
@@ -35,6 +37,7 @@ class AppServiceProvider extends ServiceProvider
         Warehouse::observe(WarehouseObserver::class);
         ProductCategory::observe(ProductCategoryObserver::class);
         Product::observe(ProductObserver::class);
+        Checklist::observe(ChecklistObserver::class);
         ChecklistProduct::observe(ChecklistProductObserver::class);
         ChecklistWarehouseQuantity::observe(ChecklistWarehouseQuantityObserver::class);
     }

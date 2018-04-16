@@ -16,7 +16,8 @@ class ProductionController extends Controller
      */
     public function index()
     {
-        $data = Production::with(['product'])->paginate(10);
+        $data = Production::with(['product'])
+            ->orderBy('id', 'desc')->paginate(10);
 
         return view('pages.production.index', compact('data'));
     }

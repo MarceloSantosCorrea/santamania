@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Http\Requests\ChecklistRequest;
 use App\Models\Checklist;
 use App\Models\ChecklistWarehouseQuantity;
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ class ChecklistController extends Controller
      */
     public function index()
     {
-        $data = Checklist::paginate();
+        $data = Checklist::orderBy('date', 'desc')->paginate();
 
         return view('pages.checklist.index', compact('data'));
     }
@@ -28,7 +29,7 @@ class ChecklistController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.checklist.create');
     }
 
     /**
@@ -37,9 +38,16 @@ class ChecklistController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ChecklistRequest $request)
     {
-        //
+        if (Checklist::create($request->all()))
+            return redirect()
+                ->route('web.checklist.index')
+                ->with('success', 'Salvo com sucesso');
+
+        return redirect()
+            ->route('web.checklist.index')
+            ->with('error', 'Erro ao salvar');
     }
 
     /**

@@ -15,9 +15,9 @@
                 </a>
 
                 <a onclick="bootbox_confirm('Tem certeza que deseja remover <strong>{{$item->name}}</strong>?', '{{ url("/units-measure/destroy/" . $item->id) }}' )"
-                        class="btn btn-danger btn-sm tooltips user-delete"
-                        data-toggle="tooltip" data-placement="top"
-                        title="Deletar">
+                   class="btn btn-danger btn-sm tooltips user-delete"
+                   data-toggle="tooltip" data-placement="top"
+                   title="Deletar">
                     <i class="fa fa-trash"></i>
                 </a>
 

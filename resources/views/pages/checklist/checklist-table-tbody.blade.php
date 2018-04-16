@@ -4,7 +4,7 @@
             <th><input class="checkbox" type="checkbox"></th>
             <th scope="row">{{ $item->id }}</th>
             <td>{{ (new \DateTime($item->date))->format('d/m/Y') }}</td>
-            <td>{{ getStatus($item->active) }}</td>
+            <td>{{ getStatusChecklist($item->status) }}</td>
             <td class="text-right">
 
                 <a href="{{ route('web.checklist.edit', $item) }}"
@@ -14,7 +14,7 @@
                     <i class="fa fa-pencil"></i>
                 </a>
 
-                <button onclick="remove('Tem certeza que deseja remover <strong>{{$item->name}}</strong>?', '{{ route('web.checklist.edit', $item) }}')"
+                <button onclick="bootbox_confirm('Tem certeza que deseja remover <strong>{{$item->date}}</strong>?', '{{ route('web.checklist.edit', $item) }}')"
                         class="btn btn-danger btn-sm tooltips user-delete"
                         data-toggle="tooltip" data-placement="top"
                         title="Deletar">
