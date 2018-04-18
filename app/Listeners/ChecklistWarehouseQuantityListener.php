@@ -28,16 +28,9 @@ class ChecklistWarehouseQuantityListener
     public function handle(ChecklistProductEvent $event)
     {
 
-        echo "<pre>";
-        print_r($event->checklistProduct->quantities);
-        echo "</pre>";
-        exit();
-
         if (!is_null($event->checklistProduct->quantities)) {
-
-
-
             $quantities = json_decode($event->checklistProduct->quantities, true);
+
             if (count($quantities)) {
                 foreach ($quantities as $quantity) {
                     $quantity['checklist_product_id'] = $event->checklistProduct->id;

@@ -5,7 +5,6 @@ Auth::routes();
 $this->group(['middleware' => ['auth']], function () {
     $this->group(['namespace' => 'Web'], function () {
         $this->resources([
-            '/checklist-product'            => 'ChecklistProductController',
             '/checklist-warehouse-quantity' => 'ChecklistWarehouseQuantityController',
         ]);
 
@@ -14,6 +13,13 @@ $this->group(['middleware' => ['auth']], function () {
 
         $this->group(['prefix' => 'checklist-actions'], function () {
             $this->get('close', 'ChecklistActionsController@close');
+        });
+
+        $this->group(['prefix' => 'checklist-product'], function () {
+            $this->get('/create/{checklist}/{product}', 'ChecklistProductController@create')->name('web.checklist-product.create');
+            $this->post('/store', 'ChecklistProductController@store')->name('web.checklist-product.store');
+            $this->put('/update/{checklist}/{product}', 'ChecklistProductController@update')->name('web.checklist-product.update');
+            $this->get('/destroy/{checklist}/{product}', 'ChecklistProductController@destroy')->name('web.checklist-product.destroy');
         });
 
         $this->group(['prefix' => 'checklist'], function () {

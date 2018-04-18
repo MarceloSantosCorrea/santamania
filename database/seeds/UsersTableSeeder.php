@@ -12,6 +12,19 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
         DB::table('users')->insert([
+            'firstname'      => 'Admin',
+            'lastname'       => 'Admin',
+            'name'           => 'Admin Admin',
+            'email'          => 'admin@admin.com',
+            'password'       => bcrypt('admin'),
+            'remember_token' => str_random(10),
+            'level'          => 1,
+            'active'         => 1,
+            'created_at'     => new \DateTime('NOW'),
+            'updated_at'     => new \DateTime('NOW'),
+        ]);
+
+        DB::table('users')->insert([
             'firstname'      => 'Marcelo',
             'lastname'       => 'Corrêa',
             'name'           => 'Marcelo Corrêa',
@@ -23,6 +36,6 @@ class UsersTableSeeder extends Seeder
             'created_at'     => new \DateTime('NOW'),
             'updated_at'     => new \DateTime('NOW'),
         ]);
-        factory(App\Models\User::class, 30)->create();
+//        factory(App\Models\User::class, 30)->create();
     }
 }

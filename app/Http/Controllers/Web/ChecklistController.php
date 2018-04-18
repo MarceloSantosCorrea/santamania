@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Requests\ChecklistRequest;
 use App\Models\Checklist;
 use App\Models\Product;
+use App\Models\Warehouse;
 
 class ChecklistController extends AbstractController
 {
@@ -59,6 +60,18 @@ class ChecklistController extends AbstractController
         $products = Product::where(['active' => 1])->orderBy('name', 'asc')->get();
 
         return view('pages.checklist.show', compact('checklist', 'products'));
+    }
+
+    /**
+     * @param Checklist $checklist
+     * @param Product $product
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function warehouse(Checklist $checklist, Product $product)
+    {
+        $warehouses = Warehouse::where(['active' => 1])->get();
+
+        return view('pages.checklist.warehouses', compact('checklist', 'product', 'warehouses'));
     }
 
     /**

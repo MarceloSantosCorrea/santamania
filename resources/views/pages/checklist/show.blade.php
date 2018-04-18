@@ -44,9 +44,9 @@
                                             <thead>
                                                 <tr>
                                                     <th>{{ __('Produto') }}</th>
-                                                    <th>Total</th>
-                                                    <th>Status</th>
-                                                    <th class="text-center" style="width: 150px">Options</th>
+                                                    <th>{{ __('Total') }}</th>
+                                                    <th>{{ __('Status') }}</th>
+                                                    <th class="text-center" style="width: 150px">{{ __('Options') }}</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -54,9 +54,16 @@
                                                     @foreach($products as $product)
                                                         <tr>
                                                             <td>{{ $product->name }}</td>
-                                                            <td></td>
-                                                            <td></td>
-                                                            <td></td>
+                                                            <td>0</td>
+                                                            <td>Conferir</td>
+                                                            <td>
+                                                                <a href="{{ route('web.checklist-product.create',[$checklist, $product]) }}"
+                                                                   class="btn btn-success btn-sm tooltips"
+                                                                   data-toggle="tooltip" data-placement="top"
+                                                                   title="Contar">
+                                                                    <i class="fa fa-bars"></i>
+                                                                </a>
+                                                            </td>
                                                         </tr>
                                                     @endforeach
                                                 @endif

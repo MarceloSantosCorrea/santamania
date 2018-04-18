@@ -37,8 +37,6 @@
         </div>
         <footer class="footer">
             © 2017. All rights reserved.
-
-            $2y$10$kFrEPxkO5lYPw4S85x1o9uStP6r4zlEoXQl5YnpIuxY1Q4c3bati2
         </footer>
     </div>
 @endsection

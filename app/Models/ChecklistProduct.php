@@ -13,7 +13,7 @@ class ChecklistProduct extends Model
 
     protected $dispatchesEvents = [
         'created' => \App\Events\ChecklistProductEvent::class,
-        'updated' => \App\Events\ChecklistProductEvent::class,
+        //'updated' => \App\Events\ChecklistProductEvent::class,
     ];
 
     public function checklist()

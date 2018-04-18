@@ -26,10 +26,6 @@ class ChecklistProductEvent
      */
     public function __construct(ChecklistProduct $checklistProduct)
     {
-        echo "<pre>";
-        print_r('ok');
-        echo "</pre>";
-        exit();
         $this->checklistProduct = $checklistProduct;
     }
 
