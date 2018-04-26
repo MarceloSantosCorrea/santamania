@@ -10,4 +10,14 @@ class ChecklistTotal extends Model
         'checklist_id', 'checklist_product_id', 'total', 'difference',
     ];
 
+    public function checklist()
+    {
+        return $this->belongsTo(Checklist::class);
+    }
+
+    public function checklistProduct()
+    {
+        return $this->belongsTo(ChecklistProduct::class)->with(['product']);
+    }
+
 }

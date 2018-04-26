@@ -39,7 +39,14 @@
                             <i class="fa fa-trash"></i>
                         </button>
                     </form>
+                @else
 
+                    <a href="{{ route('web.checklist-totals.index', $item) }}"
+                       class="btn btn-success btn-sm tooltips"
+                       data-toggle="tooltip" data-placement="top"
+                       title="Totais">
+                        <i class="fa fa-folder-open"></i>
+                    </a>
 
                 @endif
 

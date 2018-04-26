@@ -29,11 +29,24 @@
                         <div class="card-box">
                             @include('layouts.components.alerts')
                             <div class="row">
-                                <div class="col-lg-6 m-b-10 pull-right">
+                                <div class="col-md-6">
                                     <div class="fixed-table-toolbar">
                                         <div class="search">
                                             <input class="form-control" type="text" placeholder="Localizar">
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="fixed-table-toolbar">
+                                        <form class="form-horizontal pull-right" method="post" action="{{ route('web.checklist-actions.close', $checklist) }}">
+                                            {!! csrf_field() !!}
+                                            <button type="submit"
+                                                    class="btn btn-primary btn-sm tooltips"
+                                                    data-toggle="tooltip" data-placement="top"
+                                                    title="Fechar">
+                                                {{ __('Fechar') }}
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -52,17 +65,20 @@
                                             <tbody>
                                                 @if($products)
                                                     @foreach($products as $product)
-                                                        <?php $total = count($product->checklistProduct) ? $product->checklistProduct->total : 0 ?>
+                                                        <?php
+                                                        $total = count($product->checklistProduct) ? $product->checklistProduct->total : 0;
+                                                        $alterado = count($product->checklistProduct) ? true : false;
+                                                        ?>
                                                         <tr>
                                                             <td>{{ $product->name }}</td>
                                                             <td>{{ $total }}</td>
                                                             <td>
-                                                                <span class="label label-{{ $total > 0 ? 'primary' : 'danger'  }}">
-                                                                    {{ $total > 0 ? 'Conferido' : 'Conferir' }}
+                                                                <span class="label label-{{ $alterado ? 'primary' : 'danger'  }}">
+                                                                    {{ $alterado ? 'Conferido' : 'Conferir' }}
                                                                 </span>
                                                             </td>
                                                             <td>
-                                                                <a href="{{ route( $total > 0 ? 'web.checklist-product.edit' : 'web.checklist-product.create',[$checklist, $product]) }}"
+                                                                <a href="{{ route( $alterado ? 'web.checklist-product.edit' : 'web.checklist-product.create',[$checklist, $product]) }}"
                                                                    class="btn btn-success btn-sm tooltips"
                                                                    data-toggle="tooltip" data-placement="top"
                                                                    title="Contar">

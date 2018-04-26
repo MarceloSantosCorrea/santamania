@@ -12,6 +12,10 @@ $this->group(['middleware' => ['auth']], function () {
             $this->post('{checklist}/close', 'ChecklistActionsController@close')->name('web.checklist-actions.close');
         });
 
+        $this->group(['prefix' => 'checklist-totals'], function () {
+            $this->get('{checklist}', 'ChecklistTotalController@index')->name('web.checklist-totals.index');
+        });
+
         $this->group(['prefix' => 'checklist-product'], function () {
             $this->get('/create/{checklist}/{product}', 'ChecklistProductController@create')->name('web.checklist-product.create');
             $this->post('/store', 'ChecklistProductController@store')->name('web.checklist-product.store');

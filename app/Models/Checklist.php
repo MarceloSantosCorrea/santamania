@@ -13,7 +13,7 @@ class Checklist extends Model
 
     public function checklistProduct()
     {
-        return $this->hasMany(ChecklistProduct::class);
+        return $this->hasMany(ChecklistProduct::class)->with(['product']);
     }
 
     public function closeChecklist(Checklist $checklist)
