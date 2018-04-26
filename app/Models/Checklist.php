@@ -22,7 +22,21 @@ class Checklist extends Model
 
             $checklist = $checklist::with('checklistProduct')->find($checklist->id);
 
-            $diaAnterior = (new \DateTime($checklist->date))->sub(new \DateInterval('P1D'));
+            $date = (new \DateTime($checklist->date))->format('Y-m-d H:i:s');
+
+            $checklistAbertos = self::where('date', '<', $date)->where('status', 1)->get();
+            if ($checklistAbertos->count()) {
+
+                $dates = [];
+                foreach ($checklistAbertos as $checklistAberto) {
+                    $dates[] = (new \DateTime($checklistAberto->date))->format('d/m/Y');
+                }
+
+                return [
+                    'success' => false,
+                    'message' => 'Os Checklists não foram fechados (' . implode(', ', $dates) . ')',
+                ];
+            }
 
             $checklistProductCount = $checklist->checklistProduct()->count();
             $productsCount         = Product::count();
@@ -33,13 +47,25 @@ class Checklist extends Model
                     'message' => 'Alguns produtos não foram verificados.',
                 ];
 
+            $difference = 0;
+
+            $checklistAnterior = self::where('date', '<', $date)->where('status', 0)
+                ->orderBy('date', 'desc')->with('checklistProduct')->first();
+
+
             foreach ($checklist->checklistProduct as $checklistProduct) {
+
+                if ($checklistAnterior) {
+                    $checklist_product = $checklistAnterior->toArray()['checklist_product'];
+                    $key               = array_search($checklistProduct->product_id, array_column($checklist_product, 'product_id'));
+                    $difference        = $checklist_product[$key]['total'] - $checklistProduct->total;
+                }
 
                 $data = [
                     'checklist_id'         => $checklist->id,
                     'checklist_product_id' => $checklistProduct->id,
                     'total'                => $checklistProduct->total,
-                    'difference'           => 0,
+                    'difference'           => $difference,
                 ];
 
                 ChecklistTotal::create($data);
