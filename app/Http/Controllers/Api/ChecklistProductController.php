@@ -68,11 +68,6 @@ class ChecklistProductController extends Controller
             $params['quantities'] = json_encode($params['quantities']);
         }
 
-        echo "<pre>";
-        print_r($params);
-        echo "</pre>";
-        exit();
-
         $checklistProduct = ChecklistProduct::create($params);
 
         return ChecklistProduct::with($this->relationships())->find($checklistProduct->id);

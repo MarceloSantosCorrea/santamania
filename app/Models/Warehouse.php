@@ -11,6 +11,20 @@ class Warehouse extends Model
         'name', 'active',
     ];
 
+    public function checklistWarehouseQuantities()
+    {
+        return $this->hasOne(ChecklistWarehouseQuantity::class);
+    }
+
+    public static function warehouseWithQuantities(ChecklistProduct $checklistProduct)
+    {
+        return self::where(['active' => 1])
+            ->with(['checklistWarehouseQuantities' => function ($query) use ($checklistProduct) {
+                $query->where('checklist_product_id', $checklistProduct->id);
+            }])
+            ->get();
+    }
+
     public function getCreatedAtAttribute($value)
     {
         $c = Carbon::createFromFormat('Y-m-d H:i:s', $value);

@@ -52,12 +52,17 @@
                                             <tbody>
                                                 @if($products)
                                                     @foreach($products as $product)
+                                                        <?php $total = count($product->checklistProduct) ? $product->checklistProduct->total : 0 ?>
                                                         <tr>
                                                             <td>{{ $product->name }}</td>
-                                                            <td>0</td>
-                                                            <td>Conferir</td>
+                                                            <td>{{ $total }}</td>
                                                             <td>
-                                                                <a href="{{ route('web.checklist-product.create',[$checklist, $product]) }}"
+                                                                <span class="label label-{{ $total > 0 ? 'primary' : 'danger'  }}">
+                                                                    {{ $total > 0 ? 'Conferido' : 'Conferir' }}
+                                                                </span>
+                                                            </td>
+                                                            <td>
+                                                                <a href="{{ route( $total > 0 ? 'web.checklist-product.edit' : 'web.checklist-product.create',[$checklist, $product]) }}"
                                                                    class="btn btn-success btn-sm tooltips"
                                                                    data-toggle="tooltip" data-placement="top"
                                                                    title="Contar">

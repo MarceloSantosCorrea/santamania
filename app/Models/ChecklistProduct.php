@@ -8,12 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ChecklistProduct extends Model
 {
     protected $fillable = [
-        'checklist_id', 'product_id', 'quantities',
-    ];
-
-    protected $dispatchesEvents = [
-        'created' => \App\Events\ChecklistProductEvent::class,
-        //'updated' => \App\Events\ChecklistProductEvent::class,
+        'checklist_id', 'product_id', 'quantities', 'total',
     ];
 
     public function checklist()

@@ -28,10 +28,10 @@ class Checklist extends Model
             $productsCount         = Product::count();
 
             if ((!count($checklistProductCount)) || ($checklistProductCount < $productsCount))
-                return response()->json([
+                return [
                     'success' => false,
                     'message' => 'Alguns produtos não foram verificados.',
-                ]);
+                ];
 
             foreach ($checklist->checklistProduct as $checklistProduct) {
 
@@ -48,16 +48,16 @@ class Checklist extends Model
             $checklist->status = 0;
             $checklist->save();
 
-            return response()->json([
+            return [
                 'success' => true,
                 'message' => 'Checklist finalizado com sucesso.',
-            ]);
+            ];
         }
 
-        return response()->json([
+        return [
             'success' => false,
             'message' => 'This checklist already been finalized.',
-        ]);
+        ];
     }
 
     public function getDateAttribute($value)

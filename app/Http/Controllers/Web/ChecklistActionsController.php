@@ -2,13 +2,21 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Models\Checklist;
+
 class ChecklistActionsController extends AbstractController
 {
-    public function close()
+    public function close(Checklist $checklist)
     {
-        echo "<pre>";
-        print_r('teste close');
-        echo "</pre>";
-        exit();
+        $result = $checklist->closeChecklist($checklist);
+
+        if ($result['success'] == true)
+            return redirect()
+                ->route('web.checklist.index')
+                ->with('success', 'Salvo com sucesso');
+
+        return redirect()
+            ->route('web.checklist.index')
+            ->with('error', $result['message']);
     }
 }

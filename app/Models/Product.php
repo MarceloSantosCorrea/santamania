@@ -11,6 +11,21 @@ class Product extends Model
         'name', 'active', 'product_category_id', 'units_measure_id',
     ];
 
+    public function checklistProduct()
+    {
+        return $this->hasOne(ChecklistProduct::class)->with(['checklist']);
+    }
+
+    public static function productsByChecklist(Checklist $checklist)
+    {
+        return self::where(['active' => 1])
+            ->with(['checklistProduct' => function ($query) use ($checklist) {
+                $query->where('checklist_id', $checklist->id);
+            }])
+            ->orderBy('name', 'asc')
+            ->get();
+    }
+
     public function productCategory()
     {
         return $this->belongsTo(ProductCategory::class);

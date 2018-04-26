@@ -15,7 +15,7 @@
 @endif
 
 @if(session('error'))
-    <div class="alert alert-dange alert-dismissabler">
+    <div class="alert alert-danger alert-dismissabler">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         <p>{{ session('error') }}</p>
     </div>

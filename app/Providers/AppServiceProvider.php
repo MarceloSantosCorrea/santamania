@@ -39,7 +39,7 @@ class AppServiceProvider extends ServiceProvider
         Product::observe(ProductObserver::class);
         Checklist::observe(ChecklistObserver::class);
         ChecklistProduct::observe(ChecklistProductObserver::class);
-        ChecklistWarehouseQuantity::observe(ChecklistWarehouseQuantityObserver::class);
+        //ChecklistWarehouseQuantity::observe(ChecklistWarehouseQuantityObserver::class);
     }
 
     /**
