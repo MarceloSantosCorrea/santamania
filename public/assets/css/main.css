@@ -24,3 +24,9 @@
 ul.alert {
     list-style: none;
 }
+
+.breadcrumb > li + li.pull-right:before {
+    padding: 0 5px;
+    color: #ccc;
+    content: none;
+}

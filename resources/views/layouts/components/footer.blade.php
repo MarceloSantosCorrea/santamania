@@ -1,3 +1,3 @@
 <footer class="footer">
-    © 2017. All rights reserved.
+    © 2018-{{ date('Y') }} - Santa Mania
 </footer>

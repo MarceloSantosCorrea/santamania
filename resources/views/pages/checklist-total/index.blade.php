@@ -61,7 +61,7 @@
                                                     @foreach($checklistTotal as $checklistProduct)
                                                         <tr>
                                                             <td>{{ $checklistProduct->checklistProduct->product->name }}</td>
-                                                            <td>{{ $checklistProduct->checklistProduct->total }}</td>
+                                                            <td>{{ $checklistProduct->total }}</td>
                                                             <td>{{ $checklistProduct->difference }}</td>
                                                         </tr>
                                                     @endforeach

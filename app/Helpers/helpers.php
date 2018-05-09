@@ -19,19 +19,18 @@ function filterHtmlScape($string)
     return $string;
 }
 
-if (! function_exists('md')) {
-    /**
-     * Dump the passed variables and end the script.
-     *
-     * @param  mixed  $args
-     * @return void
-     */
-    function md(...$args)
-    {
-        http_response_code(500);
+function getKeyDaysOfTheWeek($day)
+{
+    $segQui = [1, 2, 3, 4];
+    $sexDom = [0, 5];
+    $sabFer = [6];
 
-        foreach ($args as $x) {
-            (new Dumper)->dump($x);
-        }
-        }
+    if (in_array($day, $segQui))
+        return 0;
+
+    if (in_array($day, $sexDom))
+        return 1;
+
+    if (in_array($day, $sabFer))
+        return 2;
 }

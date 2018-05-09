@@ -12,27 +12,33 @@ class ProductTableSeeder extends Seeder
     public function run()
     {
 
+//        $products = [
+//            'Alho e Óleo',
+//            'Atum',
+//            'Azeitona',
+//            'Bacon',
+//            'Bahianinha',
+//            'Bolonha',
+//            'Coração de Frango',
+//            'Frango',
+//            'Carne em cubo',
+//            'Lombo',
+//            'Abacaxi',
+//            'Milho',
+//            'Mussarela 350g',
+//            'Mussarela 150g',
+//            'Mussarela 100g',
+//            'Palmito',
+//            'Provolone',
+//            'Strogonoff',
+//            'Filé',
+//            'Filé Conhaque',
+//        ];
+
         $products = [
-            'Alho e Óleo',
-            'Atum',
-            'Azeitona',
-            'Bacon',
-            'Bahianinha',
-            'Bolonha',
-            'Coração de Frango',
-            'Frango',
-            'Carne em cubo',
-            'Lombo',
-            'Abacaxi',
-            'Milho',
-            'Mussarela 350g',
-            'Mussarela 150g',
-            'Mussarela 100g',
-            'Palmito',
-            'Provolone',
             'Strogonoff',
-            'Filé',
-            'Filé Conhaque',
+            'Frango',
+            'Lombo',
         ];
 
         foreach ($products as $product) {

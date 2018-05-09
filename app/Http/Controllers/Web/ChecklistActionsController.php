@@ -6,9 +6,12 @@ use App\Models\Checklist;
 
 class ChecklistActionsController extends AbstractController
 {
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function close(Checklist $checklist)
     {
-        $result = $checklist->closeChecklist($checklist);
+        $result = (new Checklist())->closeChecklist($checklist);
 
         if ($result['success'] == true)
             return redirect()

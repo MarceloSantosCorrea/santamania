@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             ProductTableSeeder::class,
             WarehouseTableSeeder::class,
             UsersTableSeeder::class,
+            ProductDailyChecklistTableSeeder::class,
         ]);
     }
 }

@@ -9,7 +9,7 @@ $this->group(['middleware' => ['auth']], function () {
         $this->get('/logout', 'IndexController@logout')->name('logout');
 
         $this->group(['prefix' => 'checklist-actions'], function () {
-            $this->post('{checklist}/close', 'ChecklistActionsController@close')->name('web.checklist-actions.close');
+            $this->patch('{checklist}/close', 'ChecklistActionsController@close')->name('web.checklist-actions.close');
         });
 
         $this->group(['prefix' => 'checklist-totals'], function () {
@@ -86,6 +86,15 @@ $this->group(['middleware' => ['auth']], function () {
             $this->get('/edit/{user}', 'UserController@edit')->name('web.user.edit');
             $this->put('/update/{user}', 'UserController@update')->name('web.user.update');
             $this->get('/destroy/{user}', 'UserController@destroy')->name('web.user.destroy');
+        });
+
+        $this->group(['prefix' => 'task'], function () {
+            $this->get('/', 'TaskController@index')->name('web.task.index');
+            $this->get('/create', 'TaskController@create')->name('web.task.create');
+            $this->post('/store', 'TaskController@store')->name('web.task.store');
+            $this->get('/edit/{task}', 'TaskController@edit')->name('web.task.edit');
+            $this->put('/update/{task}', 'TaskController@update')->name('web.task.update');
+            $this->get('/destroy/{task}', 'TaskController@destroy')->name('web.task.destroy');
         });
     });
 });

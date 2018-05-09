@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
+use App\Events\ProductCreatedEvent;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    protected $fillable = [
+    protected $dispatchesEvents = [
+        'created' => ProductCreatedEvent::class,
+    ];
+    protected $fillable         = [
         'name', 'active', 'product_category_id', 'units_measure_id',
     ];
 

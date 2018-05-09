@@ -11,6 +11,7 @@
 
                     <form class="form-horizontal" method="post" action="{{ route('web.checklist-actions.close', $item) }}">
                         {!! csrf_field() !!}
+                        {{ method_field('PATCH') }}
                         <button type="submit"
                                 class="btn btn-warning btn-sm tooltips"
                                 data-toggle="tooltip" data-placement="top"
@@ -32,12 +33,12 @@
                             <i class="fa fa-pencil"></i>
                         </a>
 
-                        <button onclick="bootbox_confirm('Tem certeza que deseja remover <strong>{{(new \DateTime($item->date))->format('d/m/Y')}}</strong>?', '{{ route('web.checklist.destroy', $item) }}')"
-                                class="btn btn-danger btn-sm tooltips user-delete"
-                                data-toggle="tooltip" data-placement="top"
-                                title="Deletar">
+                        <a onclick="bootbox_confirm('Tem certeza que deseja remover <strong>{{(new \DateTime($item->date))->format('d/m/Y')}}</strong>?', '{{ route('web.checklist.destroy', $item) }}')"
+                           class="btn btn-danger btn-sm tooltips user-delete"
+                           data-toggle="tooltip" data-placement="top"
+                           title="Deletar">
                             <i class="fa fa-trash"></i>
-                        </button>
+                        </a>
                     </form>
                 @else
 

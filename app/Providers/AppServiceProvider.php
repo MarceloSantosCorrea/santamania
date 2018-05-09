@@ -33,13 +33,16 @@ class AppServiceProvider extends ServiceProvider
     {
         Passport::routes();
         Schema::defaultStringLength(191);
+
+        /*
+         * Observables
+         */
         User::observe(UserObserver::class);
         Warehouse::observe(WarehouseObserver::class);
         ProductCategory::observe(ProductCategoryObserver::class);
         Product::observe(ProductObserver::class);
         Checklist::observe(ChecklistObserver::class);
         ChecklistProduct::observe(ChecklistProductObserver::class);
-        //ChecklistWarehouseQuantity::observe(ChecklistWarehouseQuantityObserver::class);
     }
 
     /**

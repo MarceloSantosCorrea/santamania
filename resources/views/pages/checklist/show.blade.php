@@ -20,6 +20,9 @@
                                 <li class="active">
                                     <span> {{ __('Checklist Produtos') }} </span>
                                 </li>
+                                <li class="pull-right">
+                                    <span style="color: red">{{ (new \DateTime($checklist->date))->format('d/m/Y') }}</span>
+                                </li>
                             </ol>
                         </div>
                     </div>
@@ -40,6 +43,7 @@
                                     <div class="fixed-table-toolbar">
                                         <form class="form-horizontal pull-right" method="post" action="{{ route('web.checklist-actions.close', $checklist) }}">
                                             {!! csrf_field() !!}
+                                            {{ method_field('PATCH') }}
                                             <button type="submit"
                                                     class="btn btn-primary btn-sm tooltips"
                                                     data-toggle="tooltip" data-placement="top"

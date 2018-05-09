@@ -31,6 +31,8 @@ class ChecklistRequest extends FormRequest
                 return [
                     'date' => 'required|unique:checklists',
                 ];
+
+                break;
             case'PUT':
                 $checklist = $this->route('checklist');
 
@@ -41,6 +43,25 @@ class ChecklistRequest extends FormRequest
                 return [
                     "date" => "required|unique:checklists,date," . $id,
                 ];
+                break;
+
+            case'PATCH':
+
+                return [];
+
+                break;
         }
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'date.checklistAllProductsChecked' => 'A title is required',
+        ];
     }
 }
