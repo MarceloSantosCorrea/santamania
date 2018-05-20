@@ -12,7 +12,8 @@ class ProductCategoryTableSeeder extends Seeder
     public function run()
     {
         $categories = [
-            'Fatiados', 'Congelados', 'Processados',
+            'Molhos', 'Prontos', 'Diários Picados',
+            'Industrializados', 'Frios/Fatiados',
         ];
 
         foreach ($categories as $category) {

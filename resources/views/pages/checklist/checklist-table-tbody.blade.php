@@ -1,8 +1,6 @@
 @if ($data)
     @foreach ($data as $item)
         <tr>
-            <th><input class="checkbox" type="checkbox"></th>
-            <th scope="row">{{ $item->id }}</th>
             <td>{{ (new \DateTime($item->date))->format('d/m/Y') }}</td>
             <td>{{ getStatusChecklist($item->status) }}</td>
             <td class="text-right">

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Task extends Model
 {
     protected $fillable = [
-        'product_id', 'description',
+        'product_id', 'description', 'status',
     ];
 
     public function product()

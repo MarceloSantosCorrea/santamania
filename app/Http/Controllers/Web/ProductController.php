@@ -6,6 +6,7 @@ use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\UnitsMeasure;
+use Illuminate\Http\Request;
 
 class ProductController extends AbstractController
 {
@@ -14,7 +15,7 @@ class ProductController extends AbstractController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $data = Product::with([
             'productCategory',

@@ -48,10 +48,6 @@
                                         <table class="table table-striped table-hover m-t-10">
                                             <thead>
                                                 <tr>
-                                                    <th class="bs-checkbox">
-                                                        <input name="btSelectItem" type="checkbox">
-                                                    </th>
-                                                    <th>#</th>
                                                     <th>Data</th>
                                                     <th>Status</th>
                                                     <th class="text-center" style="width: 160px;">Options</th>

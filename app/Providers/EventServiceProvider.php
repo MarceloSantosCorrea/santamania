@@ -16,6 +16,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\ProductCreatedEvent' => [
             'App\Listeners\ProductDailyChecklistListener',
         ],
+        'Illuminate\Auth\Events\Login'   => [
+            'App\Listeners\LogSuccessfulLogin',
+        ],
     ];
 
     /**

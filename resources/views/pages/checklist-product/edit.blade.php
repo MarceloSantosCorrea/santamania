@@ -46,7 +46,7 @@
                                                 <div class="form-group">
                                                     <label class="col-md-2 control-label" for="date">{{ __($warehouse->name) }}</label>
                                                     <div class="col-md-4">
-                                                        <input type="number" name="quantities[{{ $warehouse->id }}]" id="date" class="form-control" value="{{ $warehouse->checklistWarehouseQuantities->quantity }}">
+                                                        <input type="number" step="any" name="quantities[{{ $warehouse->id }}]" id="date" class="form-control" value="{{ $warehouse->checklistWarehouseQuantities->quantity }}">
                                                         <span class="help-block"></span>
                                                     </div>
                                                 </div>

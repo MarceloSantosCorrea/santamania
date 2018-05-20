@@ -22,7 +22,7 @@ class CreateChecklistProductsTable extends Migration
             $table->unsignedInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
 
-            $table->unsignedInteger('total')->nullable(true);
+            $table->unsignedDecimal('total', 9, 1)->nullable(true);
 
             $table->longText('quantities')->nullable();
 

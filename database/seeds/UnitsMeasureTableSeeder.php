@@ -14,6 +14,7 @@ class UnitsMeasureTableSeeder extends Seeder
         $units_measures = [
             'Quilograma' => 'Kg',
             'Balde'      => 'Bl',
+            'Unidade'    => 'Un',
         ];
 
         foreach ($units_measures as $k => $v) {

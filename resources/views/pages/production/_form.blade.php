@@ -15,7 +15,7 @@
 <div class="form-group">
     <label class="col-md-2 control-label" for="quantity">Quantidade</label>
     <div class="col-md-8">
-        <input type="number" name="quantity" id="quantity" class="form-control" value="{{ old('quantity', isset($production)? $production->quantity: null) }}">
+        <input type="number" step="any" name="quantity" id="quantity" class="form-control" value="{{ old('quantity', isset($production)? $production->quantity: null) }}">
         <span class="help-block"></span>
     </div>
 </div>

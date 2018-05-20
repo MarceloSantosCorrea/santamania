@@ -26,16 +26,17 @@ class Checklist extends Model
     {
         if ($checklist->status) {
 
-            DB::transaction(function () use ($checklist) {
+            return DB::transaction(function () use ($checklist) {
 
                 $checklist = $checklist::with('checklistProduct')->find($checklist->id);
 
-                $date = (new \DateTime($checklist->date))->format('Y-m-d H:i:s');
+                $date = (new \DateTime($checklist->date))->format('Y-m-d');
 
                 /*
                  * Verificando se há checklist de datas anteriores com status 1 aberto
                  */
                 $checklistAbertos = self::where('date', '<', $date)->where('status', 1)->get();
+
                 if ($checklistAbertos->count()) {
 
                     $dates = [];
@@ -53,13 +54,14 @@ class Checklist extends Model
                  * Verificando se todos os produtos foram contados
                  */
                 $checklistProductCount = $checklist->checklistProduct()->count();
-                $productsCount         = Product::count();
+                $productsCount         = Product::where(['active' => 1])->count();
 
-                if ((!count($checklistProductCount)) || ($checklistProductCount < $productsCount))
+                if ((!count($checklistProductCount)) || ($checklistProductCount < $productsCount)) {
                     return [
                         'success' => false,
-                        'message' => 'Alguns produtos não foram verificados.',
+                        'message' => ($checklistProductCount < $productsCount) . ' produto(s) não foi(ram) verificado(s).',
                     ];
+                }
 
                 /*
                  * Retornando o último checklist fechado
@@ -68,8 +70,12 @@ class Checklist extends Model
                     ->orderBy('date', 'desc')->with(['checklistProduct'])->first();
 
                 $difference = 0;
+
                 foreach ($checklist->checklistProduct as $checklistProduct) {
 
+                    /*
+                     * retornar a produção
+                     */
                     $production = Production::where([
                         'date' => $date, 'product_id' => $checklistProduct->product_id,
                     ])->first();
@@ -81,13 +87,15 @@ class Checklist extends Model
                             'product_id'   => $checklistProduct->product_id,
                         ])->first();
 
-                        $totalAnterior = $checklistTotalAnterior->total;
+                        $totalAnterior = 0;
+                        if ($checklistTotalAnterior)
+                            $totalAnterior = $checklistTotalAnterior->total;
 
                         if ($production) {
                             $totalAnterior = $checklistTotalAnterior->total + $production->quantity;
                         }
 
-                        $difference = $totalAnterior - $checklistProduct->total;
+                        $difference = ($checklistTotalAnterior) ? $totalAnterior - $checklistProduct->total : 0;
                     }
 
                     $productDailyChecklist     = ProductDailyChecklist::where(['product_id' => $checklistProduct->product_id])->first();
@@ -109,12 +117,10 @@ class Checklist extends Model
                      * tendo então que criar uma tarefa.
                      */
                     if ($checklistProduct->total < $productDailyChecklistDays[getKeyDaysOfTheWeek(date('w', strtotime($checklist->date)))]) {
-
                         Task::create([
                             'product_id' => $checklistProduct->product_id,
                         ]);
                     }
-
 
                     $data = [
                         'checklist_id'         => $checklist->id,
@@ -123,18 +129,25 @@ class Checklist extends Model
                         'difference'           => $difference,
                     ];
 
+                    if ($difference < 0) {
+                        return [
+                            'success' => false,
+                            'message' => "Opss, erro ao finalizar o produto {$checklistProduct->product->name}.",
+                        ];
+                    }
+
                     ChecklistTotal::create($data);
                 }
 
                 $checklist->status = 0;
                 $checklist->save();
 
-            });
+                return [
+                    'success' => true,
+                    'message' => 'Checklist finalizado com sucesso.',
+                ];
 
-            return [
-                'success' => true,
-                'message' => 'Checklist finalizado com sucesso.',
-            ];
+            });
         }
 
         return [
@@ -145,7 +158,7 @@ class Checklist extends Model
 
     public function getDateAttribute($value)
     {
-        $c = Carbon::createFromFormat('Y-m-d H:i:s', $value);
+        $c = Carbon::createFromFormat('Y-m-d', $value);
 
         return $c->toW3cString();
     }

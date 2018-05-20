@@ -11,7 +11,7 @@
  Target Server Version : 50722
  File Encoding         : 65001
 
- Date: 08/05/2018 09:28:27
+ Date: 14/05/2018 14:08:13
 */
 
 SET NAMES utf8mb4;
@@ -34,22 +34,7 @@ CREATE TABLE `checklist_products` (
   KEY `checklist_products_product_id_foreign` (`product_id`),
   CONSTRAINT `checklist_products_checklist_id_foreign` FOREIGN KEY (`checklist_id`) REFERENCES `checklists` (`id`) ON DELETE CASCADE,
   CONSTRAINT `checklist_products_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- ----------------------------
--- Records of checklist_products
--- ----------------------------
-BEGIN;
-INSERT INTO `checklist_products` VALUES (14, 6, 4, 6, '[{\"warehouse_id\":1,\"quantity\":\"0\"},{\"warehouse_id\":2,\"quantity\":\"6\"}]', '2018-05-04 23:06:44', '2018-05-04 23:06:44');
-INSERT INTO `checklist_products` VALUES (15, 6, 2, 6, '[{\"warehouse_id\":1,\"quantity\":\"0\"},{\"warehouse_id\":2,\"quantity\":\"6\"}]', '2018-05-04 23:08:33', '2018-05-04 23:08:33');
-INSERT INTO `checklist_products` VALUES (16, 6, 1, 25, '[{\"warehouse_id\":1,\"quantity\":\"15\"},{\"warehouse_id\":2,\"quantity\":\"10\"}]', '2018-05-04 23:23:23', '2018-05-04 23:23:23');
-INSERT INTO `checklist_products` VALUES (17, 7, 4, 5, '[{\"warehouse_id\":1,\"quantity\":\"2\"},{\"warehouse_id\":2,\"quantity\":\"3\"}]', '2018-05-05 23:49:36', '2018-05-05 23:49:36');
-INSERT INTO `checklist_products` VALUES (18, 7, 2, 16, '[{\"warehouse_id\":1,\"quantity\":\"11\"},{\"warehouse_id\":2,\"quantity\":\"5\"}]', '2018-05-05 23:50:12', '2018-05-05 23:50:12');
-INSERT INTO `checklist_products` VALUES (19, 7, 1, 17, '[{\"warehouse_id\":1,\"quantity\":\"10\"},{\"warehouse_id\":2,\"quantity\":\"7\"}]', '2018-05-05 23:50:51', '2018-05-05 23:50:51');
-INSERT INTO `checklist_products` VALUES (20, 8, 4, 12, '[{\"warehouse_id\":1,\"quantity\":\"9\"},{\"warehouse_id\":2,\"quantity\":\"3\"}]', '2018-05-07 15:38:53', '2018-05-07 15:38:53');
-INSERT INTO `checklist_products` VALUES (21, 8, 2, 11, '[{\"warehouse_id\":1,\"quantity\":\"8\"},{\"warehouse_id\":2,\"quantity\":\"3\"}]', '2018-05-07 15:39:07', '2018-05-07 15:39:07');
-INSERT INTO `checklist_products` VALUES (22, 8, 1, 11, '[{\"warehouse_id\":1,\"quantity\":\"7\"},{\"warehouse_id\":2,\"quantity\":\"4\"}]', '2018-05-07 15:39:19', '2018-05-07 15:39:19');
-COMMIT;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Table structure for checklist_totals
@@ -68,22 +53,7 @@ CREATE TABLE `checklist_totals` (
   KEY `checklist_totals_checklist_product_id_foreign` (`checklist_product_id`),
   CONSTRAINT `checklist_totals_checklist_id_foreign` FOREIGN KEY (`checklist_id`) REFERENCES `checklists` (`id`) ON DELETE CASCADE,
   CONSTRAINT `checklist_totals_checklist_product_id_foreign` FOREIGN KEY (`checklist_product_id`) REFERENCES `checklist_products` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- ----------------------------
--- Records of checklist_totals
--- ----------------------------
-BEGIN;
-INSERT INTO `checklist_totals` VALUES (4, 6, 14, 6, 0, '2018-05-07 17:28:54', '2018-05-07 17:28:54');
-INSERT INTO `checklist_totals` VALUES (5, 6, 15, 6, 0, '2018-05-07 17:28:54', '2018-05-07 17:28:54');
-INSERT INTO `checklist_totals` VALUES (6, 6, 16, 25, 0, '2018-05-07 17:28:54', '2018-05-07 17:28:54');
-INSERT INTO `checklist_totals` VALUES (7, 7, 17, 5, 1, '2018-05-07 17:30:11', '2018-05-07 17:30:11');
-INSERT INTO `checklist_totals` VALUES (8, 7, 18, 16, 5, '2018-05-07 17:30:11', '2018-05-07 17:30:11');
-INSERT INTO `checklist_totals` VALUES (9, 7, 19, 17, 8, '2018-05-07 17:30:11', '2018-05-07 17:30:11');
-INSERT INTO `checklist_totals` VALUES (10, 8, 20, 12, 2, '2018-05-07 17:30:13', '2018-05-07 17:30:13');
-INSERT INTO `checklist_totals` VALUES (11, 8, 21, 11, 5, '2018-05-07 17:30:13', '2018-05-07 17:30:13');
-INSERT INTO `checklist_totals` VALUES (12, 8, 22, 11, 6, '2018-05-07 17:30:13', '2018-05-07 17:30:13');
-COMMIT;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Table structure for checklist_warehouse_quantities
@@ -101,31 +71,7 @@ CREATE TABLE `checklist_warehouse_quantities` (
   KEY `checklist_warehouse_quantities_checklist_product_id_foreign` (`checklist_product_id`),
   CONSTRAINT `checklist_warehouse_quantities_checklist_product_id_foreign` FOREIGN KEY (`checklist_product_id`) REFERENCES `checklist_products` (`id`) ON DELETE CASCADE,
   CONSTRAINT `checklist_warehouse_quantities_warehouse_id_foreign` FOREIGN KEY (`warehouse_id`) REFERENCES `warehouses` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- ----------------------------
--- Records of checklist_warehouse_quantities
--- ----------------------------
-BEGIN;
-INSERT INTO `checklist_warehouse_quantities` VALUES (27, 1, 14, 0, '2018-05-04 23:06:44', '2018-05-04 23:06:44');
-INSERT INTO `checklist_warehouse_quantities` VALUES (28, 2, 14, 6, '2018-05-04 23:06:44', '2018-05-04 23:06:44');
-INSERT INTO `checklist_warehouse_quantities` VALUES (29, 1, 15, 0, '2018-05-04 23:08:33', '2018-05-04 23:08:33');
-INSERT INTO `checklist_warehouse_quantities` VALUES (30, 2, 15, 6, '2018-05-04 23:08:33', '2018-05-04 23:08:33');
-INSERT INTO `checklist_warehouse_quantities` VALUES (31, 1, 16, 15, '2018-05-04 23:23:23', '2018-05-04 23:23:23');
-INSERT INTO `checklist_warehouse_quantities` VALUES (32, 2, 16, 10, '2018-05-04 23:23:23', '2018-05-04 23:23:23');
-INSERT INTO `checklist_warehouse_quantities` VALUES (33, 1, 17, 2, '2018-05-05 23:49:36', '2018-05-05 23:49:36');
-INSERT INTO `checklist_warehouse_quantities` VALUES (34, 2, 17, 3, '2018-05-05 23:49:36', '2018-05-05 23:49:36');
-INSERT INTO `checklist_warehouse_quantities` VALUES (35, 1, 18, 11, '2018-05-05 23:50:12', '2018-05-05 23:50:12');
-INSERT INTO `checklist_warehouse_quantities` VALUES (36, 2, 18, 5, '2018-05-05 23:50:12', '2018-05-05 23:50:12');
-INSERT INTO `checklist_warehouse_quantities` VALUES (37, 1, 19, 10, '2018-05-05 23:50:51', '2018-05-05 23:50:51');
-INSERT INTO `checklist_warehouse_quantities` VALUES (38, 2, 19, 7, '2018-05-05 23:50:51', '2018-05-05 23:50:51');
-INSERT INTO `checklist_warehouse_quantities` VALUES (39, 1, 20, 9, '2018-05-07 15:38:53', '2018-05-07 15:38:53');
-INSERT INTO `checklist_warehouse_quantities` VALUES (40, 2, 20, 3, '2018-05-07 15:38:53', '2018-05-07 15:38:53');
-INSERT INTO `checklist_warehouse_quantities` VALUES (41, 1, 21, 8, '2018-05-07 15:39:07', '2018-05-07 15:39:07');
-INSERT INTO `checklist_warehouse_quantities` VALUES (42, 2, 21, 3, '2018-05-07 15:39:07', '2018-05-07 15:39:07');
-INSERT INTO `checklist_warehouse_quantities` VALUES (43, 1, 22, 7, '2018-05-07 15:39:19', '2018-05-07 15:39:19');
-INSERT INTO `checklist_warehouse_quantities` VALUES (44, 2, 22, 4, '2018-05-07 15:39:19', '2018-05-07 15:39:19');
-COMMIT;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Table structure for checklists
@@ -133,21 +79,12 @@ COMMIT;
 DROP TABLE IF EXISTS `checklists`;
 CREATE TABLE `checklists` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `date` datetime NOT NULL,
+  `date` date NOT NULL,
   `status` int(11) NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- ----------------------------
--- Records of checklists
--- ----------------------------
-BEGIN;
-INSERT INTO `checklists` VALUES (6, '2018-05-04 00:00:00', 0, '2018-05-04 23:05:45', '2018-05-07 17:28:54');
-INSERT INTO `checklists` VALUES (7, '2018-05-05 00:00:00', 0, '2018-05-05 23:48:34', '2018-05-07 17:30:11');
-INSERT INTO `checklists` VALUES (8, '2018-05-06 00:00:00', 0, '2018-05-07 15:38:40', '2018-05-07 17:30:13');
-COMMIT;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Table structure for migrations
@@ -158,7 +95,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of migrations
@@ -181,6 +118,7 @@ INSERT INTO `migrations` VALUES (94, '2017_12_11_090606_create_checklist_product
 INSERT INTO `migrations` VALUES (95, '2017_12_11_090644_create_checklist_warehouse_quantities_table', 1);
 INSERT INTO `migrations` VALUES (96, '2017_12_16_122221_create_checklist_totals_table', 1);
 INSERT INTO `migrations` VALUES (98, '2018_05_07_174844_create_product_daily_checklist_table', 2);
+INSERT INTO `migrations` VALUES (99, '2018_05_08_163141_create_tasks_table', 3);
 COMMIT;
 
 -- ----------------------------
@@ -338,7 +276,17 @@ CREATE TABLE `product_daily_checklist` (
   PRIMARY KEY (`id`),
   KEY `product_daily_checklist_product_id_foreign` (`product_id`),
   CONSTRAINT `product_daily_checklist_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- ----------------------------
+-- Records of product_daily_checklist
+-- ----------------------------
+BEGIN;
+INSERT INTO `product_daily_checklist` VALUES (1, 1, '[4,6,8]', '2018-05-08 11:05:06', '2018-05-08 23:50:21');
+INSERT INTO `product_daily_checklist` VALUES (2, 2, '[4,5,5]', '2018-05-08 11:05:06', '2018-05-11 17:13:20');
+INSERT INTO `product_daily_checklist` VALUES (3, 4, '[2,2,1]', '2018-05-08 11:05:06', '2018-05-08 23:50:21');
+INSERT INTO `product_daily_checklist` VALUES (7, 11, '[0,0,0]', '2018-05-11 17:08:02', '2018-05-11 17:08:02');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for productions
@@ -346,7 +294,7 @@ CREATE TABLE `product_daily_checklist` (
 DROP TABLE IF EXISTS `productions`;
 CREATE TABLE `productions` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `date` datetime NOT NULL,
+  `date` date NOT NULL,
   `quantity` int(10) unsigned NOT NULL,
   `product_id` int(10) unsigned NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -354,16 +302,7 @@ CREATE TABLE `productions` (
   PRIMARY KEY (`id`),
   KEY `productions_product_id_foreign` (`product_id`),
   CONSTRAINT `productions_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- ----------------------------
--- Records of productions
--- ----------------------------
-BEGIN;
-INSERT INTO `productions` VALUES (2, '2018-05-04 00:00:00', 17, 1, '2018-05-04 23:10:32', '2018-05-04 23:10:32');
-INSERT INTO `productions` VALUES (4, '2018-05-05 00:00:00', 15, 2, '2018-05-05 23:56:52', '2018-05-05 23:56:52');
-INSERT INTO `productions` VALUES (6, '2018-05-06 00:00:00', 9, 4, '2018-05-07 15:40:11', '2018-05-07 15:40:11');
-COMMIT;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Table structure for products
@@ -382,7 +321,7 @@ CREATE TABLE `products` (
   KEY `products_units_measure_id_foreign` (`units_measure_id`),
   CONSTRAINT `products_product_category_id_foreign` FOREIGN KEY (`product_category_id`) REFERENCES `product_categories` (`id`) ON DELETE CASCADE,
   CONSTRAINT `products_units_measure_id_foreign` FOREIGN KEY (`units_measure_id`) REFERENCES `units_measures` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of products
@@ -391,7 +330,24 @@ BEGIN;
 INSERT INTO `products` VALUES (1, 'Strogonoff', 1, 2, 1, '2018-04-17 22:47:15', '2018-04-17 22:47:15');
 INSERT INTO `products` VALUES (2, 'Frango', 1, 2, 2, '2018-04-26 01:35:55', '2018-04-26 01:35:55');
 INSERT INTO `products` VALUES (4, 'Coração de Frango', 1, 4, 2, '2018-05-01 21:50:06', '2018-05-01 21:50:06');
+INSERT INTO `products` VALUES (11, 'Molho de Tomate', 1, 4, 2, '2018-05-11 17:08:02', '2018-05-11 17:08:02');
 COMMIT;
+
+-- ----------------------------
+-- Table structure for tasks
+-- ----------------------------
+DROP TABLE IF EXISTS `tasks`;
+CREATE TABLE `tasks` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `product_id` int(10) unsigned NOT NULL,
+  `description` longtext COLLATE utf8mb4_unicode_ci,
+  `status` int(11) NOT NULL DEFAULT '1',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `tasks_product_id_foreign` (`product_id`),
+  CONSTRAINT `tasks_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Table structure for units_measures
@@ -432,14 +388,14 @@ CREATE TABLE `users` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `users_email_unique` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
 BEGIN;
-INSERT INTO `users` VALUES (1, 'Admin', 'Admin', 'Admin Admin', 'admin@admin.com', '$2y$10$OtEuxPSt1G1dWWXxOBW7ZuOMtbWz23bsiGpb.cb9/ry1zJebk8MBW', 1, 1, 'kzAC2GdAF8SGaRH7SQywopJz5BTgmJ8a0jQzhawTiwy4vAYunEJNzbkw4mDA', '2018-04-17 22:47:15', '2018-04-17 22:47:15');
-INSERT INTO `users` VALUES (2, 'Marcelo', 'Corrêa', 'Marcelo Corrêa', 'marcelocorrea229@gmail.com', '$2y$10$4AOYHCA9ZaU/ovoOFMtpveKWPjCANNWC1i4o8L0cfVGyViyBgHBG.', 1, 1, 'v9RCawWbMJ', '2018-04-17 22:47:15', '2018-04-17 22:47:15');
+INSERT INTO `users` VALUES (1, 'Admin', 'Admin', 'Admin Admin', 'admin@admin.com', '$2y$10$dudFySz5qR9ddVzMgjJ9XeeEv1p1Vud2ZUE6ucx5jDSXo6seokBjm', 1, 1, 'RQjBPdVgfOoSVkj0Fz1P19IQrPDR3teriKuGU2IsHOPXibQklx1JEKDdKtje', '2018-04-17 22:47:15', '2018-05-09 14:26:26');
+INSERT INTO `users` VALUES (2, 'Marcelo', 'Corrêa', 'Marcelo Corrêa', 'marcelocorrea229@gmail.com', '$2y$10$4AOYHCA9ZaU/ovoOFMtpveKWPjCANNWC1i4o8L0cfVGyViyBgHBG.', 1, 1, '1kkuFJpmW4yHKnhBFzpwDauLw50QbI7cXW3PNFQBt65UmS46C7RBG6Tdgcuz', '2018-04-17 22:47:15', '2018-04-17 22:47:15');
 COMMIT;
 
 -- ----------------------------

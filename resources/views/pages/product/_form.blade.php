@@ -11,7 +11,7 @@
     <label class="col-md-2 control-label">{{ __('Categoria') }}</label>
     <div class="col-md-8">
         <select class="form-control" name="product_category_id">
-            <option>{{ __('Selecione') }}...</option>
+            <option value="">{{ __('Selecione') }}...</option>
             @if($productCategories)
                 @foreach($productCategories as $productCategory)
                     <option value="{{$productCategory->id}}" {{ isset($product) && $product->product_category_id == $productCategory->id ? 'selected': null }}>{{$productCategory->name}}</option>
@@ -26,7 +26,7 @@
     <label class="col-md-2 control-label">{{ __('Unidate de Medida') }}</label>
     <div class="col-md-8">
         <select class="form-control" name="units_measure_id">
-            <option>{{ __('Selecione') }}...</option>
+            <option value="">{{ __('Selecione') }}...</option>
             @if($unitsMeasures)
                 @foreach($unitsMeasures as $unitsMeasure)
                     <option value="{{$unitsMeasure->id}}" {{ isset($product) && $product->units_measure_id == $unitsMeasure->id ? 'selected': null }}>{{$unitsMeasure->name}}</option>

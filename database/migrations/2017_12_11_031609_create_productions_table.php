@@ -16,8 +16,8 @@ class CreateProductionsTable extends Migration
         Schema::create('productions', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->dateTime('date');
-            $table->unsignedInteger('quantity');
+            $table->date('date');
+            $table->unsignedDecimal('quantity', 9, 1);
 
             $table->unsignedInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');

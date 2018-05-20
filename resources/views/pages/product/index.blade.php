@@ -17,13 +17,13 @@
                                     <li><a href="{{ route('web.product.create') }}">{{ __('Novo') }}</a></li>
                                 </ul>
                             </div>
-                            <h4 class="page-title"> Produtos </h4>
+                            <h4 class="page-title"> {{ __('Produtos') }} </h4>
                             <ol class="breadcrumb">
                                 <li>
                                     <a href="{{ route('home') }}">Home</a>
                                 </li>
                                 <li class="active">
-                                    <span> Produtos </span>
+                                    <span> {{ __('Produtos') }} </span>
                                 </li>
                             </ol>
                         </div>
@@ -37,7 +37,9 @@
                                 <div class="col-lg-6 m-b-10 pull-right">
                                     <div class="fixed-table-toolbar">
                                         <div class="search">
-                                            <input class="form-control" type="text" placeholder="Localizar">
+                                            <form action="" method="get">
+                                                <input class="form-control" type="text" placeholder="Localizar" name="search">
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -51,11 +53,10 @@
                                                     <th class="bs-checkbox">
                                                         <input name="btSelectItem" type="checkbox">
                                                     </th>
-                                                    <th>#</th>
-                                                    <th>Nome</th>
-                                                    <th>Categoria</th>
-                                                    <th>Status</th>
-                                                    <th class="text-center" style="width: 150px">Options</th>
+                                                    <th>{{ __('Nome') }}</th>
+                                                    <th>{{ __('Categoria') }}</th>
+                                                    <th>{{ __('Status') }}</th>
+                                                    <th class="text-center" style="width: 150px">{{ __('Options') }}</th>
                                                 </tr>
                                             </thead>
                                             <tbody>

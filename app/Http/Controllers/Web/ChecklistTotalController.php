@@ -14,7 +14,7 @@ class ChecklistTotalController extends Controller
             'checklist_id' => $checklist->id,
         ])->with(['checklist', 'checklistProduct'])->get();
 
-        $date               = (new \DateTime($checklist->date))->format('Y-m-d H:i:s');
+        $date               = (new \DateTime($checklist->date))->format('Y-m-d');
         $checklistAnterior  = Checklist::where('date', '<', $date)->where('status', 0)->orderBy('date', 'desc')->first();
         $checklistPosterior = Checklist::where('date', '>', $date)->where('status', 0)->first();
 

@@ -94,6 +94,7 @@ $this->group(['middleware' => ['auth']], function () {
             $this->post('/store', 'TaskController@store')->name('web.task.store');
             $this->get('/edit/{task}', 'TaskController@edit')->name('web.task.edit');
             $this->put('/update/{task}', 'TaskController@update')->name('web.task.update');
+            $this->put('/finalize/{task}', 'TaskController@finalize')->name('web.task.finalize');
             $this->get('/destroy/{task}', 'TaskController@destroy')->name('web.task.destroy');
         });
     });

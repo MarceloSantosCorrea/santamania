@@ -34,3 +34,34 @@ function getKeyDaysOfTheWeek($day)
     if (in_array($day, $sabFer))
         return 2;
 }
+
+if (!function_exists('arrayToString')) {
+    function arrayToString(Array $array = null)
+    {
+        if (!is_null($array))
+            return implode(', ', arrayMapAssoc(function ($k, $v) {
+
+                if (is_array($v)) {
+                    return arrayToString($v);
+                }
+
+                if (is_string($v))
+                    return "$k = $v";
+
+            }, $array));
+
+        return '';
+    }
+}
+
+if (!function_exists('arrayMapAssoc')) {
+    function arrayMapAssoc($callback, $array)
+    {
+        $r = [];
+        foreach ($array as $key => $value)
+            $r[$key] = $callback($key, $value);
+
+        return $r;
+    }
+}
+

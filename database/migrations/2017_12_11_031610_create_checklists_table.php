@@ -16,7 +16,7 @@ class CreateChecklistsTable extends Migration
         Schema::create('checklists', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->dateTime('date');
+            $table->date('date');
             $table->integer('status')->default(1);
 
             $table->timestamps();

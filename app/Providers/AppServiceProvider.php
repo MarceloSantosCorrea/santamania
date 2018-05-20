@@ -5,9 +5,11 @@ namespace App\Providers;
 use App\Models\Checklist;
 use App\Models\ChecklistProduct;
 use App\Models\ProductCategory;
+use App\Models\Production;
 use App\Observers\ChecklistObserver;
 use App\Observers\ChecklistProductObserver;
 use App\Observers\ProductCategoryObserver;
+use App\Observers\ProductionObserver;
 use Laravel\Passport\Passport;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
@@ -41,6 +43,7 @@ class AppServiceProvider extends ServiceProvider
         Warehouse::observe(WarehouseObserver::class);
         ProductCategory::observe(ProductCategoryObserver::class);
         Product::observe(ProductObserver::class);
+        Production::observe(ProductionObserver::class);
         Checklist::observe(ChecklistObserver::class);
         ChecklistProduct::observe(ChecklistProductObserver::class);
     }

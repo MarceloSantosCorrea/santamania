@@ -49,7 +49,11 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="card-box">
-                            <h4 class="header-title m-t-0">{{ __('Totais') }}</h4>
+                            <h4 class="header-title m-t-0">{{ __('Totais') }}
+                                @if($checklistPreview)
+                                    <span class="pull-right" style="color: red">{{ (new \DateTime($checklistPreview->date))->format('d/m/Y') }}</span>
+                                @endif
+                            </h4>
 
                             <div class="table-responsive">
                                 <table class="table table-bordered table-striped">
@@ -89,12 +93,16 @@
                                                 <tr>
                                                     <th>{{ $task->product->name }}</th>
                                                     <td class="text-center">
-                                                        <a onclick="bootbox_confirm('Tem certeza que deseja finalizar esta tarefa?', '')"
-                                                           class="btn btn-success btn-sm tooltips"
-                                                           data-toggle="tooltip" data-placement="top"
-                                                           title="Finalizar tarefa">
-                                                            <i class="fa fa-check"></i>
-                                                        </a>
+                                                        <form class="form-horizontal" method="post" action="{{ route('web.task.finalize', $task) }}">
+                                                            {!! csrf_field() !!}
+                                                            {{ method_field('PUT') }}
+                                                            <button type="submit"
+                                                                    class="btn btn-warning btn-sm tooltips"
+                                                                    data-toggle="tooltip" data-placement="top"
+                                                                    title="Finalizar tarefa">
+                                                                <i class="fa fa-check"></i>
+                                                            </button>
+                                                        </form>
                                                     </td>
                                                 </tr>
                                             @endforeach

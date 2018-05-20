@@ -13,7 +13,7 @@ class Production extends Model
 
     public function getDateAttribute($value)
     {
-        $c = Carbon::createFromFormat('Y-m-d H:i:s', $value);
+        $c = Carbon::createFromFormat('Y-m-d', $value);
 
         return $c->toW3cString();
     }

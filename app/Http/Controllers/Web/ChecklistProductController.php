@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Http\Requests\ChecklistProductRequest;
 use App\Models\Checklist;
 use App\Models\ChecklistProduct;
 use App\Models\Product;
@@ -40,7 +41,7 @@ class ChecklistProductController extends AbstractController
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ChecklistProductRequest $request)
     {
         $params = $request->all();
 

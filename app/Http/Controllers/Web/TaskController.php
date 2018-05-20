@@ -87,6 +87,27 @@ class TaskController extends Controller
     }
 
     /**
+     * Update the specified resource in storage.
+     *
+     * @param TaskRequest $request
+     * @param Task $task
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function finalize(Task $task)
+    {
+        $task->status = 0;
+
+        if ($task->save())
+            return redirect()
+                ->route('home')
+                ->with('success', 'Salvo com sucesso');
+
+        return redirect()
+            ->route('home')
+            ->with('error', 'Erro ao salvar');
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param Task $task

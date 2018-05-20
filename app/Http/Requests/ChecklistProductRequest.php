@@ -28,6 +28,7 @@ class ChecklistProductRequest extends FormRequest
                 return [
                     'checklist_id' => 'required',
                     'product_id'   => 'required',
+                    'quantities.*' => 'required',
                 ];
             case'PUT':
                 $warehouse = $this->route('warehouse');
@@ -35,6 +36,7 @@ class ChecklistProductRequest extends FormRequest
                 return [
                     'checklist_id' => 'required',
                     'product_id'   => 'required',
+                    'quantities.*' => 'required',
                 ];
         }
     }

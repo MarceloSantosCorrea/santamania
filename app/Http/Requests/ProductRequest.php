@@ -42,4 +42,17 @@ class ProductRequest extends FormRequest
                 ];
         }
     }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'product_category_id.required' => 'O campo Categoria é obrigatório.',
+            'units_measure_id.required'    => 'O campo Unidade de Medida é obrigatório.',
+        ];
+    }
 }

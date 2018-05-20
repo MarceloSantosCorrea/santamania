@@ -75,7 +75,7 @@
                                                         ?>
                                                         <tr>
                                                             <td>{{ $product->name }}</td>
-                                                            <td>{{ $total }}</td>
+                                                            <td>{{ $total }} {{ $product->unitsMeasure->symbol }}</td>
                                                             <td>
                                                                 <span class="label label-{{ $alterado ? 'primary' : 'danger'  }}">
                                                                     {{ $alterado ? 'Conferido' : 'Conferir' }}
