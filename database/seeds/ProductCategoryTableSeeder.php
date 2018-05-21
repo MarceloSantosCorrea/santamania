@@ -12,7 +12,7 @@ class ProductCategoryTableSeeder extends Seeder
     public function run()
     {
         $categories = [
-            'Molhos', 'Prontos', 'Diários Picados',
+            'Molhos', 'Prontos',
             'Industrializados', 'Frios/Fatiados',
         ];
 
