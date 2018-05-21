@@ -1,5 +1,13 @@
 @extends('layouts.default')
 @section('title', 'Warehouses')
+@push('styles')
+    <style>
+        .category_name {
+            background: #5fbeaa
+        }
+    </style>
+@endpush
+
 @section('content')
     <div class="content-page">
         <div class="content">
@@ -15,7 +23,7 @@
                             <h4 class="header-title m-t-0">{{ __('Listagem de produtos e saídas') }}</h4>
 
                             <div class="table-responsive">
-                                <table class="table table-bordered table-striped">
+                                <table class="table table-bordered">
                                     <thead>
                                         <tr>
                                             <th></th>
@@ -31,15 +39,24 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @if($products)
-                                            @foreach($products as $product)
-                                                <?php $days = json_decode($product->days); ?>
-                                                <tr>
-                                                    <th class="text-nowrap" scope="row">{{ $product->product->name }}</th>
-                                                    <td class="text-center">{{ $days[0] }}</td>
-                                                    <td class="text-center">{{ $days[1] }}</td>
-                                                    <td class="text-center">{{ $days[2] }}</td>
+                                        @if($categories)
+                                            @foreach($categories as $category)
+
+                                                <tr class="category_name">
+                                                    <th colspan="4" class="text-center">{{ $category->name }}</th>
                                                 </tr>
+
+                                                @if($category->product)
+                                                    @foreach($category->product as $product)
+                                                        <?php $days = json_decode($product->productDailyChecklist->days);?>
+                                                        <tr style="{{ ($loop->index % 2 == 0) ? 'background-color: #f8f9fa' : null }}">
+                                                            <th class="text-nowrap" scope="row">{{ $product->name }}</th>
+                                                            <td class="text-center">{{ $days[0] }} </td>
+                                                            <td class="text-center">{{ $days[1] }}</td>
+                                                            <td class="text-center">{{ $days[2] }}</td>
+                                                        </tr>
+                                                    @endforeach
+                                                @endif
                                             @endforeach
                                         @endif
                                     </tbody>

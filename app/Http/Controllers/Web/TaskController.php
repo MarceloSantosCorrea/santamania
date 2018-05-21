@@ -17,9 +17,13 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $data = Task::where(['status' => 1])->paginate();
+        if (\Gate::allows('list_tasks')) {
+            $data = Task::where(['status' => 1])->paginate();
 
-        return view('pages.task.index', compact('data'));
+            return view('pages.task.index', compact('data'));
+        }
+
+        return view('pages.acl.unauthorized');
     }
 
     /**
@@ -29,9 +33,13 @@ class TaskController extends Controller
      */
     public function create()
     {
-        $products = Product::all();
+        if (\Gate::allows('create_tasks')) {
+            $products = Product::all();
 
-        return view('pages.task.create', compact('products'));
+            return view('pages.task.create', compact('products'));
+        }
+
+        return view('pages.acl.unauthorized');
     }
 
     /**
@@ -42,14 +50,18 @@ class TaskController extends Controller
      */
     public function store(TaskRequest $request)
     {
-        if (Task::create($request->all()))
+        if (\Gate::allows('create_tasks')) {
+            if (Task::create($request->all()))
+                return redirect()
+                    ->route('web.task.index')
+                    ->with('success', 'Salvo com sucesso');
+
             return redirect()
                 ->route('web.task.index')
-                ->with('success', 'Salvo com sucesso');
+                ->with('error', 'Erro ao salvar');
+        }
 
-        return redirect()
-            ->route('web.task.index')
-            ->with('error', 'Erro ao salvar');
+        return view('pages.acl.unauthorized');
     }
 
     /**
@@ -60,9 +72,13 @@ class TaskController extends Controller
      */
     public function edit(Task $task)
     {
-        $products = Product::all();
+        if (\Gate::allows('edit_tasks')) {
+            $products = Product::all();
 
-        return view('pages.task.edit', compact('products', 'task'));
+            return view('pages.task.edit', compact('products', 'task'));
+        }
+
+        return view('pages.acl.unauthorized');
     }
 
     /**
@@ -74,16 +90,20 @@ class TaskController extends Controller
      */
     public function update(TaskRequest $request, Task $task)
     {
-        $task->fill($request->all());
+        if (\Gate::allows('edit_tasks')) {
+            $task->fill($request->all());
 
-        if ($task->save())
+            if ($task->save())
+                return redirect()
+                    ->route('web.task.index')
+                    ->with('success', 'Salvo com sucesso');
+
             return redirect()
                 ->route('web.task.index')
-                ->with('success', 'Salvo com sucesso');
+                ->with('error', 'Erro ao salvar');
+        }
 
-        return redirect()
-            ->route('web.task.index')
-            ->with('error', 'Erro ao salvar');
+        return view('pages.acl.unauthorized');
     }
 
     /**
@@ -95,16 +115,20 @@ class TaskController extends Controller
      */
     public function finalize(Task $task)
     {
-        $task->status = 0;
+        if (\Gate::allows('finalize_tasks')) {
+            $task->status = 0;
 
-        if ($task->save())
+            if ($task->save())
+                return redirect()
+                    ->route('home')
+                    ->with('success', 'Salvo com sucesso');
+
             return redirect()
                 ->route('home')
-                ->with('success', 'Salvo com sucesso');
+                ->with('error', 'Erro ao salvar');
+        }
 
-        return redirect()
-            ->route('home')
-            ->with('error', 'Erro ao salvar');
+        return view('pages.acl.unauthorized');
     }
 
     /**
@@ -115,13 +139,17 @@ class TaskController extends Controller
      */
     public function destroy(Task $task)
     {
-        if ($task->delete())
+        if (\Gate::allows('delete_tasks')) {
+            if ($task->delete())
+                return redirect()
+                    ->route('web.task.index')
+                    ->with('success', 'Deletado com sucesso');
+
             return redirect()
                 ->route('web.task.index')
-                ->with('success', 'Deletado com sucesso');
+                ->with('error', 'Erro ao deletar');
+        }
 
-        return redirect()
-            ->route('web.task.index')
-            ->with('error', 'Erro ao deletar');
+        return view('pages.acl.unauthorized');
     }
 }

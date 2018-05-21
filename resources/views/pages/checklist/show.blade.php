@@ -41,16 +41,18 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="fixed-table-toolbar">
-                                        <form class="form-horizontal pull-right" method="post" action="{{ route('web.checklist-actions.close', $checklist) }}">
-                                            {!! csrf_field() !!}
-                                            {{ method_field('PATCH') }}
-                                            <button type="submit"
-                                                    class="btn btn-primary btn-sm tooltips"
-                                                    data-toggle="tooltip" data-placement="top"
-                                                    title="Fechar">
-                                                {{ __('Fechar') }}
-                                            </button>
-                                        </form>
+                                        @can('close_checklists')
+                                            <form class="form-horizontal pull-right" method="post" action="{{ route('web.checklist-actions.close', $checklist) }}">
+                                                {!! csrf_field() !!}
+                                                {{ method_field('PATCH') }}
+                                                <button type="submit"
+                                                        class="btn btn-primary btn-sm tooltips"
+                                                        data-toggle="tooltip" data-placement="top"
+                                                        title="Fechar">
+                                                    {{ __('Fechar') }}
+                                                </button>
+                                            </form>
+                                        @endcan
                                     </div>
                                 </div>
                             </div>

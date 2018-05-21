@@ -15,10 +15,14 @@ class ProductionController extends AbstractController
      */
     public function index()
     {
-        $data = Production::with(['product'])
-            ->orderBy('id', 'desc')->paginate(10);
+        if (\Gate::allows('list_productions')) {
+            $data = Production::with(['product'])
+                ->orderBy('id', 'desc')->paginate(10);
 
-        return view('pages.production.index', compact('data'));
+            return view('pages.production.index', compact('data'));
+        }
+
+        return view('pages.acl.unauthorized');
     }
 
     /**
@@ -28,9 +32,13 @@ class ProductionController extends AbstractController
      */
     public function create()
     {
-        $products = Product::all();
+        if (\Gate::allows('create_productions')) {
+            $products = Product::all();
 
-        return view('pages.production.create', compact('products'));
+            return view('pages.production.create', compact('products'));
+        }
+
+        return view('pages.acl.unauthorized');
     }
 
     /**
@@ -41,14 +49,18 @@ class ProductionController extends AbstractController
      */
     public function store(ProductionRequest $request)
     {
-        if (Production::create($request->all()))
+        if (\Gate::allows('create_productions')) {
+            if (Production::create($request->all()))
+                return redirect()
+                    ->route('web.production.index')
+                    ->with('success', 'Salvo com sucesso');
+
             return redirect()
                 ->route('web.production.index')
-                ->with('success', 'Salvo com sucesso');
+                ->with('error', 'Erro ao salvar');
+        }
 
-        return redirect()
-            ->route('web.production.index')
-            ->with('error', 'Erro ao salvar');
+        return view('pages.acl.unauthorized');
     }
 
     /**
@@ -59,9 +71,13 @@ class ProductionController extends AbstractController
      */
     public function edit(Production $production)
     {
-        $products = Product::all();
+        if (\Gate::allows('edit_productions')) {
+            $products = Product::all();
 
-        return view('pages.production.edit', compact('products', 'production'));
+            return view('pages.production.edit', compact('products', 'production'));
+        }
+
+        return view('pages.acl.unauthorized');
     }
 
     /**
@@ -73,16 +89,20 @@ class ProductionController extends AbstractController
      */
     public function update(ProductionRequest $request, Production $production)
     {
-        $production->fill($request->all());
+        if (\Gate::allows('edit_productions')) {
+            $production->fill($request->all());
 
-        if ($production->save())
+            if ($production->save())
+                return redirect()
+                    ->route('web.production.index')
+                    ->with('success', 'Salvo com sucesso');
+
             return redirect()
                 ->route('web.production.index')
-                ->with('success', 'Salvo com sucesso');
+                ->with('error', 'Erro ao salvar');
+        }
 
-        return redirect()
-            ->route('web.production.index')
-            ->with('error', 'Erro ao salvar');
+        return view('pages.acl.unauthorized');
     }
 
     /**
@@ -93,13 +113,17 @@ class ProductionController extends AbstractController
      */
     public function destroy(Production $production)
     {
-        if ($production->delete())
+        if (\Gate::allows('delete_productions')) {
+            if ($production->delete())
+                return redirect()
+                    ->route('web.production.index')
+                    ->with('success', 'Deletado com sucesso');
+
             return redirect()
                 ->route('web.production.index')
-                ->with('success', 'Deletado com sucesso');
+                ->with('error', 'Erro ao deletar');
+        }
 
-        return redirect()
-            ->route('web.production.index')
-            ->with('error', 'Erro ao deletar');
+        return view('pages.acl.unauthorized');
     }
 }

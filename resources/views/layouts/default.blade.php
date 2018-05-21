@@ -41,8 +41,8 @@
         <script src="{{ asset('assets/js/wow.min.js') }}"></script>
         <script src="{{ asset('assets/js/jquery.nicescroll.js') }}"></script>
         <script src="{{ asset('assets/js/jquery.scrollTo.min.js') }}"></script>
+        @stack('scripts')
         <script src="{{ asset('assets/js/jquery.core.js') }}"></script>
         <script src="{{ asset('assets/js/jquery.app.js') }}"></script>
-        @stack('scripts')
     </body>
 </html>

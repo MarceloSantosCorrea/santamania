@@ -11,6 +11,11 @@ class ProductCategory extends Model
         'name', 'active',
     ];
 
+    public function product()
+    {
+        return $this->hasMany(Product::class)->with('productDailyChecklist');
+    }
+
     public function getCreatedAtAttribute($value)
     {
         $c = Carbon::createFromFormat('Y-m-d H:i:s', $value);

@@ -3,36 +3,66 @@
         <div id="sidebar-menu">
             <ul>
                 <li class="text-muted menu-title"> {{ __('Menu') }} </li>
-                <li class="has_sub">
-                    <a href="{{ route('home') }}" class="waves-effect"><i class="ti-home"></i><span> {{ __('Início') }} </span></a>
-                </li>
-                <li class="has_sub">
-                    <a href="/checklist" class="waves-effect"><i class="fa fa-check-circle"></i><span> {{ __('Checklist') }} </span></a>
-                </li>
-                <li class="has_sub">
-                    <a href="/production" class="waves-effect"><i class="fa fa-rocket"></i><span> {{ __('Produção') }} </span></a>
-                </li>
-                <li class="has_sub">
-                    <a href="/task" class="waves-effect"><i class="fa fa-tasks"></i><span> {{ __('Tarefas') }} </span></a>
-                </li>
-                <li class="has_sub">
-                    <a href="javascript:void(0);" class="waves-effect"><i class="glyphicon glyphicon-cog"></i>
-                        <span> {{ __('Configurações') }} </span> <span class="menu-arrow"></span>
-                    </a>
-                    <ul class="list-unstyled">
-                        <li><a href="{{ route('web.product.index') }}"> {{ __('Produtos') }} </a></li>
-                        <li><a href="{{ route('web.product-category.index') }}"> {{ __('Categorias de Produtos') }} </a>
-                        </li>
-                        <li><a href="{{ route('web.units-measure.index') }}"> {{ __('Unidades de Medida') }} </a></li>
-                        <li><a href="{{ route('web.warehouse.index') }}"> {{ __('Local de Armazenamento') }} </a></li>
-                    </ul>
-                </li>
-                <li class="has_sub">
-                    <a href="{{ route('web.user.index') }}" class="waves-effect">
-                        <i class="fa fa-users"></i>
-                        <span> {{ __('Usuários') }} </span>
-                    </a>
-                </li>
+                @can('home')
+                    <li>
+                        <a href="{{ route('home') }}" class="waves-effect"><i class="ti-home"></i><span> {{ __('Início') }} </span></a>
+                    </li>
+                @endcan
+                @can('list_checklists')
+                    <li>
+                        <a href="/checklist" class="waves-effect"><i class="fa fa-check-circle"></i><span> {{ __('Checklist') }} </span></a>
+                    </li>
+                @endcan
+                @can('list_productions')
+                    <li>
+                        <a href="/production" class="waves-effect"><i class="fa fa-rocket"></i><span> {{ __('Produção') }} </span></a>
+                    </li>
+                @endcan
+                @can('list_tasks')
+                    <li>
+                        <a href="/task" class="waves-effect"><i class="fa fa-tasks"></i><span> {{ __('Tarefas') }} </span></a>
+                    </li>
+                @endcan
+
+                @if(Gate::check('list_products') || Gate::check('list_product_categories')|| Gate::check('list_units_measures')
+                || Gate::check('list_warehouses') || Gate::check('list_acl_roles') || Gate::check('list_users'))
+
+                    <li class="has_sub">
+                        <a href="javascript:void(0);" class="waves-effect"><i class="glyphicon glyphicon-cog"></i>
+                            <span> {{ __('Configurações') }} </span> <span class="menu-arrow"></span>
+                        </a>
+                        <ul class="list-unstyled">
+                            @can('list_products')
+                                <li><a href="{{ route('web.product.index') }}"> {{ __('Produtos') }} </a></li>
+                            @endcan
+                            @can('list_product_categories')
+                                <li>
+                                    <a href="{{ route('web.product-category.index') }}"> {{ __('Categorias de Produtos') }} </a>
+                                </li>
+                            @endcan
+                            @can('list_units_measures')
+                                <li>
+                                    <a href="{{ route('web.units-measure.index') }}"> {{ __('Unidades de Medida') }} </a>
+                                </li>
+                            @endcan
+                            @can('list_warehouses')
+                                <li>
+                                    <a href="{{ route('web.warehouse.index') }}"> {{ __('Local de Armazenamento') }} </a>
+                                </li>
+                            @endcan
+                            @can('list_users')
+                                <li>
+                                    <a href="{{ route('web.user.index') }}" class="waves-effect">
+                                        <span> {{ __('Usuários') }} </span>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('list_acl_roles')
+                                <li><a href="{{ route('web.acl.role.index') }}"> {{ __('Perfis') }} </a></li>
+                            @endcan
+                        </ul>
+                    </li>
+                @endif
             </ul>
             <div class="clearfix"></div>
         </div>

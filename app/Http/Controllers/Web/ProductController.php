@@ -17,11 +17,16 @@ class ProductController extends AbstractController
      */
     public function index(Request $request)
     {
-        $data = Product::with([
-            'productCategory',
-        ])->paginate(10);
+        if (\Gate::allows('list_products')) {
 
-        return view('pages.product.index', compact('data'));
+            $data = Product::with([
+                'productCategory',
+            ])->paginate(10);
+
+            return view('pages.product.index', compact('data'));
+        }
+
+        return view('pages.acl.unauthorized');
     }
 
     /**

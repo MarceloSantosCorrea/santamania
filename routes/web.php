@@ -44,7 +44,7 @@ $this->group(['middleware' => ['auth']], function () {
         });
 
         $this->group(['prefix' => 'product'], function () {
-            $this->get('/', 'ProductController@index')->name('web.product.index');
+            $this->get('/', 'ProductController@index')->name('web.product.index'); //->middleware('can:list_products'); //
             $this->get('/create', 'ProductController@create')->name('web.product.create');
             $this->post('/store', 'ProductController@store')->name('web.product.store');
             $this->get('/edit/{product}', 'ProductController@edit')->name('web.product.edit');
@@ -96,6 +96,30 @@ $this->group(['middleware' => ['auth']], function () {
             $this->put('/update/{task}', 'TaskController@update')->name('web.task.update');
             $this->put('/finalize/{task}', 'TaskController@finalize')->name('web.task.finalize');
             $this->get('/destroy/{task}', 'TaskController@destroy')->name('web.task.destroy');
+        });
+
+        $this->group(['namespace' => 'Acl', 'prefix' => 'acl'], function () {
+            $this->group(['prefix' => 'roles'], function () {
+                $this->get('/', 'AclRoleController@index')->name('web.acl.role.index');
+                $this->get('/create', 'AclRoleController@create')->name('web.acl.role.create');
+                $this->post('/store', 'AclRoleController@store')->name('web.acl.role.store');
+                $this->get('/edit/{acl_role}', 'AclRoleController@edit')->name('web.acl.role.edit');
+                $this->put('/update/{acl_role}', 'AclRoleController@update')->name('web.acl.role.update');
+                $this->get('/destroy/{acl_role}', 'AclRoleController@destroy')->name('web.acl.role.destroy');
+            });
+            $this->group(['prefix' => 'permissions'], function () {
+                $this->get('/', 'AclPermissionController@index')->name('web.acl.permission.index');
+                $this->get('/create', 'AclPermissionController@create')->name('web.acl.permission.create');
+                $this->post('/store', 'AclPermissionController@store')->name('web.acl.permission.store');
+                $this->get('/edit/{acl_permission}', 'AclPermissionController@edit')->name('web.acl.permission.edit');
+                $this->put('/update/{acl_permission}', 'AclPermissionController@update')->name('web.acl.permission.update');
+                $this->get('/destroy/{acl_permission}', 'AclPermissionController@destroy')->name('web.acl.permission.destroy');
+            });
+
+            $this->group(['prefix' => 'permissions-role'], function () {
+                $this->get('/show/{acl_role}', 'AclPermissionRoleController@show')->name('web.acl.permission.role.show');
+                $this->put('/update/{acl_role}', 'AclPermissionRoleController@update')->name('web.acl.permission.role.update');
+            });
         });
     });
 });

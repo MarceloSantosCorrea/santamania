@@ -14,9 +14,13 @@ class ProductCategoryController extends AbstractController
      */
     public function index()
     {
-        $data = ProductCategory::paginate();
+        if (\Gate::allows('list_product_categories')) {
+            $data = ProductCategory::paginate();
 
-        return view('pages.product-category.index', compact('data'));
+            return view('pages.product-category.index', compact('data'));
+        }
+
+        return view('pages.acl.unauthorized');
     }
 
     /**
@@ -26,7 +30,11 @@ class ProductCategoryController extends AbstractController
      */
     public function create()
     {
-        return view('pages.product-category.create');
+        if (\Gate::allows('create_product_categories')) {
+            return view('pages.product-category.create');
+        }
+
+        return view('pages.acl.unauthorized');
     }
 
     /**
@@ -37,9 +45,13 @@ class ProductCategoryController extends AbstractController
      */
     public function store(ProductCategoryRequest $request)
     {
-        ProductCategory::create($request->all());
+        if (\Gate::allows('create_product_categories')) {
+            ProductCategory::create($request->all());
 
-        return redirect('product-category');
+            return redirect('product-category');
+        }
+
+        return view('pages.acl.unauthorized');
     }
 
     /**
@@ -50,7 +62,11 @@ class ProductCategoryController extends AbstractController
      */
     public function edit(ProductCategory $productCategory)
     {
-        return view('pages.product-category.edit', compact('productCategory'));
+        if (\Gate::allows('edit_product_categories')) {
+            return view('pages.product-category.edit', compact('productCategory'));
+        }
+
+        return view('pages.acl.unauthorized');
     }
 
     /**
@@ -62,16 +78,20 @@ class ProductCategoryController extends AbstractController
      */
     public function update(ProductCategoryRequest $request, ProductCategory $productCategory)
     {
-        $productCategory->fill($request->all());
+        if (\Gate::allows('edit_product_categories')) {
+            $productCategory->fill($request->all());
 
-        if ($productCategory->save())
+            if ($productCategory->save())
+                return redirect()
+                    ->route('web.product-category.index')
+                    ->with('success', 'Salvo com sucesso');
+
             return redirect()
                 ->route('web.product-category.index')
-                ->with('success', 'Salvo com sucesso');
+                ->with('error', 'Erro ao salvar');
+        }
 
-        return redirect()
-            ->route('web.product-category.index')
-            ->with('error', 'Erro ao salvar');
+        return view('pages.acl.unauthorized');
     }
 
     /**
@@ -83,13 +103,17 @@ class ProductCategoryController extends AbstractController
      */
     public function destroy(ProductCategory $productCategory)
     {
-        if ($productCategory->delete())
+        if (\Gate::allows('delete_product_categories')) {
+            if ($productCategory->delete())
+                return redirect()
+                    ->route('web.product-category.index')
+                    ->with('success', 'Deletado com sucesso');
+
             return redirect()
                 ->route('web.product-category.index')
-                ->with('success', 'Deletado com sucesso');
+                ->with('error', 'Erro ao deletar');
+        }
 
-        return redirect()
-            ->route('web.product-category.index')
-            ->with('error', 'Erro ao deletar');
+        return view('pages.acl.unauthorized');
     }
 }

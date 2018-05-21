@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Models\Acl\AclPermission;
+use App\Models\Acl\AclRole;
 use Carbon\Carbon;
 use Hash;
 use Laravel\Passport\HasApiTokens;
@@ -29,6 +31,30 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function roles()
+    {
+        return $this->belongsToMany(AclRole::class);
+    }
+
+    public function hasPermission(AclPermission $aclPermission)
+    {
+        return $this->hasAnyRoles($aclPermission->roles);
+    }
+
+    public function hasAnyRoles($roles)
+    {
+        if (is_array($roles) || is_object($roles)) {
+            foreach ($roles as $role) {
+                if ($this->roles->contains('name', $role->name))
+                    return true;
+            }
+
+            return false;
+        }
+
+        return $this->roles->contains('name', $roles);
+    }
 
     public function setPasswordAttribute($password)
     {

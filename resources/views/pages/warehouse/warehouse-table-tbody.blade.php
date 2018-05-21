@@ -2,7 +2,6 @@
     @foreach ($data as $item)
         <tr>
             <th><input class="checkbox" type="checkbox"></th>
-            <th scope="row">{{ $item->id }}</th>
             <td>{{ $item->name }}</td>
             <td>{{ getStatus($item->active) }}</td>
             <td class="text-right">

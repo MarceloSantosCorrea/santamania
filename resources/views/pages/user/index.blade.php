@@ -10,20 +10,17 @@
                     <div class="col-sm-12">
                         <div class="page-header-2">
                             <div class="btn-group pull-right m-t-15">
-                                <button type="button" class="btn btn-default dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false">
-                                    {{ __('Opções') }}<span class="m-l-5"><i class="fa fa-cog"></i></span>
-                                </button>
-                                <ul class="dropdown-menu drop-menu-right" role="menu">
-                                    <li><a href="{{ route('web.user.create') }}">{{ __('Novo') }}</a></li>
-                                </ul>
+                                @can('create_users')
+                                    <a class="btn btn-default dropdown-toggle waves-effect waves-light" href="{{ route('web.user.create') }}">{{ __('Novo') }}</a>
+                                @endcan
                             </div>
-                            <h4 class="page-title">Usuários</h4>
+                            <h4 class="page-title">{{ __('Usuários') }}</h4>
                             <ol class="breadcrumb">
                                 <li>
-                                    <a href="{{ route('home') }}">Home</a>
+                                    <a href="{{ route('home') }}">{{ __('Home') }}</a>
                                 </li>
                                 <li class="active">
-                                    <span>Usuários</span>
+                                    <span>{{ __('Usuários') }}</span>
                                 </li>
                             </ol>
                         </div>
@@ -52,8 +49,9 @@
                                                         <input name="btSelectItem" type="checkbox">
                                                     </th>
                                                     <th>#</th>
-                                                    <th>Nome</th>
-                                                    <th>Email</th>
+                                                    <th>{{ __('Nome') }}</th>
+                                                    <th>{{ __('Email') }}</th>
+                                                    <th>{{ __('Status') }}</th>
                                                     <th class="text-center" style="width: 150px">{{ __('Opções') }}</th>
                                                 </tr>
                                             </thead>
@@ -62,7 +60,7 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="fixed-table-pagination">
+                                    <div class="fixed-table-pagination text-center">
                                         {{ $data->links() }}
                                     </div>
                                 </div>

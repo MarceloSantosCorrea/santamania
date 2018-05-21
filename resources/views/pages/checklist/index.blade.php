@@ -10,20 +10,17 @@
                     <div class="col-sm-12">
                         <div class="page-header-2">
                             <div class="btn-group pull-right m-t-15">
-                                <button type="button" class="btn btn-default dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="false">
-                                    {{ __('Opções') }}<span class="m-l-5"><i class="fa fa-cog"></i></span>
-                                </button>
-                                <ul class="dropdown-menu drop-menu-right" role="menu">
-                                    <li><a href="{{ route('web.checklist.create') }}">{{ __('Novo') }}</a></li>
-                                </ul>
+                                @can('create_checklists')
+                                    <a class="btn btn-default dropdown-toggle waves-effect waves-light" href="{{ route('web.checklist.create') }}">{{ __('Novo') }}</a>
+                                @endcan
                             </div>
-                            <h4 class="page-title"> Checklist </h4>
+                            <h4 class="page-title"> {{ __('Checklist') }} </h4>
                             <ol class="breadcrumb">
                                 <li>
-                                    <a href="{{ route('home') }}"> Home </a>
+                                    <a href="{{ route('home') }}"> {{ __('Home') }} </a>
                                 </li>
                                 <li class="active">
-                                    <span> Checklist </span>
+                                    <span> {{ __('Checklist') }} </span>
                                 </li>
                             </ol>
                         </div>
@@ -48,9 +45,9 @@
                                         <table class="table table-striped table-hover m-t-10">
                                             <thead>
                                                 <tr>
-                                                    <th>Data</th>
-                                                    <th>Status</th>
-                                                    <th class="text-center" style="width: 160px;">Options</th>
+                                                    <th> {{ __('Data') }}</th>
+                                                    <th> {{ __('Status') }}</th>
+                                                    <th class="text-center" style="width: 160px;"> {{ __('Options') }}</th>
                                                 </tr>
                                             </thead>
                                             <tbody>

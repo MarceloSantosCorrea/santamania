@@ -20,13 +20,17 @@ class Product extends Model
         return $this->hasOne(ChecklistProduct::class)->with(['checklist']);
     }
 
+    public function productDailyChecklist()
+    {
+        return $this->hasOne(ProductDailyChecklist::class);
+    }
+
     public static function productsByChecklist(Checklist $checklist)
     {
         return self::where(['active' => 1])
             ->with(['checklistProduct' => function ($query) use ($checklist) {
                 $query->where('checklist_id', $checklist->id);
             }])
-            ->orderBy('name', 'asc')
             ->get();
     }
 

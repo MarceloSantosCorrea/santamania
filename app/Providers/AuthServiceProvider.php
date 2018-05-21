@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Acl\AclPermission;
+use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -25,6 +27,13 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        $aclPermissions = AclPermission::with('roles')->get();
+
+        foreach ($aclPermissions as $aclPermission) {
+
+            Gate::define($aclPermission->name, function (User $user) use ($aclPermission) {
+                return $user->hasPermission($aclPermission);
+            });
+        }
     }
 }

@@ -18,7 +18,6 @@ class UsersTableSeeder extends Seeder
             'email'          => 'admin@admin.com',
             'password'       => bcrypt('admin'),
             'remember_token' => str_random(10),
-            'level'          => 1,
             'active'         => 1,
             'created_at'     => new \DateTime('NOW'),
             'updated_at'     => new \DateTime('NOW'),
@@ -31,11 +30,9 @@ class UsersTableSeeder extends Seeder
             'email'          => 'marcelocorrea229@gmail.com',
             'password'       => bcrypt('Marsc2014'),
             'remember_token' => str_random(10),
-            'level'          => 1,
             'active'         => 1,
             'created_at'     => new \DateTime('NOW'),
             'updated_at'     => new \DateTime('NOW'),
         ]);
-//        factory(App\Models\User::class, 30)->create();
     }
 }
