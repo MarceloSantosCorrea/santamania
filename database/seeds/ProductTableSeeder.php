@@ -10,9 +10,8 @@ class ProductTableSeeder extends Seeder
      */
     const Molhos           = 1;
     const Prontos          = 2;
-    const DiariosPicados   = 3;
-    const Industrializados = 4;
-    const FriosFatiados    = 5;
+    const Industrializados = 3;
+    const FriosFatiados    = 4;
 
     /**
      * Unidades de Medida
