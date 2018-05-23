@@ -42,7 +42,9 @@
                                             <thead>
                                                 <tr>
                                                     <th>{{ __('Nome') }}</th>
-                                                    <th class="text-center" style="width: 150px">{{ __('Opções') }}</th>
+                                                    @if(Gate::check('edit_acl_permissions') || Gate::check('delete_acl_permissions'))
+                                                        <th class="text-center" style="width: 150px"> {{ __('Opções') }} </th>
+                                                    @endif
                                                 </tr>
                                             </thead>
                                             <tbody>

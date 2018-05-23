@@ -47,7 +47,9 @@
                                                 <tr>
                                                     <th> {{ __('Data') }}</th>
                                                     <th> {{ __('Status') }}</th>
-                                                    <th class="text-center" style="width: 160px;"> {{ __('Options') }}</th>
+                                                    @if(Gate::check('edit_checklists') || Gate::check('delete_checklists'))
+                                                        <th class="text-center" style="width: 160px"> {{ __('Opções') }} </th>
+                                                    @endif
                                                 </tr>
                                             </thead>
                                             <tbody>

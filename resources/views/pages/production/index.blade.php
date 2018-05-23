@@ -11,16 +11,16 @@
                         <div class="page-header-2">
                             <div class="btn-group pull-right m-t-15">
                                 @can('create_productions')
-                                <a class="btn btn-default dropdown-toggle waves-effect waves-light" href="{{ route('web.production.create') }}"> {{ __('Novo') }} </a>
+                                    <a class="btn btn-default dropdown-toggle waves-effect waves-light" href="{{ route('web.production.create') }}"> {{ __('Novo') }} </a>
                                 @endcan
                             </div>
-                            <h4 class="page-title"> Produção </h4>
+                            <h4 class="page-title">  {{ __('Produção') }}  </h4>
                             <ol class="breadcrumb">
                                 <li>
-                                    <a href="{{ route('home') }}"> Home </a>
+                                    <a href="{{ route('home') }}">  {{ __('Home') }}  </a>
                                 </li>
                                 <li class="active">
-                                    <span> Produção </span>
+                                    <span>  {{ __('Produção') }}  </span>
                                 </li>
                             </ol>
                         </div>
@@ -49,10 +49,13 @@
                                                         <input name="btSelectItem" type="checkbox">
                                                     </th>
                                                     <th>#</th>
-                                                    <th>Data</th>
-                                                    <th>Produto</th>
-                                                    <th>Quantidade</th>
-                                                    <th class="text-center" style="width: 150px">Opções</th>
+                                                    <th> {{ __('Data') }} </th>
+                                                    <th> {{ __('Produto') }} </th>
+                                                    <th> {{ __('Quantidade') }} </th>
+
+                                                    @if(Gate::check('edit_productions') || Gate::check('delete_productions'))
+                                                        <th class="text-center" style="width: 150px"> {{ __('Opções') }} </th>
+                                                    @endif
                                                 </tr>
                                             </thead>
                                             <tbody>

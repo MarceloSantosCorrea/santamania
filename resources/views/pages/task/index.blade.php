@@ -48,7 +48,9 @@
                                                     <th>#</th>
                                                     <th>{{ __('Produto') }} </th>
                                                     <th>{{ __('Descrição') }} </th>
-                                                    <th class="text-center" style="width: 150px"> {{ __('Opções') }} </th>
+                                                    @if(Gate::check('edit_tasks') || Gate::check('delete_tasks'))
+                                                        <th class="text-center" style="width: 150px"> {{ __('Opções') }} </th>
+                                                    @endif
                                                 </tr>
                                             </thead>
                                             <tbody>

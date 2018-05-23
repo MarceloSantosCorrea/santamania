@@ -52,7 +52,9 @@
                                                     <th>{{ __('Nome') }}</th>
                                                     <th>{{ __('Email') }}</th>
                                                     <th>{{ __('Status') }}</th>
-                                                    <th class="text-center" style="width: 150px">{{ __('Opções') }}</th>
+                                                    @if(Gate::check('edit_users') || Gate::check('delete_users'))
+                                                        <th class="text-center" style="width: 150px"> {{ __('Opções') }} </th>
+                                                    @endif
                                                 </tr>
                                             </thead>
                                             <tbody>

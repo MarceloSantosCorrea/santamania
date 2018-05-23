@@ -51,7 +51,9 @@
                                                     <th>#</th>
                                                     <th>Nome</th>
                                                     <th>Símbolo</th>
-                                                    <th class="text-center" style="width: 150px">Opções</th>
+                                                    @if(Gate::check('edit_units_measures') || Gate::check('delete_units_measures'))
+                                                        <th class="text-center" style="width: 150px"> {{ __('Opções') }} </th>
+                                                    @endif
                                                 </tr>
                                             </thead>
                                             <tbody>

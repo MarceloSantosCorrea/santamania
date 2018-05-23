@@ -49,7 +49,9 @@
                                                     <th>#</th>
                                                     <th>{{ __('Nome') }}</th>
                                                     <th>{{ __('Status') }}</th>
-                                                    <th class="text-center" style="width: 150px">{{ __('Opções') }}</th>
+                                                    @if(Gate::check('edit_product_categories') || Gate::check('delete_product_categories'))
+                                                        <th class="text-center" style="width: 150px"> {{ __('Opções') }} </th>
+                                                    @endif
                                                 </tr>
                                             </thead>
                                             <tbody>
