@@ -2,6 +2,7 @@
     @foreach ($data as $item)
         <tr>
             <td>{{ $item->label }}</td>
+            @if(Gate::check('edit_productions') || Gate::check('delete_productions'))
             <td class="text-right">
 
                 <a href="{{ route('web.acl.permission.edit', $item) }}"
@@ -19,6 +20,7 @@
                 </button>
 
             </td>
+            @endif
         </tr>
     @endforeach
 @endif

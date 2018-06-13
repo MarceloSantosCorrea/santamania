@@ -44,5 +44,6 @@
         @stack('scripts')
         <script src="{{ asset('assets/js/jquery.core.js') }}"></script>
         <script src="{{ asset('assets/js/jquery.app.js') }}"></script>
+        <script src="{{ asset('assets/js/disable-btn-save.js') }}"></script>
     </body>
 </html>

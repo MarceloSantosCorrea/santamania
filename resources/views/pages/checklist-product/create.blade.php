@@ -52,7 +52,7 @@
                                             @endforeach
                                             <div class="form-group m-b-0">
                                                 <div class="col-sm-offset-2 col-sm-8">
-                                                    <button name="submit" class="btn btn-info waves-effect waves-light">{{ __('Salvar') }}</button>
+                                                    <button name="submit" class="btn btn-info waves-effect waves-light btn-save">{{ __('Salvar') }}</button>
                                                 </div>
                                             </div>
                                         @endif

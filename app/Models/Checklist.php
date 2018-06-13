@@ -22,14 +22,30 @@ class Checklist extends Model
         return $this->hasMany(ChecklistTotal::class);
     }
 
+    /**
+     * Fechar Checklist
+     *
+     * @param Checklist $checklist
+     * @return array|mixed
+     * @throws \Throwable
+     */
     public function closeChecklist(Checklist $checklist)
     {
+        /*
+         * Se checklist estiver status 1 = aberto
+         */
         if ($checklist->status) {
 
             return DB::transaction(function () use ($checklist) {
 
+                /*
+                 * Retornar as contagens dos produtos
+                 */
                 $checklist = $checklist::with('checklistProduct')->find($checklist->id);
 
+                /*
+                 * Formatando a data para o formato timestamps
+                 */
                 $date = (new \DateTime($checklist->date))->format('Y-m-d');
 
                 /*
@@ -92,7 +108,7 @@ class Checklist extends Model
                             $totalAnterior = $checklistTotalAnterior->total;
 
                         if ($production) {
-                            $totalAnterior = $checklistTotalAnterior->total + $production->quantity;
+                            $totalAnterior = isset($checklistTotalAnterior) ? $checklistTotalAnterior->total + $production->quantity : $production->quantity;
                         }
 
                         $difference = ($checklistTotalAnterior) ? $totalAnterior - $checklistProduct->total : 0;

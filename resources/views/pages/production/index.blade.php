@@ -63,7 +63,8 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="fixed-table-pagination">
+                                    <div class="fixed-table-pagination text-center">
+                                        {{ $data->links() }}
                                     </div>
                                 </div>
                             </div>
