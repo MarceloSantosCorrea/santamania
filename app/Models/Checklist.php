@@ -152,7 +152,7 @@ class Checklist extends Model
                         ];
                     }
 
-                    ChecklistTotal::create($data);
+                    ChecklistTotal::updateOrCreate($data);
                 }
 
                 $checklist->status = 0;
