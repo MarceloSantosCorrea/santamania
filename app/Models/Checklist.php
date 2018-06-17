@@ -96,22 +96,24 @@ class Checklist extends Model
                         'date' => $date, 'product_id' => $checklistProduct->product_id,
                     ])->first();
 
+                    $totalAnterior = 0;
+
                     if ($checklistAnterior) {
 
-                        $checklistTotalAnterior = ChecklistProduct::where([
+                        $checklistTotalAnterior = ChecklistProduct::with(['checklist_tatals'])->where([
                             'checklist_id' => $checklistAnterior->id,
                             'product_id'   => $checklistProduct->product_id,
                         ])->first();
 
-                        $totalAnterior = 0;
                         if ($checklistTotalAnterior)
-                            $totalAnterior = $checklistTotalAnterior->total;
+                            $totalAnterior = $checklistTotalAnterior->checklist_tatals->total;
 
                         if ($production) {
-                            $totalAnterior = isset($checklistTotalAnterior) ? $checklistTotalAnterior->total + $production->quantity : $production->quantity;
+                            $totalAnterior = $totalAnterior + $production->quantity;
                         }
 
-                        $difference = ($checklistTotalAnterior) ? $totalAnterior - $checklistProduct->total : 0;
+                        if ($totalAnterior > 0)
+                            $difference = $totalAnterior - $checklistProduct->total;
                     }
 
                     $productDailyChecklist     = ProductDailyChecklist::where(['product_id' => $checklistProduct->product_id])->first();
@@ -133,9 +135,9 @@ class Checklist extends Model
                      * tendo então que criar uma tarefa.
                      */
                     if ($checklistProduct->total < $productDailyChecklistDays[getKeyDaysOfTheWeek(date('w', strtotime($checklist->date)))]) {
-                        Task::create([
-                            'product_id' => $checklistProduct->product_id,
-                        ]);
+                        $task = Task::where(['product_id' => $checklistProduct->product_id, 'status' => 1])->first();
+                        if (!$task)
+                            Task::create(['product_id' => $checklistProduct->product_id]);
                     }
 
                     $data = [
@@ -146,6 +148,7 @@ class Checklist extends Model
                     ];
 
                     if ($difference < 0) {
+
                         return [
                             'success' => false,
                             'message' => "Opss, erro ao finalizar o produto {$checklistProduct->product->name}.",
@@ -153,6 +156,7 @@ class Checklist extends Model
                     }
 
                     ChecklistTotal::updateOrCreate($data);
+
                 }
 
                 $checklist->status = 0;

@@ -26,6 +26,11 @@ class ChecklistProduct extends Model
         return $this->hasMany(ChecklistWarehouseQuantity::class);
     }
 
+    public function checklist_tatals()
+    {
+        return $this->hasOne(ChecklistTotal::class);
+    }
+
     public function getCreatedAtAttribute($value)
     {
         $c = Carbon::createFromFormat('Y-m-d H:i:s', $value);

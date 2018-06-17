@@ -186,7 +186,7 @@ class AclPermissionTableSeeder extends Seeder
                 'label' => 'Visualizar Tarefas',
             ],
             [
-                'name'  => 'finalize',
+                'name'  => 'finalize_tasks',
                 'label' => 'Finalizar Tarefas',
             ],
             [
