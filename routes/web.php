@@ -8,6 +8,9 @@ $this->group(['middleware' => ['auth']], function () {
         $this->get('/', 'IndexController@index')->name('home');
         $this->get('/logout', 'IndexController@logout')->name('logout');
 
+        $this->get('/profile', 'UserController@profile')->name('web.user.profile');
+        $this->put('/profile', 'UserController@updateProfile')->name('web.user.updateProfile');
+
         $this->group(['prefix' => 'checklist-actions'], function () {
             $this->patch('{checklist}/close', 'ChecklistActionsController@close')->name('web.checklist-actions.close');
         });

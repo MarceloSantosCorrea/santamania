@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Http\Requests\ProfileRequest;
 use App\Http\Requests\UserRequest;
 use App\Models\Acl\AclRole;
 use App\Models\Acl\AclRoleUser;
@@ -124,13 +125,17 @@ class UserController extends AbstractController
 
             if ($user->save()) {
 
-                AclRoleUser::where(['user_id' => $user->id])->delete();
 
-                foreach ($request->all()['roles'] as $role) {
-                    AclRoleUser::create([
-                        'user_id'     => $user->id,
-                        'acl_role_id' => $role,
-                    ]);
+                if (isset($request->all()['roles'])) {
+
+                    AclRoleUser::where(['user_id' => $user->id])->delete();
+
+                    foreach ($request->all()['roles'] as $role) {
+                        AclRoleUser::create([
+                            'user_id'     => $user->id,
+                            'acl_role_id' => $role,
+                        ]);
+                    }
                 }
 
                 return redirect()
@@ -167,5 +172,37 @@ class UserController extends AbstractController
         }
 
         return view('pages.acl.unauthorized');
+    }
+
+    public function profile()
+    {
+        $user = auth()->user();
+
+        return view('pages.user.profile', compact('user'));
+    }
+
+    public function updateProfile(ProfileRequest $request)
+    {
+        $user = User::find(auth()->user()->id);
+
+        $data = $request->all();
+        if (is_null($data['password']))
+            unset($data['password']);
+        else
+            $data['password'] = bcrypt($data['password']);
+
+        $user->fill($request->all());
+
+        if ($user->save()) {
+
+            return redirect()
+                ->route('web.user.profile')
+                ->with('success', 'Salvo com sucesso');
+        }
+
+        return redirect()
+            ->route('web.user.profile')
+            ->with('error', 'Erro ao salvar');
+
     }
 }

@@ -160,7 +160,7 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <a href="javascript:void(0)">
+                                <a href="{{ route('web.user.profile') }}">
                                     <i class="ti-user m-r-10 text-custom"></i> {{ __('Meus Dados') }}
                                 </a>
                             </li>
