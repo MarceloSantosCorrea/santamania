@@ -134,7 +134,7 @@ class Checklist extends Model
                      * Verificar se o total contado do produto é menor que o valor da tabela diária
                      * tendo então que criar uma tarefa.
                      */
-                    if ($checklistProduct->total < $productDailyChecklistDays[getKeyDaysOfTheWeek(date('w', strtotime($checklist->date)))]) {
+                    if ($checklistProduct->total < $productDailyChecklistDays[getKeyDaysOfTheWeek(date('w', strtotime($checklist->date . "+1 days")))]) {
                         $task = Task::where(['product_id' => $checklistProduct->product_id, 'status' => 1])->first();
                         if (!$task)
                             Task::create(['product_id' => $checklistProduct->product_id]);
