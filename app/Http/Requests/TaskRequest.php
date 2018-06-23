@@ -34,6 +34,8 @@ class TaskRequest extends FormRequest
 
                 $id = is_object($task) ? $task->id : $task;
 
+                $this->merge(['status' => ($this->input('status') == 'on') ? 1 : 0]);
+
                 return [
                     'product_id' => 'required',
                 ];

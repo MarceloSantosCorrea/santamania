@@ -11,7 +11,7 @@
                         <div class="page-header-2">
                             <div class="btn-group pull-right m-t-15">
                                 @can('create_tasks')
-                                <a class="btn btn-default dropdown-toggle waves-effect waves-light" href="{{ route('web.task.create') }}"> {{ __('Novo') }} </a>
+                                    <a class="btn btn-default dropdown-toggle waves-effect waves-light" href="{{ route('web.task.create') }}"> {{ __('Novo') }} </a>
                                 @endcan
                             </div>
                             <h4 class="page-title"> {{ __('Tarefas') }} </h4>
@@ -48,6 +48,7 @@
                                                     <th>#</th>
                                                     <th>{{ __('Produto') }} </th>
                                                     <th>{{ __('Descrição') }} </th>
+                                                    <th>{{ __('Status') }} </th>
                                                     @if(Gate::check('edit_tasks') || Gate::check('delete_tasks'))
                                                         <th class="text-center" style="width: 150px"> {{ __('Opções') }} </th>
                                                     @endif
@@ -58,7 +59,8 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="fixed-table-pagination">
+                                    <div class="fixed-table-pagination text-center">
+                                        {{ $data->links() }}
                                     </div>
                                 </div>
                             </div>

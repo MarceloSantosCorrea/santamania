@@ -17,7 +17,8 @@ class ProductionController extends AbstractController
     {
         if (\Gate::allows('list_productions')) {
             $data = Production::with(['product'])
-                ->orderBy('date', 'desc')->paginate(25);
+                ->orderBy('id', 'desc')
+                ->paginate(30);
 
             return view('pages.production.index', compact('data'));
         }

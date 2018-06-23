@@ -18,7 +18,7 @@ class TaskController extends Controller
     public function index()
     {
         if (\Gate::allows('list_tasks')) {
-            $data = Task::where(['status' => 1])->paginate();
+            $data = Task::orderBy('status', '1')->orderBy('id', 'DESC')->paginate();
 
             return view('pages.task.index', compact('data'));
         }
@@ -91,6 +91,7 @@ class TaskController extends Controller
     public function update(TaskRequest $request, Task $task)
     {
         if (\Gate::allows('edit_tasks')) {
+
             $task->fill($request->all());
 
             if ($task->save())

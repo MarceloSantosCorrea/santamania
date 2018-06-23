@@ -4,6 +4,7 @@
             <th scope="row">{{ $item->id }}</th>
             <td>{{ $item->product->name }}</td>
             <td>{{ $item->description }}</td>
+            <td>{{ getTaskStatus($item->status) }}</td>
             <td class="text-right">
 
                 <a href="{{ route('web.task.edit', $item) }}"

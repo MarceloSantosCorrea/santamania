@@ -23,7 +23,7 @@
 <div class="form-group">
     <div class="col-sm-offset-2 col-sm-8">
         <div class="checkbox checkbox-primary">
-            <input type="checkbox" name="active" {{ !isset($task) || (isset($task) && $task->status == 1)?'checked="checked"':'' }}>
+            <input type="checkbox" name="status" {{ !isset($task) || (isset($task) && $task->status == 1)?'checked="checked"':'' }}>
             <label for="active">{{ __('Ativo') }}</label>
         </div>
     </div>

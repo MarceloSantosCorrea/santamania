@@ -13,6 +13,7 @@ $this->group(['middleware' => ['auth']], function () {
 
         $this->group(['prefix' => 'checklist-actions'], function () {
             $this->patch('{checklist}/close', 'ChecklistActionsController@close')->name('web.checklist-actions.close');
+            $this->get('{checklist}/reopen', 'ChecklistActionsController@reopen')->name('web.checklist-actions.reopen');
         });
 
         $this->group(['prefix' => 'checklist-totals'], function () {

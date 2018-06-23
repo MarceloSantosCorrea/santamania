@@ -89,6 +89,8 @@ class Checklist extends Model
 
                 foreach ($checklist->checklistProduct as $checklistProduct) {
 
+                    //if ($checklistProduct->product_id != 20) continue;
+
                     /*
                      * retornar a produção
                      */
@@ -114,11 +116,11 @@ class Checklist extends Model
 
                         if ($totalAnterior > 0)
                             $difference = $totalAnterior - $checklistProduct->total;
+
                     }
 
                     $productDailyChecklist     = ProductDailyChecklist::where(['product_id' => $checklistProduct->product_id])->first();
                     $productDailyChecklistDays = json_decode($productDailyChecklist->days);
-
 
                     if ($difference > $productDailyChecklistDays[getKeyDaysOfTheWeek(date('w', strtotime($checklist->date)))]) {
                         $productDailyChecklistDays[getKeyDaysOfTheWeek(date('w', strtotime($checklist->date)))] = $difference;
@@ -155,8 +157,16 @@ class Checklist extends Model
                         ];
                     }
 
-                    ChecklistTotal::updateOrCreate($data);
-
+                    $checklistTotal = ChecklistTotal::where([
+                        'checklist_id'         => $data['checklist_id'],
+                        'checklist_product_id' => $data['checklist_product_id'],
+                    ])->first();
+                    if ($checklistTotal) {
+                        $checklistTotal->fill($data);
+                        $checklistTotal->save();
+                    } else {
+                        ChecklistTotal::updateOrCreate($data);
+                    }
                 }
 
                 $checklist->status = 0;

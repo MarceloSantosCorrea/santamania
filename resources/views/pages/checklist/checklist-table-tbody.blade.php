@@ -45,6 +45,13 @@
                     </form>
                 @else
 
+                    <a onclick="bootbox_confirm('Tem certeza que deseja reabrir o checklist <strong>{{(new \DateTime($item->date))->format('d/m/Y')}}</strong>?', '{{ route('web.checklist-actions.reopen', $item) }}')"
+                       class="btn btn-danger btn-sm tooltips"
+                       data-toggle="tooltip" data-placement="top"
+                       title="Reabrir Checklist">
+                        <i class="fa fa-upload"></i>
+                    </a>
+
                     <a href="{{ route('web.checklist-totals.index', $item) }}"
                        class="btn btn-success btn-sm tooltips"
                        data-toggle="tooltip" data-placement="top"
