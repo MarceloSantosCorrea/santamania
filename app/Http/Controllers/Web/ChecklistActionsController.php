@@ -11,33 +11,42 @@ class ChecklistActionsController extends AbstractController
      */
     public function close(Checklist $checklist)
     {
-        $result = (new Checklist())->closeChecklist($checklist);
+        if (\Gate::allows('close_checklists')) {
 
-        if ($result['success'] == true)
+            $result = (new Checklist())->closeChecklist($checklist);
+
+            if ($result['success'] == true)
+                return redirect()
+                    ->back()
+                    ->with('success', 'Salvo com sucesso');
+
             return redirect()
-                ->route('web.checklist.index')
-                ->with('success', 'Salvo com sucesso');
+                ->back()
+                ->with('error', $result['message']);
+        }
 
-        return redirect()
-            ->route('web.checklist.index')
-            ->with('error', $result['message']);
+        return view('pages.acl.unauthorized');
     }
 
     public function reopen(Checklist $checklist)
     {
-        $checklist->fill(['status' => 1]);
-        $checklist->save();
+        if (\Gate::allows('reopen_checklists')) {
+            $checklist->fill(['status' => 1]);
+            $checklist->save();
 
-        $checklists = Checklist::where('date', '>', $checklist->date)->get();
+            $checklists = Checklist::where('date', '>', $checklist->date)->get();
 
-        if ($checklists->count()) {
-            foreach ($checklists as $checklist) {
+            if ($checklists->count()) {
+                foreach ($checklists as $checklist) {
 
-                $checklist->fill(['status' => 1]);
-                $checklist->save();
+                    $checklist->fill(['status' => 1]);
+                    $checklist->save();
+                }
             }
+
+            return redirect()->route('web.checklist.index');
         }
 
-        return redirect()->route('web.checklist.index');
+        return view('pages.acl.unauthorized');
     }
 }

@@ -165,6 +165,10 @@ class AclPermissionTableSeeder extends Seeder
                 'label' => 'Fechar Checklists',
             ],
             [
+                'name'  => 'reopen_checklists',
+                'label' => 'Reabrir Checklists',
+            ],
+            [
                 'name'  => 'delete_checklists',
                 'label' => 'Deletar Checklists',
             ],

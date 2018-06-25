@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Models\Checklist;
-use App\Models\Product;
 use App\Models\ProductCategory;
-use App\Models\ProductDailyChecklist;
 use App\Models\Task;
 use Auth;
 

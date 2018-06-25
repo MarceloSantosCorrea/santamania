@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\Feriados;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -44,7 +45,7 @@ class Checklist extends Model
                 $checklist = $checklist::with('checklistProduct')->find($checklist->id);
 
                 /*
-                 * Formatando a data para o formato timestamps
+                 * Formatando a data para o formato string
                  */
                 $date = (new \DateTime($checklist->date))->format('Y-m-d');
 
@@ -79,51 +80,107 @@ class Checklist extends Model
                     ];
                 }
 
+                /**
+                 * Retornar todos os feriados anuais
+                 */
+                $feriados     = new Feriados();
+                $diasFeriados = $feriados->getArrayFeriados();
+
                 /*
                  * Retornando o último checklist fechado
                  */
                 $checklistAnterior = self::where('date', '<', $date)->where('status', 0)
                     ->orderBy('date', 'desc')->with(['checklistProduct'])->first();
 
-                $difference = 0;
-
+                /**
+                 * Manipulando todos os produtos ativos
+                 */
                 foreach ($checklist->checklistProduct as $checklistProduct) {
 
                     //if ($checklistProduct->product_id != 20) continue;
+                    //$feriados = new Feriados();
+                    //dd($feriados->getArrayFeriados());
 
                     /*
-                     * retornar a produção
+                     * Verificando e retornando se houve produção do produto na data do checklist
                      */
                     $production = Production::where([
                         'date' => $date, 'product_id' => $checklistProduct->product_id,
                     ])->first();
 
+                    /**
+                     * Variável que armazena o total atual do produto
+                     * o Produto é novo seu valor default é 0
+                     * se houver chacklist do dia anterior o valor é a quantidade que ficou
+                     */
                     $totalAnterior = 0;
+
+                    /**
+                     * A variável $difference a quantidade de saida deste produto.
+                     */
+                    $difference = 0;
 
                     if ($checklistAnterior) {
 
+                        /**
+                         * Retornando a contagem do produto no chacklist anterior
+                         */
                         $checklistTotalAnterior = ChecklistProduct::with(['checklist_tatals'])->where([
                             'checklist_id' => $checklistAnterior->id,
                             'product_id'   => $checklistProduct->product_id,
                         ])->first();
 
+                        /**
+                         * Se houver checklist no dia anterior alterar a variável $totalAnterior
+                         * com o total do checklist do dia anterior
+                         */
                         if ($checklistTotalAnterior)
                             $totalAnterior = $checklistTotalAnterior->checklist_tatals->total;
 
+                        /**
+                         * Se houver produção desse produto neste dia,
+                         * alterar a variável $totalAnterior somando a quantidade produzida
+                         */
                         if ($production) {
                             $totalAnterior = $totalAnterior + $production->quantity;
                         }
 
+                        /**
+                         * Se há checklist do dia anterior e/ou se houve produção do produto
+                         * a variável $totalAnterior será maior que zero
+                         * então esse valor menos o total contado neste dia será a quantidade
+                         * que foi utilizada.
+                         */
                         if ($totalAnterior > 0)
                             $difference = $totalAnterior - $checklistProduct->total;
 
                     }
 
-                    $productDailyChecklist     = ProductDailyChecklist::where(['product_id' => $checklistProduct->product_id])->first();
+                    /**
+                     * Retorna as quantidades da tabela de referência de saída dos produtos
+                     */
+                    $productDailyChecklist = ProductDailyChecklist::where(['product_id' => $checklistProduct->product_id])->first();
+                    /**
+                     * Convertendo json em array
+                     */
                     $productDailyChecklistDays = json_decode($productDailyChecklist->days);
 
-                    if ($difference > $productDailyChecklistDays[getKeyDaysOfTheWeek(date('w', strtotime($checklist->date)))]) {
-                        $productDailyChecklistDays[getKeyDaysOfTheWeek(date('w', strtotime($checklist->date)))] = $difference;
+                    /**
+                     * Se a quantidade de saída for maior que a quantidade que está na tabel de referência,
+                     * alterar o valor da tabel de referência.
+                     */
+                    $numberOfWeek = date('w', strtotime($checklist->date));
+
+                    /**
+                     * Verificar se o dia atual é feriado então
+                     */
+                    if (in_array((new \DateTime($checklist->date))->format('m-d'), $diasFeriados)) {
+                        $numberOfWeek = 6; // sábados e feriados
+                    }
+
+                    $daysOfTheWeek = getKeyDaysOfTheWeek($numberOfWeek);
+                    if ($difference > $productDailyChecklistDays[$daysOfTheWeek]) {
+                        $productDailyChecklistDays[$daysOfTheWeek] = $difference;
 
                         $productDailyChecklist->fill([
                             'days' => json_encode($productDailyChecklistDays),
@@ -136,10 +193,27 @@ class Checklist extends Model
                      * Verificar se o total contado do produto é menor que o valor da tabela diária
                      * tendo então que criar uma tarefa.
                      */
-                    if ($checklistProduct->total < $productDailyChecklistDays[getKeyDaysOfTheWeek(date('w', strtotime($checklist->date . "+1 days")))]) {
+                    $numberOfWeek = date('w', strtotime($checklist->date . "+1 days"));
+
+                    /**
+                     * Verificar se o próximo dia é feriado então
+                     */
+                    if (in_array((new \DateTime(date('Y-m-d', strtotime($checklist->date . "+1 days"))))->format('m-d'), $diasFeriados)) {
+                        $numberOfWeek = 6; // sábados e feriados
+                    }
+
+                    $daysOfTheWeek = getKeyDaysOfTheWeek($numberOfWeek);
+                    if ($checklistProduct->total < $productDailyChecklistDays[$daysOfTheWeek]) {
+
+                        $missingAmount = $productDailyChecklistDays[$daysOfTheWeek] - $checklistProduct->total;
+
                         $task = Task::where(['product_id' => $checklistProduct->product_id, 'status' => 1])->first();
+
                         if (!$task)
-                            Task::create(['product_id' => $checklistProduct->product_id]);
+                            Task::create([
+                                'product_id'  => $checklistProduct->product_id,
+                                'description' => "Faltará: $missingAmount",
+                            ]);
                     }
 
                     $data = [

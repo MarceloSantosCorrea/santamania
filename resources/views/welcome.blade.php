@@ -109,6 +109,7 @@
                                             @foreach($tasks as $task)
                                                 <tr>
                                                     <th>{{ $task->product->name }}</th>
+                                                    <td>{{ $task->description }}</td>
                                                     <td class="text-center">
                                                         <form class="form-horizontal" method="post" action="{{ route('web.task.finalize', $task) }}">
                                                             {!! csrf_field() !!}
