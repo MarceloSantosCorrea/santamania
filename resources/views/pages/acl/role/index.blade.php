@@ -26,15 +26,7 @@
                     <div class="col-sm-12">
                         <div class="card-box">
                             @include('layouts.components.alerts')
-                            <div class="row">
-                                <div class="col-lg-6 m-b-10 pull-right">
-                                    <div class="fixed-table-toolbar">
-                                        <div class="search">
-                                            <input class="form-control" type="text" placeholder="{{ __('Localizar') }}">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="table-responsive">
