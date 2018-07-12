@@ -63,6 +63,12 @@
                         </ul>
                     </li>
                 @endif
+
+                <li>
+                    <a href="{{ route('web.report.index') }}" class="waves-effect">
+                        <i class="ti-bar-chart"></i><span> {{ __('Gráficos') }} </span>
+                    </a>
+                </li>
             </ul>
             <div class="clearfix"></div>
         </div>

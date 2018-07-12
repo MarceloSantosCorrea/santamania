@@ -18,6 +18,24 @@ class Production extends Model
         return $c->toW3cString();
     }
 
+    public function search(string $string)
+    {
+        $date = \DateTime::createFromFormat('d/m/Y', $string);
+
+        $qb = $this->with('product');
+
+        if ($date)
+            $qb->where('date', $date->format('Y-m-d'));
+        else
+            $qb->where('id', $string)
+                ->orWhere('quantity', 'like', '%' . $string . '%')
+                ->orWhereHas('product', function ($query) use ($string) {
+                    $query->where('name', 'like', '%' . $string . '%');
+                });
+
+        return $qb;
+    }
+
     public function product()
     {
         return $this->belongsTo(Product::class);

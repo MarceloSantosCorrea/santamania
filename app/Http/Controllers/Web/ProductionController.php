@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Requests\ProductionRequest;
 use App\Models\Product;
 use App\Models\Production;
+use Illuminate\Http\Request;
 
 class ProductionController extends AbstractController
 {
@@ -13,12 +14,15 @@ class ProductionController extends AbstractController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         if (\Gate::allows('list_productions')) {
-            $data = Production::with(['product'])
-                ->orderBy('id', 'desc')
-                ->paginate(30);
+
+            $params = $request->all();
+            if (isset($params['search']))
+                $data = (new Production)->search($params['search'])->orderBy('id', 'desc')->paginate(30);
+            else
+                $data = Production::with(['product'])->orderBy('id', 'desc')->paginate(30);
 
             return view('pages.production.index', compact('data'));
         }
@@ -110,7 +114,8 @@ class ProductionController extends AbstractController
      * Remove the specified resource from storage.
      *
      * @param Production $production
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * @throws \Exception
      */
     public function destroy(Production $production)
     {

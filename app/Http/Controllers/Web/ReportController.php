@@ -27,11 +27,14 @@ class ReportController extends Controller
 
                 $productModel = Product::find($dataPost['product_id']);
 
+                $date_start = isset($dataPost['date_start']) ? date('Y-m-d', strtotime($dataPost['date_start'] . '-1day')) : date('Y-m-d', strtotime(date('Y-m-01') . '-1day'));
+                $date_end   = isset($dataPost['date_end']) ? date('Y-m-d', strtotime($dataPost['date_end'] . '+1day')) : date('Y-m-d', strtotime(date('Y-m-d') . '+1day'));
+
                 $rows = \DB::table('checklist_products')
                     ->join('checklists', 'checklists.id', '=', 'checklist_products.checklist_id')
                     ->join('checklist_totals', 'checklist_products.id', '=', 'checklist_totals.checklist_product_id')
                     ->where('checklist_products.product_id', $dataPost['product_id'])
-                    ->whereBetween('checklists.date', [isset($dataPost['date_start']) ? $dataPost['date_start'] : '2018-05-01', isset($dataPost['date_end']) ? $dataPost['date_end'] : date('Y-m-d')])
+                    ->whereBetween('checklists.date', [$date_start, $date_end])
                     ->get();
 
                 if ($rows->count()) {
@@ -64,9 +67,14 @@ class ReportController extends Controller
 
                 $productModel = Product::find($dataPost['product_id']);
 
+                $date_start = isset($dataPost['date_start']) ? $dataPost['date_start'] : date('Y-m-01');
+                $date_end   = isset($dataPost['date_end']) ? $dataPost['date_end'] : date('Y-m-d');
+
                 $rows = \DB::table('productions')->where('productions.product_id', $dataPost['product_id'])
-                    ->whereBetween('productions.date', [isset($dataPost['date_start']) ? $dataPost['date_start'] : '2018-05-01', isset($dataPost['date_end']) ? $dataPost['date_end'] : date('Y-m-d')])
+                    ->whereBetween('productions.date', [$date_start, $date_end])
+                    //->toSql();
                     ->get();
+
 
                 if ($rows->count()) {
                     foreach ($rows as $row) {

@@ -13,6 +13,14 @@ class Checklist extends Model
         'date', 'status',
     ];
 
+    public function search(string $string)
+    {
+        $date = \DateTime::createFromFormat('d/m/Y', $string);
+
+        if ($date)
+            return $this->where('date', $date->format('Y-m-d'));
+    }
+
     public function checklistProduct()
     {
         return $this->hasMany(ChecklistProduct::class)->with(['product']);

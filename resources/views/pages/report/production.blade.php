@@ -120,10 +120,8 @@
                         labels           : labels,
                         xLabelAngle      : 45,
                         xLabelFormat     : function (d) {
-
                             var date = new Date(d.src.y);
-
-                            return ("0" + (date.getDate())).slice(-2) + '-' + ("0" + (date.getMonth() + 1)).slice(-2);
+                            return ("0" + (date.getDate())).slice(-2) + '/' + ("0" + (date.getMonth() + 1)).slice(-2) + '/' + date.getFullYear();
                         },
                         hideHover        : 'auto',
                         pointFillColors  : Pfillcolor,

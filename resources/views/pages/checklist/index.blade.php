@@ -34,7 +34,9 @@
                                 <div class="col-lg-6 m-b-10 pull-right">
                                     <div class="fixed-table-toolbar">
                                         <div class="search">
-                                            <input class="form-control" type="text" placeholder="Localizar">
+                                            <form method="get">
+                                                <input class="form-control" name="search" type="text" placeholder="Localizar">
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
@@ -58,7 +60,7 @@
                                         </table>
                                     </div>
                                     <div class="fixed-table-pagination text-center">
-                                        {{$data->links()}}
+                                        {{$data->appends(Request::only('search'))->links()}}
                                     </div>
                                 </div>
                             </div>

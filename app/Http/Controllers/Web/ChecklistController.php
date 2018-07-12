@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Requests\ChecklistRequest;
 use App\Models\Checklist;
 use App\Models\Product;
+use Illuminate\Http\Request;
 
 class ChecklistController extends AbstractController
 {
@@ -13,10 +14,15 @@ class ChecklistController extends AbstractController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         if (\Gate::allows('list_checklists')) {
-            $data = Checklist::orderBy('date', 'desc')->paginate();
+
+            $params = $request->all();
+            if (isset($params['search']))
+                $data = (new Checklist)->search($params['search'])->orderBy('date', 'desc')->paginate(30);
+            else
+                $data = Checklist::orderBy('date', 'desc')->paginate();
 
             return view('pages.checklist.index', compact('data'));
         }

@@ -5,6 +5,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta name="description" content="A fully featured admin theme which can be used to build CRM, CMS, etc.">
         <meta name="author" content="Coderthemes">
+
+        <!-- CSRF Token -->
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+
         <link rel="shortcut icon" href="{{ asset('assets/images/favicon_1.ico') }}">
         <title>Santa Mania Checklist - @yield('title')</title>
 
@@ -24,7 +28,7 @@
         <script src="{{ asset('assets/js/modernizr.min.js') }}"></script>
     </head>
     <body class="fixed-left">
-        <div id="wrapper">
+        <div id="app">
             @include('layouts.components.topbar')
             @include('layouts.components.side-menu')
             @yield('content')
@@ -33,6 +37,8 @@
         <script>
             var resizefunc = [];
         </script>
+        <!-- Scripts -->
+        <script src="{{ asset('js/app.js') }}"></script>
         <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
         <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
         <script src="{{ asset('assets/js/detect.js') }}"></script>

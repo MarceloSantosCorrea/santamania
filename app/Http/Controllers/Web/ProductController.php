@@ -19,9 +19,11 @@ class ProductController extends AbstractController
     {
         if (\Gate::allows('list_products')) {
 
-            $data = Product::with([
-                'productCategory',
-            ])->paginate(10);
+            $params = $request->all();
+            if (isset($params['search']))
+                $data = (new Product)->search($params['search'])->paginate(30);
+            else
+                $data = Product::with(['productCategory'])->paginate(10);
 
             return view('pages.product.index', compact('data'));
         }
