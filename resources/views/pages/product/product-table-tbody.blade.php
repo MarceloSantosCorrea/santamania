@@ -8,6 +8,13 @@
             <td>{{ getStatus($item->active) }}</td>
             <td class="text-right">
 
+                <a href="{{ route('web.product-days.index', $item) }}"
+                   class="btn btn-warning btn-sm tooltips"
+                   data-toggle="tooltip" data-placement="top"
+                   title="Saídas diárias">
+                    <i class="fa fa-list"></i>
+                </a>
+
                 <a href="{{ route('web.product.edit', $item) }}"
                    class="btn btn-primary btn-sm tooltips"
                    data-toggle="tooltip" data-placement="top"
