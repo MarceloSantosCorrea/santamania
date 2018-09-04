@@ -18,7 +18,7 @@ class ChecklistProduct extends Model
 
     public function product()
     {
-        return $this->belongsTo(Product::class)->with('unitsMeasure');
+        return $this->belongsTo(Product::class)->with(['unitsMeasure', 'prevision']);
     }
 
     public function quantities()

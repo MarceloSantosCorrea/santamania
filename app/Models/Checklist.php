@@ -79,9 +79,10 @@ class Checklist extends Model
                  * Verificando se todos os produtos foram contados
                  */
                 $checklistProductCount = $checklist->checklistProduct()->count();
-                $productsCount         = Product::where(['active' => 1])->count();
 
-                if ((!count($checklistProductCount)) || ($checklistProductCount < $productsCount)) {
+                $productsCount = Product::where(['active' => 1])->count();
+
+                if (($checklistProductCount == 0) || ($checklistProductCount < $productsCount)) {
                     return [
                         'success' => false,
                         'message' => ($checklistProductCount < $productsCount) . ' produto(s) não foi(ram) verificado(s).',
@@ -104,10 +105,6 @@ class Checklist extends Model
                  * Manipulando todos os produtos ativos
                  */
                 foreach ($checklist->checklistProduct as $checklistProduct) {
-
-                    //if ($checklistProduct->product_id != 20) continue;
-                    //$feriados = new Feriados();
-                    //dd($feriados->getArrayFeriados());
 
                     /*
                      * Verificando e retornando se houve produção do produto na data do checklist
@@ -161,7 +158,6 @@ class Checklist extends Model
                          */
                         if ($totalAnterior > 0)
                             $difference = $totalAnterior - $checklistProduct->total;
-
                     }
 
                     /**
@@ -243,11 +239,51 @@ class Checklist extends Model
                         'checklist_id'         => $data['checklist_id'],
                         'checklist_product_id' => $data['checklist_product_id'],
                     ])->first();
+
                     if ($checklistTotal) {
                         $checklistTotal->fill($data);
                         $checklistTotal->save();
                     } else {
                         ChecklistTotal::updateOrCreate($data);
+                    }
+
+                    //**************************************************************************************************
+                    //* CALCULAR A PREVISÃO DE TÉRMINO DO PRODUTO
+                    //**************************************************************************************************
+                    // Recuperar valor total
+                    // Recuperar a data do dia seguinte
+                    // Recuperar o numero do dia em php
+                    // saber se é 0 1 2 na tabela dos dias
+                    // recuperar a quantidade de saida desse dia
+                    // subtrair o valor total pelo valor de saida
+                    // se resultado for > 0 repetir loop ou gravar no banco de dados a data que faltará
+
+                    $valorRestante  = $checklistTotal->total;
+                    $prevision_date = (new \DateTime($checklist->date))->format('Y-m-d');
+                    do {
+
+                        $prevision_date = (new \DateTime(date('Y-m-d', strtotime($prevision_date . "+1 days"))))->format('Y-m-d');
+
+                        $numeroSemana = date('w', strtotime($prevision_date));
+
+                        if (in_array((new \DateTime($prevision_date))->format('m-d'), $diasFeriados)) {
+                            $numeroSemana = 6; // sábados e feriados
+                        }
+
+                        $diasDaSemana = getKeyDaysOfTheWeek($numeroSemana);
+
+                        $valorRestante -= $productDailyChecklistDays[$diasDaSemana];
+
+                    } while ($valorRestante > 0);
+
+                    if ($prevision = Prevision::where(["product_id" => $checklistProduct->product->id])->first()) {
+                        $prevision->fill(["prevision_date" => $prevision_date]);
+                        $prevision->save();
+                    } else {
+                        Prevision::create([
+                            "product_id"     => $checklistProduct->product->id,
+                            "prevision_date" => $prevision_date,
+                        ]);
                     }
                 }
 
@@ -258,7 +294,6 @@ class Checklist extends Model
                     'success' => true,
                     'message' => 'Checklist finalizado com sucesso.',
                 ];
-
             });
         }
 

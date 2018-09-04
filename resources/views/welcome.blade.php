@@ -80,6 +80,9 @@
                                             <th class="text-center" style="width: 60px">
                                                 <small>{{ __('Atual') }}</small>
                                             </th>
+                                            <th class="text-center" style="width: 100px">
+                                                <small>{{ __('Prev. Término') }}</small>
+                                            </th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -88,6 +91,9 @@
                                                 <tr>
                                                     <th class="text-nowrap" scope="row">{{ $checklistProduct->product->name }}</th>
                                                     <td class="text-center">{{ $checklistProduct->total }}</td>
+                                                    <td class="text-center">
+                                                        {{ $checklistProduct->product->prevision ? \Carbon\Carbon::parse($checklistProduct->product->prevision->prevision_date)->format('d/m/Y'): null }}
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         @endif

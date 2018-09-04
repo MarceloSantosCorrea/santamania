@@ -160,6 +160,14 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\Prevision
+ *
+ */
+	class Prevision extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Product
  *
  * @property int $id

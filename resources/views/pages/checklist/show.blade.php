@@ -72,8 +72,8 @@
                                                 @if($products)
                                                     @foreach($products as $product)
                                                         <?php
-                                                        $total = count($product->checklistProduct) ? $product->checklistProduct->total : 0;
-                                                        $alterado = count($product->checklistProduct) ? true : false;
+                                                        $total = $product->checklistProduct ? $product->checklistProduct->total : 0;
+                                                        $alterado = $product->checklistProduct ? true : false;
                                                         ?>
                                                         <tr>
                                                             <td>{{ $product->name }}</td>

@@ -64,6 +64,11 @@ class Product extends Model
         return $this->belongsTo(UnitsMeasure::class);
     }
 
+    public function prevision()
+    {
+        return $this->belongsTo(Prevision::class, 'id', 'product_id');
+    }
+
     public function getCreatedAtAttribute($value)
     {
         $c = Carbon::createFromFormat('Y-m-d H:i:s', $value);
