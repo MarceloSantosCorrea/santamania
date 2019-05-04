@@ -31,12 +31,12 @@ class ChecklistProductObserver
                 foreach ($quantities as $quantity) {
 
                     $checklistWarehouseQuantity = ChecklistWarehouseQuantity::where([
-                        'warehouse_id'         => $quantity['warehouse_id'],
-                        'checklist_product_id' => $checklistProduct->id,
+                        "warehouse_id"         => $quantity['warehouse_id'],
+                        "checklist_product_id" => $checklistProduct->id,
                     ])->first();
 
                     $checklistWarehouseQuantity->update([
-                        'quantity' => $quantity['quantity'],
+                        "quantity" => $quantity['quantity'],
                     ]);
                 }
             }

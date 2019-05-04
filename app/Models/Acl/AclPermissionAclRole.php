@@ -10,7 +10,7 @@ class AclPermissionAclRole extends Model
     protected $table      = 'acl_permission_acl_role';
     public    $timestamps = false;
     protected $fillable   = [
-        'acl_permission_id', 'acl_role_id',
+        "acl_permission_id", "acl_role_id",
     ];
 
 

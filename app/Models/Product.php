@@ -9,10 +9,10 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $dispatchesEvents = [
-        'created' => ProductCreatedEvent::class,
+        "created" => ProductCreatedEvent::class,
     ];
     protected $fillable         = [
-        'name', 'active', 'product_category_id', 'units_measure_id',
+        "name", "active", "product_category_id", "units_measure_id",
     ];
 
     public function search(string $string)
@@ -37,7 +37,7 @@ class Product extends Model
 
     public function checklistProduct()
     {
-        return $this->hasOne(ChecklistProduct::class)->with(['checklist']);
+        return $this->hasOne(ChecklistProduct::class)->with(["checklist"]);
     }
 
     public function productDailyChecklist()
@@ -47,8 +47,8 @@ class Product extends Model
 
     public static function productsByChecklist(Checklist $checklist)
     {
-        return self::where(['active' => 1])
-            ->with(['checklistProduct' => function ($query) use ($checklist) {
+        return self::where(["active" => 1])
+            ->with(["checklistProduct" => function ($query) use ($checklist) {
                 $query->where('checklist_id', $checklist->id);
             }])
             ->get();

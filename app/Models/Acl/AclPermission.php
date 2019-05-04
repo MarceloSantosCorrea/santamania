@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class AclPermission extends Model
 {
     protected $fillable = [
-        'name', 'label',
+        "name", "label",
     ];
 
     public function roles()
