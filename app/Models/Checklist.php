@@ -244,7 +244,7 @@ class Checklist extends Model
                         $checklistTotal->fill($data);
                         $checklistTotal->save();
                     } else {
-                        ChecklistTotal::updateOrCreate($data);
+                        $checklistTotal = ChecklistTotal::updateOrCreate($data);
                     }
 
                     //**************************************************************************************************
