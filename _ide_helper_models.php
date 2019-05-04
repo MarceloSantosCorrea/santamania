@@ -1,4 +1,6 @@
 <?php
+
+// @formatter:off
 /**
  * A helper file for your Eloquent Models
  * Copy the phpDocs from this file to the correct Model,
@@ -15,8 +17,8 @@ namespace App\Models\Acl{
  * @property int $id
  * @property string $name
  * @property string $label
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Acl\AclRole[] $roles
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Acl\AclPermission whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Acl\AclPermission whereId($value)
@@ -46,8 +48,8 @@ namespace App\Models\Acl{
  * @property int $id
  * @property string $name
  * @property string $label
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Acl\AclRole whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Acl\AclRole whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Acl\AclRole whereLabel($value)
@@ -76,8 +78,8 @@ namespace App\Models{
  * @property int $id
  * @property string $date
  * @property int $status
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ChecklistProduct[] $checklistProduct
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ChecklistTotal[] $checklistTotals
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Checklist whereCreatedAt($value)
@@ -98,8 +100,8 @@ namespace App\Models{
  * @property int $product_id
  * @property float|null $total
  * @property \Illuminate\Database\Eloquent\Collection|\App\Models\ChecklistWarehouseQuantity[] $quantities
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Checklist $checklist
  * @property-read \App\Models\ChecklistTotal $checklist_tatals
  * @property-read \App\Models\Product $product
@@ -123,8 +125,8 @@ namespace App\Models{
  * @property int $checklist_product_id
  * @property float $total
  * @property float $difference
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Checklist $checklist
  * @property-read \App\Models\ChecklistProduct $checklistProduct
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChecklistTotal whereChecklistId($value)
@@ -146,8 +148,8 @@ namespace App\Models{
  * @property int $warehouse_id
  * @property int $checklist_product_id
  * @property float $quantity
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChecklistWarehouseQuantity whereChecklistProductId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChecklistWarehouseQuantity whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChecklistWarehouseQuantity whereId($value)
@@ -162,6 +164,16 @@ namespace App\Models{
 /**
  * App\Models\Prevision
  *
+ * @property int $id
+ * @property int $product_id
+ * @property string $prevision_date
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Prevision whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Prevision whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Prevision wherePrevisionDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Prevision whereProductId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Prevision whereUpdatedAt($value)
  */
 	class Prevision extends \Eloquent {}
 }
@@ -175,9 +187,10 @@ namespace App\Models{
  * @property int $active
  * @property int $product_category_id
  * @property int $units_measure_id
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\ChecklistProduct $checklistProduct
+ * @property-read \App\Models\Prevision $prevision
  * @property-read \App\Models\ProductCategory $productCategory
  * @property-read \App\Models\ProductDailyChecklist $productDailyChecklist
  * @property-read \App\Models\UnitsMeasure $unitsMeasure
@@ -199,8 +212,8 @@ namespace App\Models{
  * @property int $id
  * @property string $name
  * @property int $active
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Product[] $product
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductCategory whereActive($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductCategory whereCreatedAt($value)
@@ -226,8 +239,8 @@ namespace App\Models{
  * @property int $id
  * @property int $product_id
  * @property string|null $days
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Product $product
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductDailyChecklist whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductDailyChecklist whereDays($value)
@@ -246,8 +259,8 @@ namespace App\Models{
  * @property string $date
  * @property float $quantity
  * @property int $product_id
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Product $product
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Production whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Production whereDate($value)
@@ -267,8 +280,8 @@ namespace App\Models{
  * @property int $product_id
  * @property string|null $description
  * @property int $status
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Product $product
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Task whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Task whereDescription($value)
@@ -287,8 +300,8 @@ namespace App\Models{
  * @property int $id
  * @property string $name
  * @property string $symbol
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UnitsMeasure whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UnitsMeasure whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UnitsMeasure whereName($value)
@@ -310,8 +323,8 @@ namespace App\Models{
  * @property string $password
  * @property int $active
  * @property string|null $remember_token
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Client[] $clients
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Acl\AclRole[] $roles
@@ -337,8 +350,8 @@ namespace App\Models{
  * @property int $id
  * @property string $name
  * @property int $active
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\ChecklistWarehouseQuantity $checklistWarehouseQuantities
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Warehouse whereActive($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Warehouse whereCreatedAt($value)
