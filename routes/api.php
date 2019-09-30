@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 Route::prefix('v1')->middleware('auth:api')->group(function () {
 
-    $this->get('/home', 'Api\\IndexController@index')->name('api.home');
+    Route::get('/home', 'Api\\IndexController@index')->name('api.home');
 
     Route::apiResources([
         '/product-category'             => 'Api\\ProductCategoryController',
