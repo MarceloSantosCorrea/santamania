@@ -29,7 +29,9 @@ class ChecklistRequest extends FormRequest
                 $this->merge(['active' => $this->input('active', '0')]);
 
                 return [
-                    'date' => 'required|unique:checklists',
+                    'date'       => 'required',
+                    'time_start' => 'required',
+                    'time_end'   => 'required',
                 ];
 
                 break;
@@ -41,7 +43,9 @@ class ChecklistRequest extends FormRequest
                 $this->merge(['active' => $this->input('active', '0')]);
 
                 return [
-                    "date" => "required|unique:checklists,date,".$id,
+                    "date"       => "required",
+                    'time_start' => 'required',
+                    'time_end'   => 'required',
                 ];
                 break;
 

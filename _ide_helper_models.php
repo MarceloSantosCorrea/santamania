@@ -287,6 +287,17 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\Filter
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Filter newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Filter newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Filter query()
+ */
+	class Filter extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Warehouse
  *
  * @property int $id
@@ -313,6 +324,8 @@ namespace App\Models{
  *
  * @property int $id
  * @property string $date
+ * @property string $time_end
+ * @property string $time_start
  * @property int $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -327,6 +340,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Checklist whereDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Checklist whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Checklist whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Checklist whereTimeEnd($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Checklist whereTimeStart($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Checklist whereUpdatedAt($value)
  */
 	class Checklist extends \Eloquent {}

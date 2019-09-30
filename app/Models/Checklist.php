@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 class Checklist extends Model
 {
     protected $fillable = [
-        "date", "status",
+        'date', 'status', 'time_start', 'time_end',
     ];
 
     public function search(string $string)

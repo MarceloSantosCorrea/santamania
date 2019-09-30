@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Models\Checklist;
+use App\Models\Filter;
 use App\Models\ProductCategory;
 use App\Models\Task;
 use Auth;
@@ -11,6 +12,18 @@ class IndexController extends AbstractController
 {
     public function index()
     {
+        Filter::create([
+            'name'    => 'Filter 01',
+            'options' => [
+                'feriado'      => true,
+                'futebol'      => true,
+                'is_period'    => true,
+                'period_start' => '08:00:00',
+                'period_end'   => '08:00:00',
+            ],
+        ]);
+
+
         if (\Gate::allows('home')) {
 
             $categories = ProductCategory::with(['product'])->get();

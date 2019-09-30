@@ -27,7 +27,6 @@
                         <div class="card-box">
                             <div class="row">
                                 <div class="col-md-12">
-                                    @include('form._form_errors')
                                     <form class="form-horizontal" method="post" action="{{ route('web.checklist.store') }}">
                                         @include('pages.checklist._form')
                                     </form>
