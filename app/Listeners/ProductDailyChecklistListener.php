@@ -4,20 +4,9 @@ namespace App\Listeners;
 
 use App\Events\ProductCreatedEvent;
 use App\Models\ProductDailyChecklist;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class ProductDailyChecklistListener
 {
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-    }
-
     /**
      * Handle the event.
      *

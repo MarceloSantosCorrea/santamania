@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class UnitsMeasure extends Model
 {
     protected $fillable = [
-        'name', 'symbol',
+        "name", "symbol",
     ];
 
     public function getCreatedAtAttribute($value)

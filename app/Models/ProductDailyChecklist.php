@@ -9,7 +9,7 @@ class ProductDailyChecklist extends Model
 {
     protected $table    = 'product_daily_checklist';
     protected $fillable = [
-        'days', 'product_id',
+        "days", "product_id",
     ];
 
     public function product()

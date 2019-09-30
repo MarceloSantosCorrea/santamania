@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Warehouse extends Model
 {
     protected $fillable = [
-        'name', 'active',
+        "name", "active",
     ];
 
     public function checklistWarehouseQuantities()
@@ -18,8 +18,8 @@ class Warehouse extends Model
 
     public static function warehouseWithQuantities(ChecklistProduct $checklistProduct)
     {
-        return self::where(['active' => 1])
-            ->with(['checklistWarehouseQuantities' => function ($query) use ($checklistProduct) {
+        return self::where(["active" => 1])
+            ->with(["checklistWarehouseQuantities" => function ($query) use ($checklistProduct) {
                 $query->where('checklist_product_id', $checklistProduct->id);
             }])
             ->get();

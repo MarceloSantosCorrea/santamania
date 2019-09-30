@@ -29,15 +29,11 @@ Route::group(['middleware' => ['auth']], function () {
             });
 
             Route::group(['prefix' => 'checklist-product'], function () {
-                Route::get('/create/{checklist}/{product}',
-                    'ChecklistProductController@create')->name('checklist-product.create');
+                Route::get('/create/{checklist}/{product}', 'ChecklistProductController@create')->name('checklist-product.create');
                 Route::post('/store', 'ChecklistProductController@store')->name('checklist-product.store');
-                Route::get('/edit/{checklist}/{product}',
-                    'ChecklistProductController@edit')->name('checklist-product.edit');
-                Route::put('/update/{checklistProduct}',
-                    'ChecklistProductController@update')->name('checklist-product.update');
-                Route::get('/destroy/{checklist}/{product}',
-                    'ChecklistProductController@destroy')->name('checklist-product.destroy');
+                Route::get('/edit/{checklist}/{product}', 'ChecklistProductController@edit')->name('checklist-product.edit');
+                Route::put('/update/{checklistProduct}', 'ChecklistProductController@update')->name('checklist-product.update');
+                Route::get('/destroy/{checklist}/{product}', 'ChecklistProductController@destroy')->name('checklist-product.destroy');
             });
 
             Route::group(['prefix' => 'checklist'], function () {
@@ -60,8 +56,7 @@ Route::group(['middleware' => ['auth']], function () {
             });
 
             Route::group(['prefix' => 'product'], function () {
-                Route::get('/',
-                    'ProductController@index')->name('product.index'); //->middleware('can:list_products'); //
+                Route::get('/', 'ProductController@index')->name('product.index'); //->middleware('can:list_products'); //
                 Route::get('/create', 'ProductController@create')->name('product.create');
                 Route::post('/store', 'ProductController@store')->name('product.store');
                 Route::get('/edit/{product}', 'ProductController@edit')->name('product.edit');
@@ -74,10 +69,8 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/create', 'ProductCategoryController@create')->name('product-category.create');
                 Route::post('/store', 'ProductCategoryController@store')->name('product-category.store');
                 Route::get('/edit/{product_category}', 'ProductCategoryController@edit')->name('product-category.edit');
-                Route::put('/update/{product_category}',
-                    'ProductCategoryController@update')->name('product-category.update');
-                Route::get('/destroy/{product_category}',
-                    'ProductCategoryController@destroy')->name('product-category.destroy');
+                Route::put('/update/{product_category}', 'ProductCategoryController@update')->name('product-category.update');
+                Route::get('/destroy/{product_category}', 'ProductCategoryController@destroy')->name('product-category.destroy');
             });
 
             Route::group(['prefix' => 'product-days'], function () {
@@ -136,17 +129,13 @@ Route::group(['middleware' => ['auth']], function () {
                     Route::get('/create', 'AclPermissionController@create')->name('acl.permission.create');
                     Route::post('/store', 'AclPermissionController@store')->name('acl.permission.store');
                     Route::get('/edit/{acl_permission}', 'AclPermissionController@edit')->name('acl.permission.edit');
-                    Route::put('/update/{acl_permission}',
-                        'AclPermissionController@update')->name('acl.permission.update');
-                    Route::get('/destroy/{acl_permission}',
-                        'AclPermissionController@destroy')->name('acl.permission.destroy');
+                    Route::put('/update/{acl_permission}', 'AclPermissionController@update')->name('acl.permission.update');
+                    Route::get('/destroy/{acl_permission}', 'AclPermissionController@destroy')->name('acl.permission.destroy');
                 });
 
                 Route::group(['prefix' => 'permissions-role'], function () {
-                    Route::get('/show/{acl_role}',
-                        'AclPermissionRoleController@show')->name('acl.permission.role.show');
-                    Route::put('/update/{acl_role}',
-                        'AclPermissionRoleController@update')->name('acl.permission.role.update');
+                    Route::get('/show/{acl_role}', 'AclPermissionRoleController@show')->name('acl.permission.role.show');
+                    Route::put('/update/{acl_role}', 'AclPermissionRoleController@update')->name('acl.permission.role.update');
                 });
             });
         });

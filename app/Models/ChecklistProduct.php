@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ChecklistProduct extends Model
 {
     protected $fillable = [
-        'checklist_id', 'product_id', 'quantities', 'total',
+        "checklist_id", "product_id", "quantities", "total",
     ];
 
     public function checklist()
@@ -18,7 +18,7 @@ class ChecklistProduct extends Model
 
     public function product()
     {
-        return $this->belongsTo(Product::class)->with(['unitsMeasure', 'prevision']);
+        return $this->belongsTo(Product::class)->with(["unitsMeasure", "prevision"]);
     }
 
     public function quantities()
