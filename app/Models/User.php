@@ -32,6 +32,15 @@ class User extends Authenticatable
         "password", "remember_token",
     ];
 
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
     public function roles()
     {
         return $this->belongsToMany(AclRole::class);
@@ -46,8 +55,9 @@ class User extends Authenticatable
     {
         if (is_array($roles) || is_object($roles)) {
             foreach ($roles as $role) {
-                if ($this->roles->contains('name', $role->name))
+                if ($this->roles->contains('name', $role->name)) {
                     return true;
+                }
             }
 
             return false;
@@ -58,8 +68,9 @@ class User extends Authenticatable
 
     public function setPasswordAttribute($password)
     {
-        if (Hash::needsRehash($password))
+        if (Hash::needsRehash($password)) {
             $password = Hash::make($password);
+        }
 
         $this->attributes['password'] = $password;
     }

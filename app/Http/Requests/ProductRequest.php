@@ -38,7 +38,7 @@ class ProductRequest extends FormRequest
                 $this->merge(['active' => $this->input('active', '0')]);
 
                 return [
-                    "name" => "required|unique:products,name," . $id,
+                    "name" => "required|unique:products,name,".$id,
                 ];
         }
     }

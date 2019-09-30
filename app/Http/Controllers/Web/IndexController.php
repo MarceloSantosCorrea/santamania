@@ -16,7 +16,7 @@ class IndexController extends AbstractController
             $categories = ProductCategory::with(['product'])->get();
 
             $checklistPreview = Checklist::where('status', 0)
-                ->orderBy('date', 'desc')->with(['checklistProduct'])->first();
+                                         ->orderBy('date', 'desc')->with(['checklistProduct'])->first();
 
             $tasks = Task::where(['status' => 1])->with(['product'])->get();
 

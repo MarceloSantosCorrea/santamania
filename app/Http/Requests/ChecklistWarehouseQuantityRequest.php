@@ -32,7 +32,7 @@ class ChecklistWarehouseQuantityRequest extends FormRequest
                 $warehouse = $this->route('warehouse');
 
                 return [
-                    "name" => "required|min:3|unique:warehouses,name," . $warehouse,
+                    "name" => "required|min:3|unique:warehouses,name,".$warehouse,
                 ];
         }
     }

@@ -47,7 +47,8 @@ class UserController extends AbstractController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(UserRequest $request)
@@ -79,7 +80,8 @@ class UserController extends AbstractController
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param  int  $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -95,7 +97,8 @@ class UserController extends AbstractController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param  int  $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(User $user)
@@ -114,8 +117,9 @@ class UserController extends AbstractController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(UserRequest $request, User $user)
@@ -155,16 +159,18 @@ class UserController extends AbstractController
     /**
      * Remove the specified resource from storage.
      *
-     * @param User $user
+     * @param  User  $user
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(User $user)
     {
         if (\Gate::allows('delete_users')) {
-            if ($user->delete())
+            if ($user->delete()) {
                 return redirect()
                     ->route('web.user.index')
                     ->with('success', 'Deletado com sucesso');
+            }
 
             return redirect()
                 ->route('web.user.index')
@@ -186,10 +192,11 @@ class UserController extends AbstractController
         $user = User::find(auth()->user()->id);
 
         $data = $request->all();
-        if (is_null($data['password']))
+        if (is_null($data['password'])) {
             unset($data['password']);
-        else
+        } else {
             $data['password'] = bcrypt($data['password']);
+        }
 
         $user->fill($request->all());
 

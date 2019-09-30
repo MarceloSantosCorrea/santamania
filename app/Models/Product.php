@@ -19,18 +19,17 @@ class Product extends Model
     {
         $qb = $this->with('productCategory');
 
-        if (strtolower($string) == 'ativo')
+        if (strtolower($string) == 'ativo') {
             $qb->where('active', 1);
-
-        else if (strtolower($string) == 'desativado')
+        } elseif (strtolower($string) == 'desativado') {
             $qb->where('active', 0);
-
-        else
+        } else {
             $qb->where('id', $string)
-                ->orWhere('name', 'like', '%' . $string . '%')
-                ->orWhereHas('productCategory', function ($query) use ($string) {
-                    $query->where('name', 'like', '%' . $string . '%');
-                });
+               ->orWhere('name', 'like', '%'.$string.'%')
+               ->orWhereHas('productCategory', function ($query) use ($string) {
+                   $query->where('name', 'like', '%'.$string.'%');
+               });
+        }
 
         return $qb;
     }
@@ -48,10 +47,12 @@ class Product extends Model
     public static function productsByChecklist(Checklist $checklist)
     {
         return self::where(["active" => 1])
-            ->with(["checklistProduct" => function ($query) use ($checklist) {
-                $query->where('checklist_id', $checklist->id);
-            }])
-            ->get();
+                   ->with([
+                       "checklistProduct" => function ($query) use ($checklist) {
+                           $query->where('checklist_id', $checklist->id);
+                       },
+                   ])
+                   ->get();
     }
 
     public function productCategory()

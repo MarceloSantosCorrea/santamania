@@ -43,7 +43,7 @@ class UserRequest extends FormRequest
                 return [
                     'firstname' => 'required|min:3',
                     'lastname'  => 'required|min:3',
-                    "email"     => "required|unique:users,email," . $id,
+                    "email"     => "required|unique:users,email,".$id,
                 ];
         }
     }

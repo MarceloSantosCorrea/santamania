@@ -40,7 +40,8 @@ class ProductCategoryController extends AbstractController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(ProductCategoryRequest $request)
@@ -57,7 +58,8 @@ class ProductCategoryController extends AbstractController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param  int  $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(ProductCategory $productCategory)
@@ -72,8 +74,9 @@ class ProductCategoryController extends AbstractController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(ProductCategoryRequest $request, ProductCategory $productCategory)
@@ -81,10 +84,11 @@ class ProductCategoryController extends AbstractController
         if (\Gate::allows('edit_product_categories')) {
             $productCategory->fill($request->all());
 
-            if ($productCategory->save())
+            if ($productCategory->save()) {
                 return redirect()
                     ->route('web.product-category.index')
                     ->with('success', 'Salvo com sucesso');
+            }
 
             return redirect()
                 ->route('web.product-category.index')
@@ -97,17 +101,19 @@ class ProductCategoryController extends AbstractController
     /**
      * Remove the specified resource from storage.
      *
-     * @param ProductCategory $productCategory
+     * @param  ProductCategory  $productCategory
+     *
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
     public function destroy(ProductCategory $productCategory)
     {
         if (\Gate::allows('delete_product_categories')) {
-            if ($productCategory->delete())
+            if ($productCategory->delete()) {
                 return redirect()
                     ->route('web.product-category.index')
                     ->with('success', 'Deletado com sucesso');
+            }
 
             return redirect()
                 ->route('web.product-category.index')

@@ -19,10 +19,11 @@ class ProductionController extends AbstractController
         if (\Gate::allows('list_productions')) {
 
             $params = $request->all();
-            if (isset($params['search']))
+            if (isset($params['search'])) {
                 $data = (new Production)->search($params['search'])->orderBy('id', 'desc')->paginate(30);
-            else
+            } else {
                 $data = Production::with(['product'])->orderBy('id', 'desc')->paginate(30);
+            }
 
             return view('pages.production.index', compact('data'));
         }
@@ -49,16 +50,18 @@ class ProductionController extends AbstractController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(ProductionRequest $request)
     {
         if (\Gate::allows('create_productions')) {
-            if (Production::create($request->all()))
+            if (Production::create($request->all())) {
                 return redirect()
                     ->route('web.production.index')
                     ->with('success', 'Salvo com sucesso');
+            }
 
             return redirect()
                 ->route('web.production.index')
@@ -71,7 +74,8 @@ class ProductionController extends AbstractController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param  int  $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Production $production)
@@ -88,8 +92,9 @@ class ProductionController extends AbstractController
     /**
      * Update the specified resource in storage.
      *
-     * @param ProductionRequest $request
-     * @param Production $production
+     * @param  ProductionRequest  $request
+     * @param  Production  $production
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(ProductionRequest $request, Production $production)
@@ -97,10 +102,11 @@ class ProductionController extends AbstractController
         if (\Gate::allows('edit_productions')) {
             $production->fill($request->all());
 
-            if ($production->save())
+            if ($production->save()) {
                 return redirect()
                     ->route('web.production.index')
                     ->with('success', 'Salvo com sucesso');
+            }
 
             return redirect()
                 ->route('web.production.index')
@@ -113,17 +119,19 @@ class ProductionController extends AbstractController
     /**
      * Remove the specified resource from storage.
      *
-     * @param Production $production
+     * @param  Production  $production
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      * @throws \Exception
      */
     public function destroy(Production $production)
     {
         if (\Gate::allows('delete_productions')) {
-            if ($production->delete())
+            if ($production->delete()) {
                 return redirect()
                     ->route('web.production.index')
                     ->with('success', 'Deletado com sucesso');
+            }
 
             return redirect()
                 ->route('web.production.index')

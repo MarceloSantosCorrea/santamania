@@ -37,7 +37,7 @@ class ProductCategoryRequest extends FormRequest
                 $this->merge(['active' => $this->input('active', '0')]);
 
                 return [
-                    'name' => 'required|unique:product_categories,name,' . $id,
+                    'name' => 'required|unique:product_categories,name,'.$id,
                 ];
         }
     }

@@ -40,16 +40,18 @@ class WarehouseController extends AbstractController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(WarehouseRequest $request)
     {
         if (\Gate::allows('create_warehouses')) {
-            if (Warehouse::create($request->all()))
+            if (Warehouse::create($request->all())) {
                 return redirect()
                     ->route('web.warehouse.index')
                     ->with('success', 'Salvo com sucesso');
+            }
 
             return redirect()
                 ->route('web.warehouse.index')
@@ -62,7 +64,8 @@ class WarehouseController extends AbstractController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param  int  $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Warehouse $warehouse)
@@ -77,8 +80,9 @@ class WarehouseController extends AbstractController
     /**
      * Update the specified resource in storage.
      *
-     * @param WarehouseRequest $request
-     * @param Warehouse $warehouse
+     * @param  WarehouseRequest  $request
+     * @param  Warehouse  $warehouse
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(WarehouseRequest $request, Warehouse $warehouse)
@@ -86,10 +90,11 @@ class WarehouseController extends AbstractController
         if (\Gate::allows('edit_warehouses')) {
             $warehouse->fill($request->all());
 
-            if ($warehouse->save())
+            if ($warehouse->save()) {
                 return redirect()
                     ->route('web.warehouse.index')
                     ->with('success', 'Salvo com sucesso');
+            }
 
             return redirect()
                 ->route('web.warehouse.index')
@@ -102,16 +107,18 @@ class WarehouseController extends AbstractController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param  int  $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Warehouse $warehouse)
     {
         if (\Gate::allows('delete_warehouses')) {
-            if ($warehouse->delete())
+            if ($warehouse->delete()) {
                 return redirect()
                     ->route('web.warehouse.index')
                     ->with('success', 'Deletado com sucesso');
+            }
 
             return redirect()
                 ->route('web.warehouse.index')

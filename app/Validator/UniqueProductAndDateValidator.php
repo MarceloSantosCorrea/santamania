@@ -16,8 +16,9 @@ class UniqueProductAndDateValidator implements ValidatorInterface
             $parameters[0] => $validator->getData()['product_id'],
         ]);
 
-        if (!is_null($id))
+        if (! is_null($id)) {
             $res->whereNotIn('id', [$id]);
+        }
 
         $result = $res->get();
 

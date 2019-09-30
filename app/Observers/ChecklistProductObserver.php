@@ -9,7 +9,7 @@ class ChecklistProductObserver
 {
     public function created(ChecklistProduct $checklistProduct)
     {
-        if (!is_null($checklistProduct->quantities)) {
+        if (! is_null($checklistProduct->quantities)) {
             $quantities = json_decode($checklistProduct->quantities, true);
 
             if (count($quantities)) {
@@ -23,7 +23,7 @@ class ChecklistProductObserver
 
     public function saved(ChecklistProduct $checklistProduct)
     {
-        if (!is_null($checklistProduct->quantities)) {
+        if (! is_null($checklistProduct->quantities)) {
             $quantities = json_decode($checklistProduct->quantities, true);
 
             if (count($quantities)) {

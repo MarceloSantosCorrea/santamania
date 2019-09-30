@@ -45,16 +45,18 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(TaskRequest $request)
     {
         if (\Gate::allows('create_tasks')) {
-            if (Task::create($request->all()))
+            if (Task::create($request->all())) {
                 return redirect()
                     ->route('web.task.index')
                     ->with('success', 'Salvo com sucesso');
+            }
 
             return redirect()
                 ->route('web.task.index')
@@ -67,7 +69,8 @@ class TaskController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Task $production
+     * @param  Task  $production
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Task $task)
@@ -84,8 +87,9 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param TaskRequest $request
-     * @param Task $task
+     * @param  TaskRequest  $request
+     * @param  Task  $task
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(TaskRequest $request, Task $task)
@@ -94,10 +98,11 @@ class TaskController extends Controller
 
             $task->fill($request->all());
 
-            if ($task->save())
+            if ($task->save()) {
                 return redirect()
                     ->route('web.task.index')
                     ->with('success', 'Salvo com sucesso');
+            }
 
             return redirect()
                 ->route('web.task.index')
@@ -110,8 +115,9 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param TaskRequest $request
-     * @param Task $task
+     * @param  TaskRequest  $request
+     * @param  Task  $task
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function finalize(Task $task)
@@ -119,10 +125,11 @@ class TaskController extends Controller
         if (\Gate::allows('finalize_tasks')) {
             $task->status = 0;
 
-            if ($task->save())
+            if ($task->save()) {
                 return redirect()
                     ->route('home')
                     ->with('success', 'Salvo com sucesso');
+            }
 
             return redirect()
                 ->route('home')
@@ -135,16 +142,18 @@ class TaskController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Task $task
+     * @param  Task  $task
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Task $task)
     {
         if (\Gate::allows('delete_tasks')) {
-            if ($task->delete())
+            if ($task->delete()) {
                 return redirect()
                     ->route('web.task.index')
                     ->with('success', 'Deletado com sucesso');
+            }
 
             return redirect()
                 ->route('web.task.index')

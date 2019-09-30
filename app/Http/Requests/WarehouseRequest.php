@@ -36,7 +36,7 @@ class WarehouseRequest extends FormRequest
                 $this->merge(['active' => $this->input('active', '0')]);
 
                 return [
-                    "name" => "required|min:3|unique:warehouses,name," . $id,
+                    "name" => "required|min:3|unique:warehouses,name,".$id,
                 ];
         }
     }

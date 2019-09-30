@@ -40,16 +40,18 @@ class UnitsMeasureController extends AbstractController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(UnitsMeasureRequest $request)
     {
         if (\Gate::allows('create_units_measures')) {
-            if (UnitsMeasure::create($request->all()))
+            if (UnitsMeasure::create($request->all())) {
                 return redirect()
                     ->route('web.units-measure.index')
                     ->with('success', 'Salvo com sucesso');
+            }
 
             return redirect()
                 ->route('web.units-measure.index')
@@ -62,7 +64,8 @@ class UnitsMeasureController extends AbstractController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param  int  $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(UnitsMeasure $unitsMeasure)
@@ -77,8 +80,9 @@ class UnitsMeasureController extends AbstractController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(UnitsMeasureRequest $request, UnitsMeasure $unitsMeasure)
@@ -86,10 +90,11 @@ class UnitsMeasureController extends AbstractController
         if (\Gate::allows('edit_units_measures')) {
             $unitsMeasure->fill($request->all());
 
-            if ($unitsMeasure->save())
+            if ($unitsMeasure->save()) {
                 return redirect()
                     ->route('web.units-measure.index')
                     ->with('success', 'Salvo com sucesso');
+            }
 
             return redirect()
                 ->route('web.units-measure.index')
@@ -102,17 +107,19 @@ class UnitsMeasureController extends AbstractController
     /**
      * Remove the specified resource from storage.
      *
-     * @param UnitsMeasure $unitsMeasure
+     * @param  UnitsMeasure  $unitsMeasure
+     *
      * @return UnitsMeasure
      * @throws \Exception
      */
     public function destroy(UnitsMeasure $unitsMeasure)
     {
         if (\Gate::allows('delete_units_measures')) {
-            if ($unitsMeasure->delete())
+            if ($unitsMeasure->delete()) {
                 return redirect()
                     ->route('web.units-measure.index')
                     ->with('success', 'Deletado com sucesso');
+            }
 
             return redirect()
                 ->route('web.units-measure.index')

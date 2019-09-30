@@ -17,8 +17,9 @@ class Checklist extends Model
     {
         $date = \DateTime::createFromFormat('d/m/Y', $string);
 
-        if ($date)
+        if ($date) {
             return $this->where('date', $date->format('Y-m-d'));
+        }
     }
 
     public function checklistProduct()
@@ -34,7 +35,8 @@ class Checklist extends Model
     /**
      * Fechar Checklist
      *
-     * @param Checklist $checklist
+     * @param  Checklist  $checklist
+     *
      * @return array|mixed
      * @throws \Throwable
      */
@@ -71,7 +73,7 @@ class Checklist extends Model
 
                     return [
                         'success' => false,
-                        'message' => 'Os Checklists não foram fechados (' . implode(', ', $dates) . ')',
+                        'message' => 'Os Checklists não foram fechados ('.implode(', ', $dates).')',
                     ];
                 }
 
@@ -85,7 +87,7 @@ class Checklist extends Model
                 if (($checklistProductCount == 0) || ($checklistProductCount < $productsCount)) {
                     return [
                         'success' => false,
-                        'message' => ($checklistProductCount < $productsCount) . ' produto(s) não foi(ram) verificado(s).',
+                        'message' => ($checklistProductCount < $productsCount).' produto(s) não foi(ram) verificado(s).',
                     ];
                 }
 
@@ -99,7 +101,7 @@ class Checklist extends Model
                  * Retornando o último checklist fechado
                  */
                 $checklistAnterior = self::where('date', '<', $date)->where('status', 0)
-                    ->orderBy('date', 'desc')->with(['checklistProduct'])->first();
+                                         ->orderBy('date', 'desc')->with(['checklistProduct'])->first();
 
                 /**
                  * Manipulando todos os produtos ativos
@@ -139,8 +141,9 @@ class Checklist extends Model
                          * Se houver checklist no dia anterior alterar a variável $totalAnterior
                          * com o total do checklist do dia anterior
                          */
-                        if ($checklistTotalAnterior)
+                        if ($checklistTotalAnterior) {
                             $totalAnterior = $checklistTotalAnterior->checklist_tatals->total;
+                        }
 
                         /**
                          * Se houver produção desse produto neste dia,
@@ -156,8 +159,9 @@ class Checklist extends Model
                          * então esse valor menos o total contado neste dia será a quantidade
                          * que foi utilizada.
                          */
-                        if ($totalAnterior > 0)
+                        if ($totalAnterior > 0) {
                             $difference = $totalAnterior - $checklistProduct->total;
+                        }
                     }
 
                     /**
@@ -197,12 +201,13 @@ class Checklist extends Model
                      * Verificar se o total contado do produto é menor que o valor da tabela diária
                      * tendo então que criar uma tarefa.
                      */
-                    $numberOfWeek = date('w', strtotime($checklist->date . "+1 days"));
+                    $numberOfWeek = date('w', strtotime($checklist->date."+1 days"));
 
                     /**
                      * Verificar se o próximo dia é feriado então
                      */
-                    if (in_array((new \DateTime(date('Y-m-d', strtotime($checklist->date . "+1 days"))))->format('m-d'), $diasFeriados)) {
+                    if (in_array((new \DateTime(date('Y-m-d', strtotime($checklist->date."+1 days"))))->format('m-d'),
+                        $diasFeriados)) {
                         $numberOfWeek = 6; // sábados e feriados
                     }
 
@@ -213,11 +218,12 @@ class Checklist extends Model
 
                         $task = Task::where(['product_id' => $checklistProduct->product_id, 'status' => 1])->first();
 
-                        if (!$task)
+                        if (! $task) {
                             Task::create([
                                 'product_id'  => $checklistProduct->product_id,
                                 'description' => "Faltará: $missingAmount",
                             ]);
+                        }
                     }
 
                     $data = [
@@ -262,7 +268,8 @@ class Checklist extends Model
                     $prevision_date = (new \DateTime($checklist->date))->format('Y-m-d');
                     do {
 
-                        $prevision_date = (new \DateTime(date('Y-m-d', strtotime($prevision_date . "+1 days"))))->format('Y-m-d');
+                        $prevision_date = (new \DateTime(date('Y-m-d',
+                            strtotime($prevision_date."+1 days"))))->format('Y-m-d');
 
                         $numeroSemana = date('w', strtotime($prevision_date));
 

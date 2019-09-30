@@ -24,14 +24,15 @@ class Production extends Model
 
         $qb = $this->with('product');
 
-        if ($date)
+        if ($date) {
             $qb->where('date', $date->format('Y-m-d'));
-        else
+        } else {
             $qb->where('id', $string)
-                ->orWhere('quantity', 'like', '%' . $string . '%')
-                ->orWhereHas('product', function ($query) use ($string) {
-                    $query->where('name', 'like', '%' . $string . '%');
-                });
+               ->orWhere('quantity', 'like', '%'.$string.'%')
+               ->orWhereHas('product', function ($query) use ($string) {
+                   $query->where('name', 'like', '%'.$string.'%');
+               });
+        }
 
         return $qb;
     }

@@ -15,10 +15,11 @@ class ChecklistActionsController extends AbstractController
 
             $result = (new Checklist())->closeChecklist($checklist);
 
-            if ($result['success'] == true)
+            if ($result['success'] == true) {
                 return redirect()
                     ->back()
                     ->with('success', 'Salvo com sucesso');
+            }
 
             return redirect()
                 ->back()

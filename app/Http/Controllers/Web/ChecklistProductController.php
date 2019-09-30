@@ -38,7 +38,8 @@ class ChecklistProductController extends AbstractController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(ChecklistProductRequest $request)
@@ -62,10 +63,11 @@ class ChecklistProductController extends AbstractController
 
         $params['total'] = $total;
 
-        if (ChecklistProduct::create($params))
+        if (ChecklistProduct::create($params)) {
             return redirect()
                 ->route('web.checklist.show', $params['checklist_id'])
                 ->with('success', 'Salvo com sucesso');
+        }
 
         return redirect()
             ->route('web.checklist.show', $params['checklist_id'])
@@ -76,7 +78,8 @@ class ChecklistProductController extends AbstractController
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param  int  $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -87,7 +90,8 @@ class ChecklistProductController extends AbstractController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param  int  $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Checklist $checklist, Product $product)
@@ -105,8 +109,9 @@ class ChecklistProductController extends AbstractController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, ChecklistProduct $checklistProduct)
@@ -134,10 +139,11 @@ class ChecklistProductController extends AbstractController
         $params['total'] = $total;
 
         $checklistProduct->fill($params);
-        if ($checklistProduct->save())
+        if ($checklistProduct->save()) {
             return redirect()
                 ->route('web.checklist.show', $checklistProduct->checklist_id)
                 ->with('success', 'Salvo com sucesso');
+        }
 
         return redirect()
             ->route('web.checklist.show', $checklistProduct->checklist_id)
@@ -147,7 +153,8 @@ class ChecklistProductController extends AbstractController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param  int  $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
