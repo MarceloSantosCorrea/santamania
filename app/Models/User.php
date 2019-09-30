@@ -2,10 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Acl\AclPermission;
 use App\Models\Acl\AclRole;
-use Carbon\Carbon;
-use Hash;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -68,8 +67,8 @@ class User extends Authenticatable
 
     public function setPasswordAttribute($password)
     {
-        if (Hash::needsRehash($password)) {
-            $password = Hash::make($password);
+        if (\Hash::needsRehash($password)) {
+            $password = \Hash::make($password);
         }
 
         $this->attributes['password'] = $password;
@@ -77,14 +76,14 @@ class User extends Authenticatable
 
     public function getCreatedAtAttribute($value)
     {
-        $c = Carbon::createFromFormat('Y-m-d H:i:s', $value);
+        $c = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value);
 
         return $c->toW3cString();
     }
 
     public function getUpdatedAtAttribute($value)
     {
-        $c = Carbon::createFromFormat('Y-m-d H:i:s', $value);
+        $c = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $value);
 
         return $c->toW3cString();
     }

@@ -26,6 +26,10 @@ class ProfileRequest extends FormRequest
         switch ($this->method()) {
             case'PUT':
 
+                if (is_null($this->input('password', null))) {
+                    $this->offsetUnset('password');
+                }
+
                 return [
                     'firstname' => 'required|min:3',
                     'lastname'  => 'required|min:3',

@@ -192,9 +192,7 @@ class UserController extends AbstractController
         $user = User::find(auth()->user()->id);
 
         $data = $request->all();
-        if (is_null($data['password'])) {
-            unset($data['password']);
-        } else {
+        if (isset($data['password'])) {
             $data['password'] = bcrypt($data['password']);
         }
 

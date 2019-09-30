@@ -1,6 +1,6 @@
 <?php
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::group(['middleware' => ['auth']], function () {
     Route::group(['namespace' => 'Web'], function () {

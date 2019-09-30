@@ -34,6 +34,10 @@ class UserRequest extends FormRequest
 
             case'PUT':
 
+                if (is_null($this->input('password', null))) {
+                    $this->offsetUnset('password');
+                }
+
                 $user = $this->route('user');
 
                 $id = is_object($user) ? $user->id : $user;
