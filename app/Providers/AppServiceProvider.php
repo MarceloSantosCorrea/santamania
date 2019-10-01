@@ -7,6 +7,8 @@ use App\Models\ChecklistProduct;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\Production;
+use App\Models\Task;
+use App\Models\UnitsMeasure;
 use App\Models\User;
 use App\Models\Warehouse;
 use App\Observers\ChecklistObserver;
@@ -14,6 +16,8 @@ use App\Observers\ChecklistProductObserver;
 use App\Observers\ProductCategoryObserver;
 use App\Observers\ProductionObserver;
 use App\Observers\ProductObserver;
+use App\Observers\TaskObserver;
+use App\Observers\UnitsMeasureObserver;
 use App\Observers\UserObserver;
 use App\Observers\WarehouseObserver;
 use Illuminate\Support\ServiceProvider;
@@ -55,5 +59,7 @@ class AppServiceProvider extends ServiceProvider
         Production::observe(ProductionObserver::class);
         Checklist::observe(ChecklistObserver::class);
         ChecklistProduct::observe(ChecklistProductObserver::class);
+        Task::observe(TaskObserver::class);
+        UnitsMeasure::observe(UnitsMeasureObserver::class);
     }
 }
