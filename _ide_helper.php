@@ -3,7 +3,7 @@
 
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 6.0.4 on 2019-09-30 15:40:23.
+ * Generated for Laravel 6.0.4 on 2019-10-01 03:01:19.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -14587,6 +14587,114 @@ namespace Illuminate\Support {
  
 }
 
+namespace App\Facades { 
+
+    /**
+     * 
+     *
+     */ 
+    class Logs {
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function channel($channel, $showDateTime = true)
+        {
+                        return \App\Helpers\Logs::channel($channel, $showDateTime);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function database($type, $message = null, $options = array())
+        {
+                        return \App\Helpers\Logs::database($type, $message, $options);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function info($message)
+        {
+                        /** @var \App\Helpers\Logs $instance */
+                        return $instance->info($message);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function debug($message)
+        {
+                        /** @var \App\Helpers\Logs $instance */
+                        return $instance->debug($message);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function dividingLine()
+        {
+                        /** @var \App\Helpers\Logs $instance */
+                        return $instance->dividingLine();
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function tableVertical($data)
+        {
+                        /** @var \App\Helpers\Logs $instance */
+                        return $instance->tableVertical($data);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function table($data)
+        {
+                        /** @var \App\Helpers\Logs $instance */
+                        return $instance->table($data);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function update($data)
+        {
+                        /** @var \App\Helpers\Logs $instance */
+                        return $instance->update($data);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function console($message)
+        {
+                        return \App\Helpers\Logs::console($message);
+        }
+         
+    }
+ 
+}
+
 namespace Facade\Ignition\Facades { 
 
     /**
@@ -17654,6 +17762,8 @@ namespace  {
     class Validator extends \Illuminate\Support\Facades\Validator {}
 
     class View extends \Illuminate\Support\Facades\View {}
+
+    class Logs extends \App\Facades\Logs {}
 
     class Flare extends \Facade\Ignition\Facades\Flare {}
  

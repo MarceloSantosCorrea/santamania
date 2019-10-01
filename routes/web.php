@@ -95,6 +95,9 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::put('/update/{dailyChecklist}', 'ProductDaysController@update')->name('product-days.update');
             });
 
+            Route::get('/settings', 'SettingsController@index')->name('settings.index');
+            Route::post('/settings', 'SettingsController@store')->name('settings.store');
+
             Route::group(['prefix' => 'units-measure'], function () {
                 Route::get('/', 'UnitsMeasureController@index')->name('units-measure.index');
                 Route::get('/create', 'UnitsMeasureController@create')->name('units-measure.create');
