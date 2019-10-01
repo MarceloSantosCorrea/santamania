@@ -18,7 +18,7 @@ class TaskController extends Controller
     public function index()
     {
         if (\Gate::allows('list_tasks')) {
-            $data = Task::orderBy('status', '1')->orderBy('id', 'DESC')->paginate();
+            $data = Task::where('status', '1')->orderBy('id', 'DESC')->paginate();
 
             return view('pages.task.index', compact('data'));
         }
@@ -52,7 +52,10 @@ class TaskController extends Controller
     public function store(TaskRequest $request)
     {
         if (\Gate::allows('create_tasks')) {
-            if (Task::create($request->all())) {
+
+            $data           = $request->all();
+            $data['status'] = 1;
+            if (Task::create($data)) {
                 return redirect()
                     ->route('web.task.index')
                     ->with('success', 'Salvo com sucesso');

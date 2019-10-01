@@ -1,11 +1,12 @@
 @if ($data)
+    @php /** @var $item \App\Models\Production */ @endphp
     @foreach ($data as $item)
         <tr>
             <th><input class="checkbox" type="checkbox"></th>
             <th scope="row">{{ $item->id }}</th>
             <td>{{ (new \DateTime($item->date))->format('d/m/Y') }}</td>
             <td>{{ $item->product->name }}</td>
-            <td>{{ $item->quantity }}</td>
+            <td>{{ $item->quantity }} {{ $item->product->unitsMeasure->symbol }}</td>
             @if(Gate::check('edit_productions') || Gate::check('delete_productions'))
                 <td class="text-right">
 

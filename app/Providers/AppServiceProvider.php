@@ -32,7 +32,9 @@ class AppServiceProvider extends ServiceProvider
             $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
         }
 
-        require_once __DIR__.'/../Helpers/helpers.php';
+        \App::bind('logs', function () {
+            return new \App\Helpers\Logs();
+        });
     }
 
     /**

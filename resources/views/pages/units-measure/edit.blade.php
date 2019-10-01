@@ -28,7 +28,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     @include('form._form_errors')
-                                    <form class="form-horizontal" method="post" action="{{ route('web.units-measure.update', ['units-measure' => $unitsMeasure->id]) }}">
+                                    <form class="form-horizontal" method="post" action="{{ route('web.units-measure.update', $unitsMeasure->id) }}">
                                         {{method_field('PUT')}}
                                         @include('pages.units-measure._form')
                                     </form>
