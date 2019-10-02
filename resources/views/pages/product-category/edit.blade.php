@@ -28,7 +28,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     @include('form._form_errors')
-                                    <form class="form-horizontal" method="post" action="{{ route('web.product-category.update', ['product-category' => $productCategory->id]) }}">
+                                    <form class="form-horizontal" method="post" action="{{ route('web.product-category.update', $productCategory->id) }}">
                                         {{method_field('PUT')}}
                                         @include('pages.product-category._form')
                                     </form>

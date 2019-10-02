@@ -21,9 +21,9 @@ class ProductController extends AbstractController
 
             $params = $request->all();
             if (isset($params['search'])) {
-                $data = (new Product)->search($params['search'])->paginate(30);
+                $data = (new Product)->search($params['search'])->orderBy('name', 'ASC')->paginate(30);
             } else {
-                $data = Product::with(['productCategory'])->paginate(10);
+                $data = Product::with(['productCategory'])->orderBy('name', 'ASC')->paginate(15);
             }
 
             return view('pages.product.index', compact('data'));

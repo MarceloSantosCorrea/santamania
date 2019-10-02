@@ -13,16 +13,40 @@ class UserObserver
 
     public function created(User $user)
     {
-        \Log::info(auth()->user()->name." criou usuário: ".arrayToString($user->toArray()));
+        \Logs::database(
+            'Users',
+            auth()->user()->name." criou um Usuário `#{$user->id}` - {$user->name} ".json_encode($user->toArray()),
+            ['user_id' => auth()->user()->id]
+        );
     }
 
     public function updated(User $user)
     {
-        \Log::info(auth()->user()->name." editou usuário: ".arrayToString($user->toArray()));
+        $original = $user->getOriginal();
+        $changes  = $user->getChanges();
+        unset($changes["updated_at"]);
+        $inputs = [];
+        if (count($changes)) {
+            foreach ($changes as $key => $val) {
+                $inputs[$key] = [isset($original[$key]) ? $original[$key] : null => $val];
+            }
+        }
+
+        if (count($inputs)) {
+            \Logs::database(
+                'Users',
+                (auth()->user()->name ?? 'Sistema')." alterou um Usuário: ".json_encode($inputs),
+                ['user_id' => auth()->user()->id ?? null]
+            );
+        }
     }
 
     public function deleted(User $user)
     {
-        \Log::info(auth()->user()->name." deletou usuário: ".arrayToString($user->toArray()));
+        \Logs::database(
+            'Users',
+            auth()->user()->name." deletou um Usuário `#{$user->id}` - {$user->name} ".json_encode($user->toArray()),
+            ['user_id' => auth()->user()->id]
+        );
     }
 }
