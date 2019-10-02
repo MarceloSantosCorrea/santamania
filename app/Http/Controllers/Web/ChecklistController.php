@@ -20,9 +20,9 @@ class ChecklistController extends AbstractController
 
             $params = $request->all();
             if (isset($params['search'])) {
-                $data = (new Checklist)->search($params['search'])->orderBy('date', 'desc')->paginate(30);
+                $data = (new Checklist)->search($params['search'])->orderBy('date', 'desc')->orderBy('id', 'desc')->paginate(30);
             } else {
-                $data = Checklist::orderBy('date', 'desc')->paginate();
+                $data = Checklist::orderBy('date', 'desc')->orderBy('id', 'desc')->paginate();
             }
 
             return view('pages.checklist.index', compact('data'));

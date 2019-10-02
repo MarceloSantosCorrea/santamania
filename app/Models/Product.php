@@ -46,13 +46,11 @@ class Product extends Model
 
     public static function productsByChecklist(Checklist $checklist)
     {
-        return self::where(["active" => 1])
-                   ->with([
-                       "checklistProduct" => function ($query) use ($checklist) {
-                           $query->where('checklist_id', $checklist->id);
-                       },
-                   ])
-                   ->get();
+        return self::where(["active" => 1])->orderBy('name', 'ASC')->with([
+            "checklistProduct" => function ($query) use ($checklist) {
+                $query->where('checklist_id', $checklist->id);
+            },
+        ])->get();
     }
 
     public function productCategory()
