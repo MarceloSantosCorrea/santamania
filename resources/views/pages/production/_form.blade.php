@@ -2,10 +2,13 @@
 <div class="form-group">
     <label class="col-md-2 control-label" for="name">Produto</label>
     <div class="col-md-8">
-        <select name="product_id" id="product_id" class="form-control">
+        <select name="product_id" id="product_id" class="form-control select2">
             <option>Selecione...</option>
+            @php /** @var $product \App\Models\Product */  @endphp
             @foreach($products as $product)
-                <option value="{{ $product->id }}" {{ old('product_id', isset($production) && $product->id == $production->product_id? 'selected="selected"': null) }}>{{ $product->name }}</option>
+                <option value="{{ $product->id }}" {{ old('product_id', isset($production) && $product->id == $production->product_id? 'selected="selected"': null) }}>
+                    {{ "{$product->name} - {$product->unitsMeasure->name}"  }}
+                </option>
             @endforeach
         </select>
         <span class="help-block"></span>

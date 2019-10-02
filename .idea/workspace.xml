@@ -3,8 +3,20 @@
   <component name="ChangeListManager">
     <list default="true" id="a16c32f5-4a06-4e79-98ba-6e02651d5446" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Web/ChecklistController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Web/ChecklistController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Product.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Production.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Production.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Task.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Task.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Observers/ProductionObserver.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Observers/ProductionObserver.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/product/_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/product/_form.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/product/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/product/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/product/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/product/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/production/_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/production/_form.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/production/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/production/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/production/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/production/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/report/production.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/report/production.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/task/_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/task/_form.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/task/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/task/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/task/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/task/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -209,7 +221,7 @@
       <updated>1569846745954</updated>
       <workItem from="1569846748151" duration="3670000" />
       <workItem from="1569866764429" duration="1951000" />
-      <workItem from="1569980860903" duration="2968000" />
+      <workItem from="1569980860903" duration="4982000" />
     </task>
     <servers />
   </component>

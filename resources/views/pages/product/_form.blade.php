@@ -10,7 +10,7 @@
 <div class="form-group">
     <label class="col-md-2 control-label">{{ __('Categoria') }}</label>
     <div class="col-md-8">
-        <select class="form-control" name="product_category_id">
+        <select class="form-control select2" name="product_category_id">
             <option value="">{{ __('Selecione') }}...</option>
             @if($productCategories)
                 @foreach($productCategories as $productCategory)
@@ -25,7 +25,7 @@
 <div class="form-group">
     <label class="col-md-2 control-label">{{ __('Unidate de Medida') }}</label>
     <div class="col-md-8">
-        <select class="form-control" name="units_measure_id">
+        <select class="form-control select2" name="units_measure_id">
             <option value="">{{ __('Selecione') }}...</option>
             @if($unitsMeasures)
                 @foreach($unitsMeasures as $unitsMeasure)

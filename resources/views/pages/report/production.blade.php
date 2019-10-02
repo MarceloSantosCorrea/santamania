@@ -132,7 +132,7 @@
                     });
                 };
                 MorrisCharts.prototype.init                  = function () {
-                    var $areaDotData = <?= isset($data) ? $data : '[]' ?>;
+                    var $areaDotData = {!! isset($data) ? $data : '[]' !!};
                     this.createAreaChartDotted('morris-area-with-dotted', 0, 0, $areaDotData, 'y', ['a'], ['Quantidade'], ['#ffffff'], ['#999999'], ['#5d9cec']);
                 };
 

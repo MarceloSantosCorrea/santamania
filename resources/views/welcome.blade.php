@@ -77,7 +77,7 @@
                                     <thead>
                                         <tr>
                                             <th></th>
-                                            <th class="text-center" style="width: 60px">
+                                            <th class="text-center" style="width: 80px">
                                                 <small>{{ __('Atual') }}</small>
                                             </th>
                                             <th class="text-center" style="width: 100px">
@@ -90,7 +90,7 @@
                                             @foreach($checklistPreview->checklistProduct as $checklistProduct)
                                                 <tr>
                                                     <th class="text-nowrap" scope="row">{{ $checklistProduct->product->name }}</th>
-                                                    <td class="text-center">{{ $checklistProduct->total }}</td>
+                                                    <td class="text-center">{{ "{$checklistProduct->total} {$checklistProduct->product->unitsMeasure->symbol}" }}</td>
                                                     <td class="text-center">
                                                         {{ $checklistProduct->product->prevision ? \Carbon\Carbon::parse($checklistProduct->product->prevision->prevision_date)->format('d/m/Y'): null }}
                                                     </td>
