@@ -9,6 +9,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/logout', 'IndexController@logout')->name('logout');
 
         Route::group(['as' => 'web.'], function () {
+            Route::get('/logs', 'LogController@index')->name('log.index');
+
             Route::get('/profile', 'UserController@profile')->name('user.profile');
             Route::put('/profile', 'UserController@updateProfile')->name('user.updateProfile');
 

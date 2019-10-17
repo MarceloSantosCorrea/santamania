@@ -1,10 +1,12 @@
-@push('styles')
+@push('plugins')
     <link href="{{ asset('assets/plugins/multiselect/css/multi-select.css') }}" rel="stylesheet" type="text/css"/>
+    <link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet">
+@endpush
+
+@push('styles')
     <link href="{{ asset('assets/css/components.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/css/pages.css') }}" rel="stylesheet" type="text/css"/>
 @endpush
-
-{!! csrf_field() !!}
 
 <div class="form-group">
     <label class="col-md-2 control-label" for="firstname">{{ __('Nome') }}</label>
@@ -69,4 +71,10 @@
 
 @push('scripts')
     <script src="{{ asset('assets/plugins/multiselect/js/jquery.multi-select.js') }}"></script>
+    <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
+    <script>
+        jQuery(document).ready(function () {
+            $(".select2").select2();
+        });
+    </script>
 @endpush

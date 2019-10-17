@@ -12,7 +12,7 @@
         <link rel="shortcut icon" href="{{ asset('assets/images/favicon_1.ico') }}">
         <title>Santa Mania Checklist - @yield('title')</title>
 
-        @stack('styles')
+        @stack('plugins')
         <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
         <link href="{{ asset('assets/css/core.css') }}" rel="stylesheet" type="text/css"/>
         <link href="{{ asset('assets/css/components.css') }}" rel="stylesheet" type="text/css"/>
@@ -20,6 +20,7 @@
         <link href="{{ asset('assets/css/pages.css') }}" rel="stylesheet" type="text/css"/>
         <link href="{{ asset('assets/css/responsive.css') }}" rel="stylesheet" type="text/css"/>
         <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet" type="text/css"/>
+        @stack('styles')
 
         <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>

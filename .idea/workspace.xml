@@ -2,21 +2,35 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a16c32f5-4a06-4e79-98ba-6e02651d5446" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/resources/views/pages/logs/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Production.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Production.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Task.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Task.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Checklist.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Checklist.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Observers/ProductionObserver.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Observers/ProductionObserver.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/default.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/default.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/checklist-total/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/checklist-total/index.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/checklist/_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/checklist/_form.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/checklist/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/checklist/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/checklist/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/checklist/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/product-days/_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/product-days/_form.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/pages/product/_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/product/_form.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/pages/product/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/product/create.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/pages/product/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/product/edit.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/pages/production/_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/production/_form.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/pages/production/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/production/create.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/pages/production/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/production/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/report/production.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/report/production.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/pages/task/_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/task/_form.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/pages/task/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/task/create.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/pages/task/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/task/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/welcome.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/welcome.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/units-measure/_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/units-measure/_form.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/units-measure/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/units-measure/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/units-measure/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/units-measure/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/user/_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/user/_form.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/user/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/user/create.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/user/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/user/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/pages/user/profile.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/user/profile.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -44,6 +58,9 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="PackageJsonUpdateNotifier">
+    <dismissed value="$PROJECT_DIR$/package.json" />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 5.5">
     <include_path>
@@ -158,6 +175,7 @@
       <path value="$PROJECT_DIR$/vendor/sebastian/type" />
       <path value="$PROJECT_DIR$/vendor/sebastian/version" />
       <path value="$PROJECT_DIR$/vendor/theseer/tokenizer" />
+      <path value="$PROJECT_DIR$/vendor/beyondcode/laravel-dump-server" />
     </include_path>
   </component>
   <component name="ProjectId" id="1RcypHXAebGZY3cnKpy8guR4VaE" />
@@ -165,6 +183,7 @@
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
@@ -172,9 +191,9 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
-    <property name="add_unversioned_files" value="$PROJECT_DIR$/.env&#10;/Users/marcelocorrea/Documents/Developer/santamania/storage/logs/laravel-2019-10-01.log" />
+    <property name="add_unversioned_files" value="$PROJECT_DIR$/storage/logs/laravel-2019-10-10.log&#10;/Users/marcelocorrea/Documents/Developer/santamania/.env&#10;/Users/marcelocorrea/Documents/Developer/santamania/storage/logs/laravel-2019-10-01.log" />
     <property name="eu.ydp.idea.ts.spec.generator.settings.spec.template" value="import {$ClassName$} from '$TestsRelativePath$../src/$classRelativePath$/$ClassName$';&#10;&#10;describe('$ClassName$', () =&gt; {&#10;  let $ObjName$:$ClassName$;&#10;&#10;  beforeEach(() =&gt; {&#10;    $ObjName$ = new $ClassName$();&#10;  });&#10;&#10;  describe('', () =&gt; {&#10;    it('', () =&gt; {&#10;      // given&#10;&#10;      // when&#10;&#10;      // then&#10;    });&#10;  });&#10;});&#10;" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/pages/filters" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/pages/logs" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -185,11 +204,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/views/pages/logs" />
       <recent name="$PROJECT_DIR$/resources/views/pages/filters" />
       <recent name="$PROJECT_DIR$/laravel6/app/Http" />
       <recent name="$PROJECT_DIR$/laravel6/app/Providers" />
       <recent name="$PROJECT_DIR$/laravel6/app" />
-      <recent name="$PROJECT_DIR$/laravel6/database/seeds" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -221,7 +240,22 @@
       <updated>1569846745954</updated>
       <workItem from="1569846748151" duration="3670000" />
       <workItem from="1569866764429" duration="1951000" />
-      <workItem from="1569980860903" duration="4982000" />
+      <workItem from="1569980860903" duration="5048000" />
+      <workItem from="1570249799591" duration="1762000" />
+      <workItem from="1570318964351" duration="660000" />
+      <workItem from="1570324180665" duration="905000" />
+      <workItem from="1570486624877" duration="16000" />
+      <workItem from="1570511360327" duration="733000" />
+      <workItem from="1570592079884" duration="8000" />
+      <workItem from="1570684904065" duration="4690000" />
+      <workItem from="1570800341007" duration="1055000" />
+      <workItem from="1570827049736" duration="721000" />
+      <workItem from="1571001240309" duration="527000" />
+      <workItem from="1571028229231" duration="32000" />
+      <workItem from="1571028453323" duration="1415000" />
+      <workItem from="1571059477518" duration="1852000" />
+      <workItem from="1571203463366" duration="101000" />
+      <workItem from="1571318721245" duration="1784000" />
     </task>
     <servers />
   </component>

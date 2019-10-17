@@ -1,11 +1,5 @@
 @extends('layouts.default')
-
 @section('title', 'Nova Tarefa')
-
-@push('styles')
-    <link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet">
-@endpush
-
 @section('content')
     <div class="content-page">
         <div class="content">
@@ -33,6 +27,7 @@
                                 <div class="col-md-12">
                                     @include('form._form_errors')
                                     <form class="form-horizontal" method="post" action="{{ route('web.task.store') }}">
+                                        @csrf
                                         @include('pages.task._form')
                                     </form>
                                 </div>
@@ -45,12 +40,3 @@
         @include('layouts.components.footer')
     </div>
 @endsection
-
-@push('scripts')
-    <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
-    <script>
-        jQuery(document).ready(function () {
-            $(".select2").select2();
-        });
-    </script>
-@endpush

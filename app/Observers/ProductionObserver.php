@@ -42,7 +42,7 @@ class ProductionObserver
         if (count($inputs)) {
             \Logs::database(
                 'Productions',
-                auth()->user()->name." alterou entrada ao estoque: ".json_encode($inputs),
+                auth()->user()->name." alterou entrada ao estoque: Produto `#{$production->product->id} {$production->product->name}` ".json_encode($inputs),
                 ['user_id' => auth()->user()->id]
             );
         }

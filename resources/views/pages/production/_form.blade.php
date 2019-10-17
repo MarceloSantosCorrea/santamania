@@ -1,4 +1,6 @@
-{!! csrf_field() !!}
+@push('plugins')
+    <link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet">
+@endpush
 <div class="form-group">
     <label class="col-md-2 control-label" for="name">Produto</label>
     <div class="col-md-8">
@@ -36,3 +38,12 @@
         <button name="submit" class="btn btn-info waves-effect waves-light">Salvar</button>
     </div>
 </div>
+
+@push('scripts')
+    <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
+    <script>
+        jQuery(document).ready(function () {
+            $(".select2").select2();
+        });
+    </script>
+@endpush

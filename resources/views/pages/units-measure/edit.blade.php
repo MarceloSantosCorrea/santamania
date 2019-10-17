@@ -1,7 +1,5 @@
 @extends('layouts.default')
-
 @section('title', __('Editar Unidade de Medida'))
-
 @section('content')
     <div class="content-page">
         <div class="content">
@@ -29,7 +27,7 @@
                                 <div class="col-md-12">
                                     @include('form._form_errors')
                                     <form class="form-horizontal" method="post" action="{{ route('web.units-measure.update', $unitsMeasure->id) }}">
-                                        {{method_field('PUT')}}
+                                        @csrf @method('put')
                                         @include('pages.units-measure._form')
                                     </form>
                                 </div>
