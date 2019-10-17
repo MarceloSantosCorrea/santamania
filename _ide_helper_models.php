@@ -194,6 +194,30 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\Discard
+ *
+ * @property int $id
+ * @property string $date
+ * @property float $quantity
+ * @property int $product_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Product $product
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Discard newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Discard newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Discard query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Discard whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Discard whereDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Discard whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Discard whereProductId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Discard whereQuantity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Discard whereUpdatedAt($value)
+ */
+	class Discard extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Filter
  *
  * @property int $id
@@ -352,11 +376,11 @@ namespace App\Models{
  * App\Models\Production
  *
  * @property int $id
- * @property string $date
+ * @property mixed $date
  * @property float $quantity
  * @property int $product_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property mixed $created_at
+ * @property mixed $updated_at
  * @property-read \App\Models\Product $product
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Production newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Production newQuery()

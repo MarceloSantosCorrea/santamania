@@ -18,6 +18,11 @@
                         <a href="/production" class="waves-effect"><i class="fa fa-rocket"></i><span> {{ __('Produção') }} </span></a>
                     </li>
                 @endcan
+                @can('list_discards')
+                    <li>
+                        <a href="/discard" class="waves-effect"><i class="fa fa-trash"></i><span> {{ __('Descartes') }} </span></a>
+                    </li>
+                @endcan
                 @can('list_tasks')
                     <li>
                         <a href="/task" class="waves-effect"><i class="fa fa-tasks"></i><span> {{ __('Tarefas') }} </span></a>

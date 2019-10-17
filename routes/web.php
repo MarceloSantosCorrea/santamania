@@ -71,6 +71,15 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/destroy/{production}', 'ProductionController@destroy')->name('production.destroy');
             });
 
+            Route::group(['prefix' => 'discard'], function () {
+                Route::get('/', 'DiscardController@index')->name('discard.index');
+                Route::get('/create', 'DiscardController@create')->name('discard.create');
+                Route::post('/store', 'DiscardController@store')->name('discard.store');
+                Route::get('/edit/{discard}', 'DiscardController@edit')->name('discard.edit');
+                Route::put('/update/{discard}', 'DiscardController@update')->name('discard.update');
+                Route::get('/destroy/{discard}', 'DiscardController@destroy')->name('discard.destroy');
+            });
+
             Route::group(['prefix' => 'product'], function () {
                 Route::get('/',
                     'ProductController@index')->name('product.index'); //->middleware('can:list_products'); //

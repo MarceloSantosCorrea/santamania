@@ -54,6 +54,7 @@
                                                     <th>{{ __('Produto') }}</th>
                                                     <th>{{ __('Total') }}</th>
                                                     <th>{{ __('Saída') }}</th>
+                                                    <th>{{ __('Descarte') }}</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -63,6 +64,10 @@
                                                             <td>{{ $checklistProduct->checklistProduct->product->name }}</td>
                                                             <td>{{ $checklistProduct->total }} {{ $checklistProduct->checklistProduct->product->unitsMeasure->symbol }}</td>
                                                             <td>{{ $checklistProduct->difference }}</td>
+                                                            <td>{{ \App\Models\Discard::where([
+                                                                'product_id' => $checklistProduct->checklistProduct->product_id,
+                                                                'date' => (new \DateTime($checklistProduct->checklist->date))->format('Y-m-d')
+                                                            ])->first()->quantity  }} {{ $checklistProduct->checklistProduct->product->unitsMeasure->symbol }}</td>
                                                         </tr>
                                                     @endforeach
                                                 @endif

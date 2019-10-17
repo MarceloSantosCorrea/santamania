@@ -13,6 +13,11 @@ class Checklist extends Model
         'date', 'status', 'time_start', 'time_end',
     ];
 
+    /**
+     * @param  string  $string
+     *
+     * @return $this|\Illuminate\Database\Eloquent\Builder
+     */
     public function search(string $string)
     {
         $date = \DateTime::createFromFormat('d/m/Y', $string);
@@ -20,13 +25,21 @@ class Checklist extends Model
         if ($date) {
             return $this->where('date', $date->format('Y-m-d'));
         }
+
+        return $this;
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function checklistProduct()
     {
         return $this->hasMany(ChecklistProduct::class)->with(['product']);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function checklistTotals()
     {
         return $this->hasMany(ChecklistTotal::class);
@@ -120,6 +133,10 @@ class Checklist extends Model
                         \Log::debug("L".__LINE__." >  Produto já produzido? :Não");
                     }
 
+                    $discard = Discard::where([
+                        'date' => $date, 'product_id' => $checklistProduct->product_id,
+                    ])->first();
+
                     /**
                      * Variável que armazena o total atual do produto
                      * o Produto é novo seu valor default é 0
@@ -162,7 +179,6 @@ class Checklist extends Model
                         }
 
                         \Log::debug("L".__LINE__." >  Total anterior: `{$totalAnterior}`");
-
                         /**
                          * Se há checklist do dia anterior e/ou se houve produção do produto
                          * a variável $totalAnterior será maior que zero
@@ -172,6 +188,10 @@ class Checklist extends Model
                         if ($totalAnterior > 0) {
                             $difference = $totalAnterior - $checklistProduct->total;
                             \Log::debug("L".__LINE__." >  Total anterior menos o total do produto encontrado: `{$totalAnterior}` - `{$checklistProduct->total}` = `{$difference}`");
+                        }
+
+                        if ($discard) {
+                            $difference = $difference - $discard->quantity;
                         }
                     }
 

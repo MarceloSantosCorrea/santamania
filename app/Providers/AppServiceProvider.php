@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Checklist;
 use App\Models\ChecklistProduct;
+use App\Models\Discard;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\Production;
@@ -13,6 +14,7 @@ use App\Models\User;
 use App\Models\Warehouse;
 use App\Observers\ChecklistObserver;
 use App\Observers\ChecklistProductObserver;
+use App\Observers\DiscardObserver;
 use App\Observers\ProductCategoryObserver;
 use App\Observers\ProductionObserver;
 use App\Observers\ProductObserver;
@@ -61,5 +63,6 @@ class AppServiceProvider extends ServiceProvider
         ChecklistProduct::observe(ChecklistProductObserver::class);
         Task::observe(TaskObserver::class);
         UnitsMeasure::observe(UnitsMeasureObserver::class);
+        Discard::observe(DiscardObserver::class);
     }
 }

@@ -2,34 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a16c32f5-4a06-4e79-98ba-6e02651d5446" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/views/pages/logs/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/pages/discard/_form.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/pages/discard/create.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/pages/discard/discard-table-tbody.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/pages/discard/edit.blade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/pages/discard/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.phpstorm.meta.php" beforeDir="false" afterPath="$PROJECT_DIR$/.phpstorm.meta.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_ide_helper.php" beforeDir="false" afterPath="$PROJECT_DIR$/_ide_helper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_ide_helper_models.php" beforeDir="false" afterPath="$PROJECT_DIR$/_ide_helper_models.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/Checklist.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Checklist.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Observers/ProductionObserver.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Observers/ProductionObserver.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/default.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/default.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Providers/AppServiceProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/layouts/components/side-menu.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/components/side-menu.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/pages/checklist-total/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/checklist-total/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/checklist/_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/checklist/_form.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/checklist/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/checklist/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/checklist/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/checklist/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/product-days/_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/product-days/_form.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/product/_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/product/_form.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/product/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/product/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/product/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/product/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/production/_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/production/_form.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/production/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/production/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/production/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/production/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/task/_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/task/_form.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/task/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/task/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/task/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/task/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/units-measure/_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/units-measure/_form.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/units-measure/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/units-measure/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/units-measure/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/units-measure/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/user/_form.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/user/_form.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/user/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/user/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/user/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/user/edit.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/pages/user/profile.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/pages/user/profile.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -193,7 +178,7 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="add_unversioned_files" value="$PROJECT_DIR$/storage/logs/laravel-2019-10-10.log&#10;/Users/marcelocorrea/Documents/Developer/santamania/.env&#10;/Users/marcelocorrea/Documents/Developer/santamania/storage/logs/laravel-2019-10-01.log" />
     <property name="eu.ydp.idea.ts.spec.generator.settings.spec.template" value="import {$ClassName$} from '$TestsRelativePath$../src/$classRelativePath$/$ClassName$';&#10;&#10;describe('$ClassName$', () =&gt; {&#10;  let $ObjName$:$ClassName$;&#10;&#10;  beforeEach(() =&gt; {&#10;    $ObjName$ = new $ClassName$();&#10;  });&#10;&#10;  describe('', () =&gt; {&#10;    it('', () =&gt; {&#10;      // given&#10;&#10;      // when&#10;&#10;      // then&#10;    });&#10;  });&#10;});&#10;" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/pages/logs" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/pages" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
@@ -204,11 +189,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/views/pages" />
       <recent name="$PROJECT_DIR$/resources/views/pages/logs" />
       <recent name="$PROJECT_DIR$/resources/views/pages/filters" />
       <recent name="$PROJECT_DIR$/laravel6/app/Http" />
       <recent name="$PROJECT_DIR$/laravel6/app/Providers" />
-      <recent name="$PROJECT_DIR$/laravel6/app" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -255,7 +240,7 @@
       <workItem from="1571028453323" duration="1415000" />
       <workItem from="1571059477518" duration="1852000" />
       <workItem from="1571203463366" duration="101000" />
-      <workItem from="1571318721245" duration="1784000" />
+      <workItem from="1571318721245" duration="6819000" />
     </task>
     <servers />
   </component>
