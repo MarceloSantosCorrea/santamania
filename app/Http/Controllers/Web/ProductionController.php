@@ -39,7 +39,9 @@ class ProductionController extends AbstractController
     public function create()
     {
         if (\Gate::allows('create_productions')) {
-            $products = Product::all();
+            $products = Product::where('active', 1)
+                               ->orderBy('name')
+                               ->get();
 
             return view('pages.production.create', compact('products'));
         }
@@ -81,7 +83,9 @@ class ProductionController extends AbstractController
     public function edit(Production $production)
     {
         if (\Gate::allows('edit_productions')) {
-            $products = Product::all();
+            $products = Product::where('active', 1)
+                               ->orderBy('name')
+                               ->get();
 
             return view('pages.production.edit', compact('products', 'production'));
         }

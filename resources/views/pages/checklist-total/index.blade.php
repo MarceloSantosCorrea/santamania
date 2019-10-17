@@ -64,10 +64,17 @@
                                                             <td>{{ $checklistProduct->checklistProduct->product->name }}</td>
                                                             <td>{{ $checklistProduct->total }} {{ $checklistProduct->checklistProduct->product->unitsMeasure->symbol }}</td>
                                                             <td>{{ $checklistProduct->difference }}</td>
-                                                            <td>{{ \App\Models\Discard::where([
-                                                                'product_id' => $checklistProduct->checklistProduct->product_id,
-                                                                'date' => (new \DateTime($checklistProduct->checklist->date))->format('Y-m-d')
-                                                            ])->first()->quantity  }} {{ $checklistProduct->checklistProduct->product->unitsMeasure->symbol }}</td>
+                                                            <td>
+                                                                {{ $discard = \App\Models\Discard::where([
+                                                              'product_id' => $checklistProduct->checklistProduct->product_id,
+                                                              'date' => (new \DateTime($checklistProduct->checklist->date))->format('Y-m-d')
+                                                          ])->first() }}
+                                                                @if($discard)
+                                                                    {{ $discard->quantity  }} {{ $checklistProduct->checklistProduct->product->unitsMeasure->symbol }}
+                                                                @else
+                                                                    -
+                                                                @endif
+                                                            </td>
                                                         </tr>
                                                     @endforeach
                                                 @endif

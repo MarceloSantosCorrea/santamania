@@ -45,7 +45,9 @@
                                     <a href="{{ route('web.product-category.index') }}"> {{ __('Categorias de Produtos') }} </a>
                                 </li>
                             @endcan
-                            <li><a href="{{ route('web.filters.index') }}"> {{ __('Filtros') }} </a></li>
+                            @can('list_filters')
+                                <li><a href="{{ route('web.filters.index') }}"> {{ __('Filtros') }} </a></li>
+                            @endcan
                             @can('list_units_measures')
                                 <li>
                                     <a href="{{ route('web.units-measure.index') }}"> {{ __('Unidades de Medida') }} </a>

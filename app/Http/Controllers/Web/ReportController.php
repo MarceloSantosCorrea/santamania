@@ -17,7 +17,9 @@ class ReportController extends Controller
     {
         $data = $productModel = $dataPost = null;
 
-        $products = Product::where('active', 1)->get();
+        $products = Product::where('active', 1)
+                           ->orderBy('name')
+                           ->get();
 
         if ($request->method() == 'POST') {
 
@@ -60,7 +62,9 @@ class ReportController extends Controller
     {
         $data = $productModel = $dataPost = null;
 
-        $products = Product::where('active', 1)->get();
+        $products = Product::where('active', 1)
+                           ->orderBy('name')
+                           ->get();
 
         if ($request->method() == 'POST') {
 

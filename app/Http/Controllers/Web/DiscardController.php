@@ -39,7 +39,9 @@ class DiscardController extends Controller
     public function create()
     {
         if (\Gate::allows('create_productions')) {
-            $products = Product::where('active', 1)->get();
+            $products = Product::where('active', 1)
+                               ->orderBy('name')
+                               ->get();
 
             return view('pages.discard.create', compact('products'));
         }
@@ -81,7 +83,9 @@ class DiscardController extends Controller
     public function edit(Discard $discard)
     {
         if (\Gate::allows('edit_discards')) {
-            $products = Product::where('active', 1)->get();
+            $products = Product::where('active', 1)
+                               ->orderBy('name')
+                               ->get();
 
             return view('pages.discard.edit', compact('products', 'discard'));
         }

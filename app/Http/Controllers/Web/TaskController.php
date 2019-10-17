@@ -34,7 +34,9 @@ class TaskController extends Controller
     public function create()
     {
         if (\Gate::allows('create_tasks')) {
-            $products = Product::all();
+            $products = Product::where('active', 1)
+                               ->orderBy('name')
+                               ->get();
 
             return view('pages.task.create', compact('products'));
         }
@@ -79,7 +81,9 @@ class TaskController extends Controller
     public function edit(Task $task)
     {
         if (\Gate::allows('edit_tasks')) {
-            $products = Product::all();
+            $products = Product::where('active', 1)
+                               ->orderBy('name')
+                               ->get();
 
             return view('pages.task.edit', compact('products', 'task'));
         }
