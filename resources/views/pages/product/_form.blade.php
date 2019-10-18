@@ -41,6 +41,21 @@
 </div>
 
 <div class="form-group">
+    <label class="col-md-2 control-label">{{ __('Fornecedor') }}</label>
+    <div class="col-md-8">
+        <select class="form-control select2" name="supplier_id">
+            <option value="">{{ __('Selecione') }}...</option>
+            @if($suppliers)
+                @foreach($suppliers as $supplier)
+                    <option value="{{$supplier->id}}" {{ isset($product) && $product->supplier_id == $supplier->id ? 'selected': null }}>{{$supplier->name}}</option>
+                @endforeach
+            @endif
+        </select>
+        <span class="help-block"></span>
+    </div>
+</div>
+
+<div class="form-group">
     <div class="col-sm-offset-2 col-sm-8">
         <div class="checkbox checkbox-primary">
             <input type="checkbox" name="active" {{ !isset($product) || (isset($product) && $product->active == 1)?'checked="checked"':'' }}>

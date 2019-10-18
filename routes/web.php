@@ -80,6 +80,15 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/destroy/{discard}', 'DiscardController@destroy')->name('discard.destroy');
             });
 
+            Route::group(['prefix' => 'supplier'], function () {
+                Route::get('/', 'SupplierController@index')->name('supplier.index');
+                Route::get('/create', 'SupplierController@create')->name('supplier.create');
+                Route::post('/store', 'SupplierController@store')->name('supplier.store');
+                Route::get('/edit/{supplier}', 'SupplierController@edit')->name('supplier.edit');
+                Route::put('/update/{supplier}', 'SupplierController@update')->name('supplier.update');
+                Route::get('/destroy/{supplier}', 'SupplierController@destroy')->name('supplier.destroy');
+            });
+
             Route::group(['prefix' => 'product'], function () {
                 Route::get('/',
                     'ProductController@index')->name('product.index'); //->middleware('can:list_products'); //

@@ -294,12 +294,14 @@ namespace App\Models{
  * @property int $active
  * @property int $product_category_id
  * @property int $units_measure_id
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property int|null $supplier_id
+ * @property mixed $created_at
+ * @property mixed $updated_at
  * @property-read \App\Models\ChecklistProduct $checklistProduct
  * @property-read \App\Models\Prevision $prevision
  * @property-read \App\Models\ProductCategory $productCategory
  * @property-read \App\Models\ProductDailyChecklist $productDailyChecklist
+ * @property-read \App\Models\Supplier|null $supplier
  * @property-read \App\Models\UnitsMeasure $unitsMeasure
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product newQuery()
@@ -309,6 +311,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereProductCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereSupplierId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereUnitsMeasureId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereUpdatedAt($value)
  */
@@ -408,6 +411,27 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Setting whereOptionValue($value)
  */
 	class Setting extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\Supplier
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $color
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Supplier newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Supplier newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Supplier query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Supplier whereColor($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Supplier whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Supplier whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Supplier whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Supplier whereUpdatedAt($value)
+ */
+	class Supplier extends \Eloquent {}
 }
 
 namespace App\Models{

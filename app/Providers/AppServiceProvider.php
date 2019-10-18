@@ -8,6 +8,7 @@ use App\Models\Discard;
 use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\Production;
+use App\Models\Supplier;
 use App\Models\Task;
 use App\Models\UnitsMeasure;
 use App\Models\User;
@@ -18,6 +19,7 @@ use App\Observers\DiscardObserver;
 use App\Observers\ProductCategoryObserver;
 use App\Observers\ProductionObserver;
 use App\Observers\ProductObserver;
+use App\Observers\SupplierObserver;
 use App\Observers\TaskObserver;
 use App\Observers\UnitsMeasureObserver;
 use App\Observers\UserObserver;
@@ -64,5 +66,6 @@ class AppServiceProvider extends ServiceProvider
         Task::observe(TaskObserver::class);
         UnitsMeasure::observe(UnitsMeasureObserver::class);
         Discard::observe(DiscardObserver::class);
+        Supplier::observe(SupplierObserver::class);
     }
 }

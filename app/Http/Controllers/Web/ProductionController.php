@@ -83,9 +83,7 @@ class ProductionController extends AbstractController
     public function edit(Production $production)
     {
         if (\Gate::allows('edit_productions')) {
-            $products = Product::where('active', 1)
-                               ->orderBy('name')
-                               ->get();
+            $products = Product::where('active', 1)->orderBy('name')->get();
 
             return view('pages.production.edit', compact('products', 'production'));
         }

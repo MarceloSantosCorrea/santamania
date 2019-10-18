@@ -62,7 +62,7 @@ class Checklist extends Model
         if ($checklist->status) {
 
             return DB::transaction(function () use ($checklist) {
-                \Log::debug("L".__LINE__." >  Fechamento checklist  {$checklist->id}");
+                \Log::debug("L".__LINE__." > Fechamento checklist {$checklist->id}");
                 /*
                  * Formatando a data para o formato string
                  */
@@ -74,7 +74,7 @@ class Checklist extends Model
                  */
                 $checklistAbertos = self::where('date', '<', $date)->where('status', 1)->get();
 
-                \Log::debug("L".__LINE__." >  Checklists Anteriores abertos encontrados:  {$checklistAbertos->count()}");
+                \Log::debug("L".__LINE__." > Checklists Anteriores abertos encontrados: {$checklistAbertos->count()}");
                 if ($checklistAbertos->count()) {
 
                     $dates = [];
@@ -114,12 +114,12 @@ class Checklist extends Model
                 $checklistAnterior = self::where('date', '<', $date)->where('status', 0)
                                          ->orderBy('date', 'desc')->with(['checklistProduct'])->first();
 
-                \Log::debug("L".__LINE__." >  Checklist anterior encontrado:  {$checklistAnterior->id}");
+                \Log::debug("L".__LINE__." > Checklist anterior encontrado: {$checklistAnterior->id}");
                 /**
                  * Manipulando todos os produtos ativos
                  */
                 foreach ($checklist->checklistProduct as $checklistProduct) {
-                    \Log::debug("L".__LINE__." >  Produto:  `#{$checklistProduct->product->id}` {$checklistProduct->product->name}");
+                    \Log::debug("L".__LINE__." > Produto: `#{$checklistProduct->product->id}` {$checklistProduct->product->name}");
                     /*
                      * Verificando e retornando se houve produção do produto na data do checklist
                      */
@@ -128,9 +128,9 @@ class Checklist extends Model
                     ])->first();
 
                     if ($production) {
-                        \Log::debug("L".__LINE__." >  Produto já produzido? :Sim");
+                        \Log::debug("L".__LINE__." > Produto já produzido? :Sim");
                     } else {
-                        \Log::debug("L".__LINE__." >  Produto já produzido? :Não");
+                        \Log::debug("L".__LINE__." > Produto já produzido? :Não");
                     }
 
                     $discard = Discard::where([
@@ -167,7 +167,7 @@ class Checklist extends Model
                             $totalAnterior = $checklistTotalAnterior->checklist_tatals->total;
                         }
 
-                        \Log::debug("L".__LINE__." >  Total anterior - checklist anterior: `{$totalAnterior}`");
+                        \Log::debug("L".__LINE__." > Total anterior - checklist anterior: `{$totalAnterior}`");
 
                         /**
                          * Se houver produção desse produto neste dia,
@@ -175,7 +175,7 @@ class Checklist extends Model
                          */
                         if ($production) {
                             $totalAnterior = $totalAnterior + $production->quantity;
-                            \Log::debug("L".__LINE__." >  Total anterior - checklist anterior + produção:  quantidade: {$production->quantity} = `{$totalAnterior}`");
+                            \Log::debug("L".__LINE__." > Total anterior - checklist anterior + produção: quantidade: {$production->quantity} = `{$totalAnterior}`");
                         }
 
                         \Log::debug("L".__LINE__." >  Total anterior: `{$totalAnterior}`");
@@ -187,7 +187,7 @@ class Checklist extends Model
                          */
                         if ($totalAnterior > 0) {
                             $difference = $totalAnterior - $checklistProduct->total;
-                            \Log::debug("L".__LINE__." >  Total anterior menos o total do produto encontrado: `{$totalAnterior}` - `{$checklistProduct->total}` = `{$difference}`");
+                            \Log::debug("L".__LINE__." > Total anterior menos o total do produto encontrado: `{$totalAnterior}` - `{$checklistProduct->total}` = `{$difference}`");
                         }
 
                         if ($discard) {
@@ -243,11 +243,13 @@ class Checklist extends Model
                     }
 
                     $daysOfTheWeek = getKeyDaysOfTheWeek($numberOfWeek);
+                    Task::where('status', 1)->update(['status' => 0]);
                     if ($checklistProduct->total < $productDailyChecklistDays[$daysOfTheWeek]) {
 
                         $missingAmount = $productDailyChecklistDays[$daysOfTheWeek] - $checklistProduct->total;
-
-                        $task = Task::where(['product_id' => $checklistProduct->product_id, 'status' => 1])->first();
+                        $task          = Task::where([
+                            'product_id' => $checklistProduct->product_id, 'status' => 1,
+                        ])->first();
 
                         if (! $task) {
                             Task::create([
@@ -265,7 +267,6 @@ class Checklist extends Model
                     ];
 
                     if ($difference < 0) {
-
                         return [
                             'success' => false,
                             'message' => "Opss, erro ao finalizar o produto {$checklistProduct->product->name}.",

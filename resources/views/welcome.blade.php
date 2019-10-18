@@ -111,9 +111,10 @@
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-striped">
                                         <tbody>
-
+                                            @php /** @var $task \App\Models\Task */ @endphp
                                             @foreach($tasks as $task)
                                                 <tr>
+                                                    <th style="{{ ($task->product->supplier) ? "background-color: " . $task->product->supplier->color : null }}"></th>
                                                     <th>{{ $task->product->name }}</th>
                                                     <td>{{ $task->description }}</td>
                                                     <td class="text-center">
