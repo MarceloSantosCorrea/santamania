@@ -115,6 +115,7 @@ class Checklist extends Model
                                          ->orderBy('date', 'desc')->with(['checklistProduct'])->first();
 
                 \Log::debug("L".__LINE__." > Checklist anterior encontrado: {$checklistAnterior->id}");
+                Task::where('status', 1)->update(['status' => 0]);
                 /**
                  * Manipulando todos os produtos ativos
                  */
@@ -243,7 +244,6 @@ class Checklist extends Model
                     }
 
                     $daysOfTheWeek = getKeyDaysOfTheWeek($numberOfWeek);
-                    Task::where('status', 1)->update(['status' => 0]);
                     if ($checklistProduct->total < $productDailyChecklistDays[$daysOfTheWeek]) {
 
                         $missingAmount = $productDailyChecklistDays[$daysOfTheWeek] - $checklistProduct->total;
