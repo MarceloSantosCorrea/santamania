@@ -119,8 +119,7 @@
                                                     <td>{{ $task->description }}</td>
                                                     <td class="text-center">
                                                         <form class="form-horizontal" method="post" action="{{ route('web.task.finalize', $task) }}">
-                                                            {!! csrf_field() !!}
-                                                            {{ method_field('PUT') }}
+                                                            @csrf @method('put')
                                                             <button type="submit"
                                                                     class="btn btn-warning btn-sm tooltips"
                                                                     data-toggle="tooltip" data-placement="top"
