@@ -2,8 +2,10 @@
 
 @section('title', 'Relatórios')
 
-@push('styles')
+@push('plugins')
     <link href="{{ asset('assets/plugins/morris/morris.css') }}" rel="stylesheet">
+@endpush
+@push('styles')
     <link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet">
 @endpush
 

@@ -77,7 +77,7 @@
                                     <thead>
                                         <tr>
                                             <th></th>
-                                            <th class="text-center" style="width: 80px">
+                                            <th class="text-center" style="width: 100px">
                                                 <small>{{ __('Atual') }}</small>
                                             </th>
                                             <th class="text-center" style="width: 100px">
