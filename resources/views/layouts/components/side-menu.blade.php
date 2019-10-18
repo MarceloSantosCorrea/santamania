@@ -30,7 +30,7 @@
                 @endcan
 
                 @if(Gate::check('list_products') || Gate::check('list_product_categories')|| Gate::check('list_units_measures')
-                || Gate::check('list_warehouses') || Gate::check('list_acl_roles') || Gate::check('list_users'))
+                || Gate::check('list_warehouses') || Gate::check('list_acl_roles') || Gate::check('list_users') || Gate::check('list_suppliers'))
 
                     <li class="has_sub">
                         <a href="javascript:void(0);" class="waves-effect"><i class="glyphicon glyphicon-cog"></i>
@@ -56,6 +56,11 @@
                             @can('list_warehouses')
                                 <li>
                                     <a href="{{ route('web.warehouse.index') }}"> {{ __('Local de Armazenamento') }} </a>
+                                </li>
+                            @endcan
+                            @can('list_suppliers')
+                                <li>
+                                    <a href="{{ route('web.supplier.index') }}"> {{ __('Fornecedores') }} </a>
                                 </li>
                             @endcan
                             @can('list_users')
