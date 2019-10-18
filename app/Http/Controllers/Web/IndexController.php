@@ -25,7 +25,7 @@ class IndexController extends AbstractController
 
         if (\Gate::allows('home')) {
 
-            $categories = ProductCategory::with(['product'])->get();
+            $categories = ProductCategory::with(['product'])->orderBy('name')->get();
 
             $checklistPreview = Checklist::where('status', 0)
                                          ->orderBy('date', 'desc')->with(['checklistProduct'])->first();
