@@ -1,5 +1,5 @@
 @extends('layouts.default')
-@section('title', 'Warehouses')
+@section('title', 'Início')
 @push('styles')
     <style>
         .category_name {

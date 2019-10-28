@@ -65,12 +65,12 @@
                                                             <td>{{ $checklistProduct->total }} {{ $checklistProduct->checklistProduct->product->unitsMeasure->symbol }}</td>
                                                             <td>{{ $checklistProduct->difference }}</td>
                                                             <td>
-                                                                {{ $discard = \App\Models\Discard::where([
+                                                                @php $discard = \App\Models\Discard::where([
                                                               'product_id' => $checklistProduct->checklistProduct->product_id,
                                                               'date' => (new \DateTime($checklistProduct->checklist->date))->format('Y-m-d')
-                                                          ])->first() }}
+                                                          ])->first() @endphp
                                                                 @if($discard)
-                                                                    {{ $discard->quantity  }} {{ $checklistProduct->checklistProduct->product->unitsMeasure->symbol }}
+                                                                    {{ $discard->quantity }} {{ $checklistProduct->checklistProduct->product->unitsMeasure->symbol }}
                                                                 @else
                                                                     -
                                                                 @endif

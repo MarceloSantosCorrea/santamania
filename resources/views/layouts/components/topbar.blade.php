@@ -2,11 +2,16 @@
     <div class="topbar-left">
         <div class="text-center">
             <a href="/" class="logo">
+                @php $name = explode(' ', config('app.name')); @endphp
                 <i class="icon-c-logo">
-                    <strong class="text-custom">S</strong><strong class="text-custom">M</strong>
+                    @foreach($name as $part)
+                        <strong class="text-custom">{{ substr($part, 0, 1) }}</strong>
+                    @endforeach
                 </i>
                 <span>
-                    <strong class="text-custom">S</strong>anta <strong class="text-custom">M</strong>ania
+                    @foreach($name as $part)
+                        <strong class="text-custom">{{ substr($part, 0, 1) }}</strong>{{ substr($part, 1, strlen($part) - 1) }}
+                    @endforeach
                 </span>
             </a>
         </div>

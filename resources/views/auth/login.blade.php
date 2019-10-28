@@ -5,8 +5,10 @@
         <div class="card-box">
             <div class="panel-heading">
                 <h3 class="text-center">
-                    <strong class="text-custom">S</strong>anta
-                    <strong class="text-custom">M</strong>ania
+                    @php $name = explode(' ', config('app.name')); @endphp
+                    @foreach($name as $part)
+                        <strong class="text-custom">{{ substr($part, 0, 1) }}</strong>{{ substr($part, 1, strlen($part) - 1) }}
+                    @endforeach
                 </h3>
             </div>
             <div class="p-20">

@@ -61,6 +61,7 @@ class Checklist extends Model
          */
         if ($checklist->status) {
 
+            Task::where('status', 0)->delete();
             return DB::transaction(function () use ($checklist) {
                 \Log::debug("L".__LINE__." > Fechamento checklist {$checklist->id}");
                 /*
@@ -111,11 +112,10 @@ class Checklist extends Model
                 /*
                  * Retornando o último checklist fechado
                  */
-                $checklistAnterior = self::where('date', '<', $date)->where('status', 0)
-                                         ->orderBy('date', 'desc')->with(['checklistProduct'])->first();
+                $checklistAnterior = self::where('date', '<', $date)->where('status', 0)->orderBy('date',
+                    'desc')->with(['checklistProduct'])->first();
 
                 \Log::debug("L".__LINE__." > Checklist anterior encontrado: {$checklistAnterior->id}");
-                Task::where('status', 1)->update(['status' => 0]);
                 /**
                  * Manipulando todos os produtos ativos
                  */
@@ -238,7 +238,8 @@ class Checklist extends Model
                     /**
                      * Verificar se o próximo dia é feriado então
                      */
-                    if (in_array((new \DateTime(date('Y-m-d', strtotime($checklist->date."+1 days"))))->format('m-d'),
+                    if (in_array((new \DateTime(date('Y-m-d',
+                        strtotime($checklist->date."+1 days"))))->format('m-d'),
                         $diasFeriados)) {
                         $numberOfWeek = 6; // sábados e feriados
                     }
@@ -329,6 +330,7 @@ class Checklist extends Model
                     }
 
                     \Log::debug("--------------------------------------------------------------------------------");
+
                 }
 
                 $checklist->status = 0;

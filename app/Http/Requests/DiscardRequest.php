@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\UniqProductAndDate;
 use Illuminate\Foundation\Http\FormRequest;
 
 class DiscardRequest extends FormRequest
@@ -29,17 +30,23 @@ class DiscardRequest extends FormRequest
                 return [
                     'product_id' => 'required',
                     'quantity'   => 'required',
-                    'date'       => 'required|uniqueProductAndDate:product_id',
+                    'date'       => [
+                        'required',
+                        new UniqProductAndDate('discards', $this->input('product_id', null)),
+                    ],
                 ];
             case'PUT':
                 $discard = $this->route('discard');
+                $id      = is_object($discard) ? $discard->id : $discard;
 
-                $id = is_object($discard) ? $discard->id : $discard;
-
+                //'|uniqueProductAndDate:product_id,'.$id
                 return [
                     'product_id' => 'required',
                     'quantity'   => 'required',
-                    'date'       => 'required|uniqueProductAndDate:product_id,'.$id,
+                    'date'       => [
+                        'required',
+                        new UniqProductAndDate('discards', $this->input('product_id', null), $id),
+                    ],
                 ];
         }
     }
