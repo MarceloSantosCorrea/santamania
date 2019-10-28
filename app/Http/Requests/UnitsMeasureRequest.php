@@ -35,7 +35,7 @@ class UnitsMeasureRequest extends FormRequest
                 $id = is_object($unitsMeasure) ? $unitsMeasure->id : $unitsMeasure;
 
                 return [
-                    "name" => "required|unique:units_measures,name," . $id,
+                    "name" => "required|unique:units_measures,name,".$id,
                 ];
         }
     }

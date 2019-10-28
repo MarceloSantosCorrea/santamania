@@ -9,11 +9,16 @@ class LogSuccessfulLogin
     /**
      * Handle the event.
      *
-     * @param Login $event
+     * @param  Login  $event
+     *
      * @return void
      */
     public function handle(Login $event)
     {
-        \Log::info("{$event->user->name} efetuou login.");
+        \Logs::database(
+            'Authentication',
+            auth()->user()->name." efetuou login.",
+            ['user_id' => auth()->user()->id]
+        );
     }
 }

@@ -2,6 +2,7 @@
     @foreach ($data as $item)
         <tr>
             <td>{{ (new \DateTime($item->date))->format('d/m/Y') }}</td>
+            <td>{{ "{$item->time_start} - {$item->time_end}" }}</td>
             <td>{{ getStatusChecklist($item->status) }}</td>
             <td class="text-right">
 

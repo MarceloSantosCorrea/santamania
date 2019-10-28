@@ -18,7 +18,7 @@ class TaskController extends Controller
     public function index()
     {
         if (\Gate::allows('list_tasks')) {
-            $data = Task::where('status', '1')->orderBy('id', 'desc')->paginate();
+            $data = Task::where('status', '1')->orderBy('id', 'DESC')->paginate();
 
             return view('pages.task.index', compact('data'));
         }
@@ -27,14 +27,14 @@ class TaskController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Mostrar formulário para criar uma nova tarefa.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
         if (\Gate::allows('create_tasks')) {
-            $products = Product::all();
+            $products = Product::where('active', 1)->orderBy('name')->get();
 
             return view('pages.task.create', compact('products'));
         }
@@ -45,22 +45,21 @@ class TaskController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      *
      * @return \Illuminate\Http\Response
      */
     public function store(TaskRequest $request)
     {
         if (\Gate::allows('create_tasks')) {
-            if (Task::create($request->all())) {
-                return redirect()
-                    ->route('web.task.index')
-                    ->with('success', 'Salvo com sucesso');
+
+            $data           = $request->all();
+            $data['status'] = 1;
+            if (Task::create($data)) {
+                return redirect()->route('web.task.index')->with('success', 'Salvo com sucesso');
             }
 
-            return redirect()
-                ->route('web.task.index')
-                ->with('error', 'Erro ao salvar');
+            return redirect()->route('web.task.index')->with('error', 'Erro ao salvar');
         }
 
         return view('pages.acl.unauthorized');
@@ -69,14 +68,14 @@ class TaskController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Task $production
+     * @param  Task  $production
      *
      * @return \Illuminate\Http\Response
      */
     public function edit(Task $task)
     {
         if (\Gate::allows('edit_tasks')) {
-            $products = Product::all();
+            $products = Product::where('active', 1)->orderBy('name')->get();
 
             return view('pages.task.edit', compact('products', 'task'));
         }
@@ -87,8 +86,8 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param TaskRequest $request
-     * @param Task $task
+     * @param  TaskRequest  $request
+     * @param  Task  $task
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -115,8 +114,8 @@ class TaskController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param TaskRequest $request
-     * @param Task $task
+     * @param  TaskRequest  $request
+     * @param  Task  $task
      *
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -142,7 +141,7 @@ class TaskController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Task $task
+     * @param  Task  $task
      *
      * @return \Illuminate\Http\RedirectResponse
      */

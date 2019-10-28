@@ -33,15 +33,17 @@ class AclPermissionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        if (AclPermission::create($request->all()))
+        if (AclPermission::create($request->all())) {
             return redirect()
                 ->route('web.acl.permission.index')
                 ->with('success', 'Salvo com sucesso');
+        }
 
         return redirect()
             ->route('web.acl.permission.index')
@@ -51,7 +53,8 @@ class AclPermissionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param AclPermission $aclPermission
+     * @param  AclPermission  $aclPermission
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(AclPermission $aclPermission)
@@ -62,7 +65,8 @@ class AclPermissionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param AclPermission $aclPermission
+     * @param  AclPermission  $aclPermission
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(AclPermission $aclPermission)
@@ -73,18 +77,20 @@ class AclPermissionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, AclPermission $aclPermission)
     {
         $aclPermission->fill($request->all());
 
-        if ($aclPermission->save())
+        if ($aclPermission->save()) {
             return redirect()
                 ->route('web.acl.permission.index')
                 ->with('success', 'Salvo com sucesso');
+        }
 
         return redirect()
             ->route('web.acl.permission.index')
@@ -94,15 +100,17 @@ class AclPermissionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param AclPermission $aclPermission
+     * @param  AclPermission  $aclPermission
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(AclPermission $aclPermission)
     {
-        if ($aclPermission->delete())
+        if ($aclPermission->delete()) {
             return redirect()
                 ->route('web.acl.permission.index')
                 ->with('success', 'Deletado com sucesso');
+        }
 
         return redirect()
             ->route('web.acl.permission.index')

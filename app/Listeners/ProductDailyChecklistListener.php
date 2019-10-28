@@ -10,7 +10,8 @@ class ProductDailyChecklistListener
     /**
      * Handle the event.
      *
-     * @param  ProductCreatedEvent $event
+     * @param  ProductCreatedEvent  $event
+     *
      * @return void
      */
     public function handle(ProductCreatedEvent $event)

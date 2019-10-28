@@ -13,16 +13,45 @@ class ChecklistObserver
 
     public function created(Checklist $checklist)
     {
-        \Log::info(auth()->user()->name . " criou o checklist ID: {$checklist->id} para o DIA: " . (new \DateTime($checklist->date))->format('d/m/Y'));
+        \Logs::database(
+            'Checklist',
+            auth()->user()->name." criou o checklist ID: {$checklist->id} para o dia: {$this->getDate()}",
+            ['user_id' => auth()->user()->id]
+        );
     }
 
     public function updated(Checklist $checklist)
     {
-        \Log::info(auth()->user()->name . " editou o checklist ID: {$checklist->id} para o DIA: " . (new \DateTime($checklist->date))->format('d/m/Y'));
+        $original = $checklist->getOriginal();
+        $changes  = $checklist->getChanges();
+        unset($changes["updated_at"]);
+        $inputs = [];
+        if (count($changes)) {
+            foreach ($changes as $key => $val) {
+                $inputs[$key] = [isset($original[$key]) ? $original[$key] : null => $val];
+            }
+        }
+
+        if (count($inputs)) {
+            \Logs::database(
+                'Checklist',
+                auth()->user()->name." editou o checklist ID: {$checklist->id} para o dia: {$this->getDate()}, ".json_encode($inputs),
+                ['user_id' => auth()->user()->id]
+            );
+        }
     }
 
     public function deleted(Checklist $checklist)
     {
-        \Log::info(auth()->user()->name . " deletou o checklist ID: {$checklist->id} para o DIA: " . (new \DateTime($checklist->date))->format('d/m/Y'));
+        \Logs::database(
+            'Checklist',
+            auth()->user()->name." deletou o checklist ID: {$checklist->id} para o dia: {$this->getDate()}",
+            ['user_id' => auth()->user()->id]
+        );
+    }
+
+    private function getDate()
+    {
+        return (new \DateTime('now', new \DateTimeZone('America/Sao_Paulo')))->format('d/m/Y H:i:s');
     }
 }

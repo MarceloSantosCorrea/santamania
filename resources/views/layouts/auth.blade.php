@@ -6,9 +6,8 @@
         <meta name="description" content="Santa Mania Checklist">
         <meta name="author" content="Maxim Web">
 
-        <link rel="shortcut icon" href="https://maximweb.com.br/wp-content/uploads/2016/01/Logo-MW.png">
-
-        <title>Santa Mania Checklist - Login</title>
+        <title>{{ config('app.name') }} Checklist - Login</title>
+        <link rel="shortcut icon" type="image/x-icon" href="{{ url('assets/images/logo-pizza-place.jpg') }}">
 
         <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
         <link href="{{ asset('assets/css/core.css') }}" rel="stylesheet" type="text/css"/>

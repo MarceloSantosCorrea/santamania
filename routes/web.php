@@ -1,6 +1,6 @@
 <?php
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::group(['middleware' => ['auth']], function () {
     Route::group(['namespace' => 'Web'], function () {
@@ -9,6 +9,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/logout', 'IndexController@logout')->name('logout');
 
         Route::group(['as' => 'web.'], function () {
+            Route::get('/logs', 'LogController@index')->name('log.index');
+
             Route::get('/profile', 'UserController@profile')->name('user.profile');
             Route::put('/profile', 'UserController@updateProfile')->name('user.updateProfile');
 
@@ -29,11 +31,25 @@ Route::group(['middleware' => ['auth']], function () {
             });
 
             Route::group(['prefix' => 'checklist-product'], function () {
-                Route::get('/create/{checklist}/{product}', 'ChecklistProductController@create')->name('checklist-product.create');
+                Route::get('/create/{checklist}/{product}',
+                    'ChecklistProductController@create')->name('checklist-product.create');
                 Route::post('/store', 'ChecklistProductController@store')->name('checklist-product.store');
-                Route::get('/edit/{checklist}/{product}', 'ChecklistProductController@edit')->name('checklist-product.edit');
-                Route::put('/update/{checklistProduct}', 'ChecklistProductController@update')->name('checklist-product.update');
-                Route::get('/destroy/{checklist}/{product}', 'ChecklistProductController@destroy')->name('checklist-product.destroy');
+                Route::get('/edit/{checklist}/{product}',
+                    'ChecklistProductController@edit')->name('checklist-product.edit');
+                Route::put('/update/{checklistProduct}',
+                    'ChecklistProductController@update')->name('checklist-product.update');
+                Route::get('/destroy/{checklist}/{product}',
+                    'ChecklistProductController@destroy')->name('checklist-product.destroy');
+            });
+
+            Route::group(['prefix' => 'filters'], function () {
+                Route::get('/', 'FiltersController@index')->name('filters.index');
+                Route::get('/create', 'FiltersController@create')->name('filters.create');
+                Route::post('/store', 'FiltersController@store')->name('filters.store');
+                Route::get('/show/{uid}', 'FiltersController@show')->name('filters.show');
+                Route::get('/edit/{uid}', 'FiltersController@edit')->name('filters.edit');
+                Route::put('/update/{uid}', 'FiltersController@update')->name('filters.update');
+                Route::get('/destroy/{uid}', 'FiltersController@destroy')->name('filters.destroy');
             });
 
             Route::group(['prefix' => 'checklist'], function () {
@@ -55,8 +71,27 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/destroy/{production}', 'ProductionController@destroy')->name('production.destroy');
             });
 
+            Route::group(['prefix' => 'discard'], function () {
+                Route::get('/', 'DiscardController@index')->name('discard.index');
+                Route::get('/create', 'DiscardController@create')->name('discard.create');
+                Route::post('/store', 'DiscardController@store')->name('discard.store');
+                Route::get('/edit/{discard}', 'DiscardController@edit')->name('discard.edit');
+                Route::put('/update/{discard}', 'DiscardController@update')->name('discard.update');
+                Route::get('/destroy/{discard}', 'DiscardController@destroy')->name('discard.destroy');
+            });
+
+            Route::group(['prefix' => 'supplier'], function () {
+                Route::get('/', 'SupplierController@index')->name('supplier.index');
+                Route::get('/create', 'SupplierController@create')->name('supplier.create');
+                Route::post('/store', 'SupplierController@store')->name('supplier.store');
+                Route::get('/edit/{supplier}', 'SupplierController@edit')->name('supplier.edit');
+                Route::put('/update/{supplier}', 'SupplierController@update')->name('supplier.update');
+                Route::get('/destroy/{supplier}', 'SupplierController@destroy')->name('supplier.destroy');
+            });
+
             Route::group(['prefix' => 'product'], function () {
-                Route::get('/', 'ProductController@index')->name('product.index'); //->middleware('can:list_products'); //
+                Route::get('/',
+                    'ProductController@index')->name('product.index'); //->middleware('can:list_products'); //
                 Route::get('/create', 'ProductController@create')->name('product.create');
                 Route::post('/store', 'ProductController@store')->name('product.store');
                 Route::get('/edit/{product}', 'ProductController@edit')->name('product.edit');
@@ -69,14 +104,19 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/create', 'ProductCategoryController@create')->name('product-category.create');
                 Route::post('/store', 'ProductCategoryController@store')->name('product-category.store');
                 Route::get('/edit/{product_category}', 'ProductCategoryController@edit')->name('product-category.edit');
-                Route::put('/update/{product_category}', 'ProductCategoryController@update')->name('product-category.update');
-                Route::get('/destroy/{product_category}', 'ProductCategoryController@destroy')->name('product-category.destroy');
+                Route::put('/update/{product_category}',
+                    'ProductCategoryController@update')->name('product-category.update');
+                Route::get('/destroy/{product_category}',
+                    'ProductCategoryController@destroy')->name('product-category.destroy');
             });
 
             Route::group(['prefix' => 'product-days'], function () {
                 Route::get('/{product}', 'ProductDaysController@index')->name('product-days.index');
                 Route::put('/update/{dailyChecklist}', 'ProductDaysController@update')->name('product-days.update');
             });
+
+            Route::get('/settings', 'SettingsController@index')->name('settings.index');
+            Route::post('/settings', 'SettingsController@store')->name('settings.store');
 
             Route::group(['prefix' => 'units-measure'], function () {
                 Route::get('/', 'UnitsMeasureController@index')->name('units-measure.index');
@@ -129,13 +169,17 @@ Route::group(['middleware' => ['auth']], function () {
                     Route::get('/create', 'AclPermissionController@create')->name('acl.permission.create');
                     Route::post('/store', 'AclPermissionController@store')->name('acl.permission.store');
                     Route::get('/edit/{acl_permission}', 'AclPermissionController@edit')->name('acl.permission.edit');
-                    Route::put('/update/{acl_permission}', 'AclPermissionController@update')->name('acl.permission.update');
-                    Route::get('/destroy/{acl_permission}', 'AclPermissionController@destroy')->name('acl.permission.destroy');
+                    Route::put('/update/{acl_permission}',
+                        'AclPermissionController@update')->name('acl.permission.update');
+                    Route::get('/destroy/{acl_permission}',
+                        'AclPermissionController@destroy')->name('acl.permission.destroy');
                 });
 
                 Route::group(['prefix' => 'permissions-role'], function () {
-                    Route::get('/show/{acl_role}', 'AclPermissionRoleController@show')->name('acl.permission.role.show');
-                    Route::put('/update/{acl_role}', 'AclPermissionRoleController@update')->name('acl.permission.role.update');
+                    Route::get('/show/{acl_role}',
+                        'AclPermissionRoleController@show')->name('acl.permission.role.show');
+                    Route::put('/update/{acl_role}',
+                        'AclPermissionRoleController@update')->name('acl.permission.role.update');
                 });
             });
         });

@@ -18,7 +18,7 @@ class AclPermissionRoleController extends Controller
     public function show(AclRole $aclRole)
     {
         $permissionsRole = AclPermissionAclRole::where(['acl_role_id' => $aclRole->id])->get();
-        $permissions = AclPermission::all();
+        $permissions     = AclPermission::all();
 
         return view('pages.acl.permission-role.index', compact('aclRole', 'permissions', 'permissionsRole'));
     }
@@ -27,16 +27,18 @@ class AclPermissionRoleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, AclRole $aclRole)
     {
-        if (AclPermissionAclRole::savePermissions($request->all()['permissions'], $aclRole))
+        if (AclPermissionAclRole::savePermissions($request->all()['permissions'], $aclRole)) {
             return redirect()
-            ->route('web.acl.role.index')
-            ->with('success', 'Salvo com sucesso');
+                ->route('web.acl.role.index')
+                ->with('success', 'Salvo com sucesso');
+        }
 
         return redirect()
             ->route('web.acl.role.index')

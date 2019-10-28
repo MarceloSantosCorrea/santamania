@@ -33,15 +33,17 @@ class AclRoleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        if (AclRole::create($request->all()))
+        if (AclRole::create($request->all())) {
             return redirect()
                 ->route('web.acl.role.index')
                 ->with('success', 'Salvo com sucesso');
+        }
 
         return redirect()
             ->route('web.acl.role.index')
@@ -51,7 +53,8 @@ class AclRoleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param AclRole $aclRole
+     * @param  AclRole  $aclRole
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(AclRole $aclRole)
@@ -62,7 +65,8 @@ class AclRoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param AclRole $aclRole
+     * @param  AclRole  $aclRole
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(AclRole $aclRole)
@@ -73,18 +77,20 @@ class AclRoleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, AclRole $aclRole)
     {
         $aclRole->fill($request->all());
 
-        if ($aclRole->save())
+        if ($aclRole->save()) {
             return redirect()
                 ->route('web.acl.role.index')
                 ->with('success', 'Salvo com sucesso');
+        }
 
         return redirect()
             ->route('web.acl.role.index')
@@ -94,15 +100,17 @@ class AclRoleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param AclRole $aclRole
+     * @param  AclRole  $aclRole
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(AclRole $aclRole)
     {
-        if ($aclRole->delete())
+        if ($aclRole->delete()) {
             return redirect()
                 ->route('web.acl.role.index')
                 ->with('success', 'Deletado com sucesso');
+        }
 
         return redirect()
             ->route('web.acl.role.index')

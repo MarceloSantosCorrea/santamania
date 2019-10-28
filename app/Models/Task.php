@@ -14,4 +14,9 @@ class Task extends Model
     {
         return $this->belongsTo(Product::class);
     }
+
+    public function finalize()
+    {
+        return self::update(['status' => 0]);
+    }
 }

@@ -13,7 +13,8 @@ class WarehouseController extends Controller
 
     /**
      * WarehouseController constructor.
-     * @param Warehouse $model
+     *
+     * @param  Warehouse  $model
      */
     public function __construct(Warehouse $model)
     {
@@ -36,7 +37,7 @@ class WarehouseController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      */
     public function update(WarehouseRequest $request, $model)
     {

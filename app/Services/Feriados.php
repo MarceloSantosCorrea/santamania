@@ -21,8 +21,9 @@ class Feriados
      * formato = formatação da função date() http://br.php.net/date
      * Padrão: d/m/Y
      *
-     * @param bool $ano
-     * @param string $form
+     * @param  bool  $ano
+     * @param  string  $form
+     *
      * @return false|string
      */
     public function dataPascoa($ano = false, $form = "d/m/Y")
@@ -34,24 +35,24 @@ class Feriados
             $C = ($ano % 19);
             $D = ((19 * $C + 15) % 30);
             $E = ((2 * $A + 4 * $B - $D + 34) % 7);
-            $F = ( int )(($D + $E + 114) / 31);
+            $F = ( int ) (($D + $E + 114) / 31);
             $G = (($D + $E + 114) % 31) + 1;
 
             return date($form, mktime(0, 0, 0, $F, $G, $ano));
         } else {
             $A = ($ano % 19);
-            $B = ( int )($ano / 100);
+            $B = ( int ) ($ano / 100);
             $C = ($ano % 100);
-            $D = ( int )($B / 4);
+            $D = ( int ) ($B / 4);
             $E = ($B % 4);
-            $F = ( int )(($B + 8) / 25);
-            $G = ( int )(($B - $F + 1) / 3);
+            $F = ( int ) (($B + 8) / 25);
+            $G = ( int ) (($B - $F + 1) / 3);
             $H = ((19 * $A + $B - $D - $G + 15) % 30);
-            $I = ( int )($C / 4);
+            $I = ( int ) ($C / 4);
             $K = ($C % 4);
             $L = ((32 + 2 * $E + 2 * $I - $H - $K) % 7);
-            $M = ( int )(($A + 11 * $H + 22 * $L) / 451);
-            $P = ( int )(($H + $L - 7 * $M + 114) / 31);
+            $M = ( int ) (($A + 11 * $H + 22 * $L) / 451);
+            $P = ( int ) (($H + $L - 7 * $M + 114) / 31);
             $Q = (($H + $L - 7 * $M + 114) % 31) + 1;
 
             return date($form, mktime(0, 0, 0, $P, $Q, $ano));
@@ -74,8 +75,9 @@ class Feriados
      * formato = formatacao da funcao date() http://br.php.net/date
      * Padrao: d/m/Y
      *
-     * @param bool $ano
-     * @param string $form
+     * @param  bool  $ano
+     * @param  string  $form
+     *
      * @return false|string
      */
     public function dataCarnaval($ano = false, $form = "d/m/Y")
@@ -102,8 +104,9 @@ class Feriados
      * formato = formatacao da funcao date() http://br.php.net/date
      * Padrao: d/m/Y
      *
-     * @param bool $ano
-     * @param string $form
+     * @param  bool  $ano
+     * @param  string  $form
+     *
      * @return false|string
      */
     public function dataCorpusChristi($ano = false, $form = "d/m/Y")
@@ -130,8 +133,9 @@ class Feriados
      * formato = formatacao da funcao date() http://br.php.net/date
      * Padrao: d/m/Y
      *
-     * @param bool $ano
-     * @param string $form
+     * @param  bool  $ano
+     * @param  string  $form
+     *
      * @return false|string
      */
     public function dataSextaSanta($ano = false, $form = "d/m/Y")
@@ -151,13 +155,15 @@ class Feriados
         for ($i = 1; $i <= 31; $i++) {
 
             $day = $i;
-            if ($i < 10)
+            if ($i < 10) {
                 $day = "0$i";
+            }
 
             $date = "$ano-08-$day";
             $week = date('w', strtotime($date));
-            if ($week == 0)
+            if ($week == 0) {
                 $sunday++;
+            }
 
             if ($sunday == 2) {
                 $diaDosPais = date($form, strtotime($date));
@@ -179,13 +185,15 @@ class Feriados
         for ($i = 1; $i <= 31; $i++) {
 
             $day = $i;
-            if ($i < 10)
+            if ($i < 10) {
                 $day = "0$i";
+            }
 
             $date = "$ano-05-$day";
             $week = date('w', strtotime($date));
-            if ($week == 0)
+            if ($week == 0) {
                 $sunday++;
+            }
 
             if ($sunday == 2) {
                 $diaDosMaes = date($form, strtotime($date));
@@ -208,7 +216,7 @@ class Feriados
         $aux_p       = explode("/", $pascoa_dt);
         $aux_dia_pas = $aux_p[0];
         $aux_mes_pas = $aux_p[1];
-        $pascoa      = "$aux_mes_pas" . "-" . "$aux_dia_pas"; // crio uma data somente como mes e dia
+        $pascoa      = "$aux_mes_pas"."-"."$aux_dia_pas"; // crio uma data somente como mes e dia
         /**
          * chama a funcao que calcula o carnaval
          */
@@ -216,7 +224,7 @@ class Feriados
         $aux_carna     = explode("/", $carnaval_dt);
         $aux_dia_carna = $aux_carna[0];
         $aux_mes_carna = $aux_carna[1];
-        $carnaval      = "$aux_mes_carna" . "-" . "$aux_dia_carna";
+        $carnaval      = "$aux_mes_carna"."-"."$aux_dia_carna";
         /**
          * chama a funcao que calcula corpus christi
          */
@@ -224,7 +232,7 @@ class Feriados
         $aux_cc           = explode("/", $CorpusChristi_dt);
         $aux_cc_dia       = $aux_cc[0];
         $aux_cc_mes       = $aux_cc[1];
-        $Corpus_Christi   = "$aux_cc_mes" . "-" . "$aux_cc_dia";
+        $Corpus_Christi   = "$aux_cc_mes"."-"."$aux_cc_dia";
         /**
          * chama a funcao que calcula a sexta feira santa
          */
@@ -232,7 +240,7 @@ class Feriados
         $aux            = explode("/", $sexta_santa_dt);
         $aux_dia        = $aux[0];
         $aux_mes        = $aux[1];
-        $sexta_santa    = "$aux_mes" . "-" . "$aux_dia";
+        $sexta_santa    = "$aux_mes"."-"."$aux_dia";
         /**
          * chama a funcao que calcula o dia dos Pais
          */
@@ -240,7 +248,7 @@ class Feriados
         $aux         = explode("/", $dia_pais_dt);
         $aux_dia     = $aux[0];
         $aux_mes     = $aux[1];
-        $dia_pais    = "$aux_mes" . "-" . "$aux_dia";
+        $dia_pais    = "$aux_mes"."-"."$aux_dia";
         /**
          * chama a funcao que calcula o dia dos Maes
          */
@@ -248,7 +256,7 @@ class Feriados
         $aux         = explode("/", $dia_maes_dt);
         $aux_dia     = $aux[0];
         $aux_mes     = $aux[1];
-        $dia_maes    = "$aux_mes" . "-" . "$aux_dia";
+        $dia_maes    = "$aux_mes"."-"."$aux_dia";
 
         return [
             "01-01", // Ano Novo

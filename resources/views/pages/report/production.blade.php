@@ -2,8 +2,10 @@
 
 @section('title', 'Relatórios')
 
-@push('styles')
+@push('plugins')
     <link href="{{ asset('assets/plugins/morris/morris.css') }}" rel="stylesheet">
+@endpush
+@push('styles')
     <link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet">
 @endpush
 
@@ -132,7 +134,7 @@
                     });
                 };
                 MorrisCharts.prototype.init                  = function () {
-                    var $areaDotData = <?= isset($data) ? $data : '[]' ?>;
+                    var $areaDotData = {!! isset($data) ? $data : '[]' !!};
                     this.createAreaChartDotted('morris-area-with-dotted', 0, 0, $areaDotData, 'y', ['a'], ['Quantidade'], ['#ffffff'], ['#999999'], ['#5d9cec']);
                 };
 

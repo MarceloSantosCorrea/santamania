@@ -1,7 +1,5 @@
 @extends('layouts.default')
-
 @section('title', 'Novo Checklist')
-
 @section('content')
     <div class="content-page">
         <div class="content">
@@ -27,8 +25,8 @@
                         <div class="card-box">
                             <div class="row">
                                 <div class="col-md-12">
-                                    @include('form._form_errors')
                                     <form class="form-horizontal" method="post" action="{{ route('web.checklist.store') }}">
+                                        @csrf
                                         @include('pages.checklist._form')
                                     </form>
                                 </div>

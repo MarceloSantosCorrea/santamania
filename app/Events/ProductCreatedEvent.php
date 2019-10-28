@@ -18,7 +18,7 @@ class ProductCreatedEvent
     /**
      * Create a new event instance.
      *
-     * @param Product $product
+     * @param  Product  $product
      */
     public function __construct(Product $product)
     {

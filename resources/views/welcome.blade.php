@@ -1,5 +1,5 @@
 @extends('layouts.default')
-@section('title', 'Warehouses')
+@section('title', 'Início')
 @push('styles')
     <style>
         .category_name {
@@ -77,7 +77,7 @@
                                     <thead>
                                         <tr>
                                             <th></th>
-                                            <th class="text-center" style="width: 60px">
+                                            <th class="text-center" style="width: 100px">
                                                 <small>{{ __('Atual') }}</small>
                                             </th>
                                             <th class="text-center" style="width: 100px">
@@ -90,7 +90,7 @@
                                             @foreach($checklistPreview->checklistProduct as $checklistProduct)
                                                 <tr>
                                                     <th class="text-nowrap" scope="row">{{ $checklistProduct->product->name }}</th>
-                                                    <td class="text-center">{{ $checklistProduct->total }}</td>
+                                                    <td class="text-center">{{ "{$checklistProduct->total} {$checklistProduct->product->unitsMeasure->symbol}" }}</td>
                                                     <td class="text-center">
                                                         {{ $checklistProduct->product->prevision ? \Carbon\Carbon::parse($checklistProduct->product->prevision->prevision_date)->format('d/m/Y'): null }}
                                                     </td>
@@ -111,15 +111,15 @@
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-striped">
                                         <tbody>
-
+                                            @php /** @var $task \App\Models\Task */ @endphp
                                             @foreach($tasks as $task)
                                                 <tr>
+                                                    <th style="{{ ($task->product->supplier) ? "background-color: " . $task->product->supplier->color : null }}"></th>
                                                     <th>{{ $task->product->name }}</th>
                                                     <td>{{ $task->description }}</td>
                                                     <td class="text-center">
                                                         <form class="form-horizontal" method="post" action="{{ route('web.task.finalize', $task) }}">
-                                                            {!! csrf_field() !!}
-                                                            {{ method_field('PUT') }}
+                                                            @csrf @method('put')
                                                             <button type="submit"
                                                                     class="btn btn-warning btn-sm tooltips"
                                                                     data-toggle="tooltip" data-placement="top"

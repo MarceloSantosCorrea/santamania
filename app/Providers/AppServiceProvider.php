@@ -4,50 +4,31 @@ namespace App\Providers;
 
 use App\Models\Checklist;
 use App\Models\ChecklistProduct;
+use App\Models\Discard;
+use App\Models\Product;
 use App\Models\ProductCategory;
 use App\Models\Production;
-use App\Observers\ChecklistObserver;
-use App\Observers\ChecklistProductObserver;
-use App\Observers\ProductCategoryObserver;
-use App\Observers\ProductionObserver;
-use Laravel\Passport\Passport;
-use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Schema;
-
-use App\Observers\ProductObserver;
-use App\Observers\UserObserver;
-use App\Observers\WarehouseObserver;
-use App\Observers\ChecklistWarehouseQuantityObserver;
-
-use App\Models\Product;
+use App\Models\Supplier;
+use App\Models\Task;
+use App\Models\UnitsMeasure;
 use App\Models\User;
 use App\Models\Warehouse;
-use App\Models\ChecklistWarehouseQuantity;
+use App\Observers\ChecklistObserver;
+use App\Observers\ChecklistProductObserver;
+use App\Observers\DiscardObserver;
+use App\Observers\ProductCategoryObserver;
+use App\Observers\ProductionObserver;
+use App\Observers\ProductObserver;
+use App\Observers\SupplierObserver;
+use App\Observers\TaskObserver;
+use App\Observers\UnitsMeasureObserver;
+use App\Observers\UserObserver;
+use App\Observers\WarehouseObserver;
+use Illuminate\Support\ServiceProvider;
+use Laravel\Passport\Passport;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        Passport::routes();
-        Schema::defaultStringLength(191);
-
-        /*
-         * Observables
-         */
-        User::observe(UserObserver::class);
-        Warehouse::observe(WarehouseObserver::class);
-        ProductCategory::observe(ProductCategoryObserver::class);
-        Product::observe(ProductObserver::class);
-        Production::observe(ProductionObserver::class);
-        Checklist::observe(ChecklistObserver::class);
-        ChecklistProduct::observe(ChecklistProductObserver::class);
-    }
-
     /**
      * Register any application services.
      *
@@ -59,6 +40,32 @@ class AppServiceProvider extends ServiceProvider
             $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
         }
 
-        require_once __DIR__ . '/../Helpers/helpers.php';
+        \App::bind('logs', function () {
+            return new \App\Helpers\Logs();
+        });
+    }
+
+    /**
+     * Bootstrap any application services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        Passport::routes();
+        /*
+         * Observables
+         */
+        User::observe(UserObserver::class);
+        Warehouse::observe(WarehouseObserver::class);
+        ProductCategory::observe(ProductCategoryObserver::class);
+        Product::observe(ProductObserver::class);
+        Production::observe(ProductionObserver::class);
+        Checklist::observe(ChecklistObserver::class);
+        ChecklistProduct::observe(ChecklistProductObserver::class);
+        Task::observe(TaskObserver::class);
+        UnitsMeasure::observe(UnitsMeasureObserver::class);
+        Discard::observe(DiscardObserver::class);
+        Supplier::observe(SupplierObserver::class);
     }
 }

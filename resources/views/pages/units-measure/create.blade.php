@@ -1,7 +1,5 @@
 @extends('layouts.default')
-
 @section('title', 'Nova Unidade de Media')
-
 @section('content')
     <div class="content-page">
         <div class="content">
@@ -29,6 +27,7 @@
                                 <div class="col-md-12">
                                     @include('form._form_errors')
                                     <form class="form-horizontal" method="post" action="{{ route('web.units-measure.store') }}">
+                                        @csrf
                                         @include('pages.units-measure._form')
                                     </form>
                                 </div>

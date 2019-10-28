@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\Supplier;
 use App\Models\UnitsMeasure;
 use Illuminate\Http\Request;
 
@@ -20,10 +21,11 @@ class ProductController extends AbstractController
         if (\Gate::allows('list_products')) {
 
             $params = $request->all();
-            if (isset($params['search']))
-                $data = (new Product)->search($params['search'])->paginate(30);
-            else
-                $data = Product::with(['productCategory'])->paginate(10);
+            if (isset($params['search'])) {
+                $data = (new Product)->search($params['search'])->orderBy('name', 'ASC')->paginate(30);
+            } else {
+                $data = Product::with(['productCategory'])->orderBy('name', 'ASC')->paginate(15);
+            }
 
             return view('pages.product.index', compact('data'));
         }
@@ -40,22 +42,25 @@ class ProductController extends AbstractController
     {
         $productCategories = ProductCategory::where(['active' => 1])->get();
         $unitsMeasures     = UnitsMeasure::all();
+        $suppliers         = Supplier::all();
 
-        return view('pages.product.create', compact('productCategories', 'unitsMeasures'));
+        return view('pages.product.create', compact('productCategories', 'unitsMeasures', 'suppliers'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(ProductRequest $request)
     {
-        if (Product::create($request->all()))
+        if (Product::create($request->all())) {
             return redirect()
                 ->route('web.product.index')
                 ->with('success', 'Salvo com sucesso');
+        }
 
         return redirect()
             ->route('web.product.index')
@@ -63,45 +68,38 @@ class ProductController extends AbstractController
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
-     * @param Product $product
+     * @param  Product  $product
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Product $product)
     {
         $productCategories = ProductCategory::where(['active' => 1])->get();
         $unitsMeasures     = UnitsMeasure::all();
+        $suppliers         = Supplier::all();
 
-        return view('pages.product.edit', compact('product', 'productCategories', 'unitsMeasures'));
+        return view('pages.product.edit', compact('product', 'productCategories', 'unitsMeasures', 'suppliers'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(ProductRequest $request, Product $product)
     {
         $product->fill($request->all());
 
-        if ($product->save())
+        if ($product->save()) {
             return redirect()
                 ->route('web.product.index')
                 ->with('success', 'Salvo com sucesso');
+        }
 
         return redirect()
             ->route('web.product.index')
@@ -111,16 +109,18 @@ class ProductController extends AbstractController
     /**
      * Remove the specified resource from storage.
      *
-     * @param Product $product
+     * @param  Product  $product
+     *
      * @return \Illuminate\Http\Response
      * @throws \Exception
      */
     public function destroy(Product $product)
     {
-        if ($product->delete())
+        if ($product->delete()) {
             return redirect()
                 ->route('web.product.index')
                 ->with('success', 'Deletado com sucesso');
+        }
 
         return redirect()
             ->route('web.product.index')

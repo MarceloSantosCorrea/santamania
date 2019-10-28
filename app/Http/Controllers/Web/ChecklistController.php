@@ -19,10 +19,11 @@ class ChecklistController extends AbstractController
         if (\Gate::allows('list_checklists')) {
 
             $params = $request->all();
-            if (isset($params['search']))
-                $data = (new Checklist)->search($params['search'])->orderBy('date', 'desc')->paginate(30);
-            else
-                $data = Checklist::orderBy('date', 'desc')->paginate();
+            if (isset($params['search'])) {
+                $data = (new Checklist)->search($params['search'])->orderBy('date', 'desc')->orderBy('id', 'desc')->paginate(30);
+            } else {
+                $data = Checklist::orderBy('date', 'desc')->orderBy('id', 'desc')->paginate();
+            }
 
             return view('pages.checklist.index', compact('data'));
         }
@@ -47,16 +48,18 @@ class ChecklistController extends AbstractController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(ChecklistRequest $request)
     {
         if (\Gate::allows('create_checklists')) {
-            if (Checklist::create($request->all()))
+            if (Checklist::create($request->all())) {
                 return redirect()
                     ->route('web.checklist.index')
                     ->with('success', 'Salvo com sucesso');
+            }
 
             return redirect()
                 ->route('web.checklist.index')
@@ -69,7 +72,8 @@ class ChecklistController extends AbstractController
     /**
      * Display the specified resource.
      *
-     * @param Checklist $checklist
+     * @param  Checklist  $checklist
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show(Checklist $checklist)
@@ -86,7 +90,8 @@ class ChecklistController extends AbstractController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Checklist $checklist
+     * @param  Checklist  $checklist
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit(Checklist $checklist)
@@ -101,8 +106,9 @@ class ChecklistController extends AbstractController
     /**
      * Update the specified resource in storage.
      *
-     * @param ChecklistRequest $request
-     * @param Checklist $checklist
+     * @param  ChecklistRequest  $request
+     * @param  Checklist  $checklist
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(ChecklistRequest $request, Checklist $checklist)
@@ -110,10 +116,11 @@ class ChecklistController extends AbstractController
         if (\Gate::allows('edit_checklists')) {
             $checklist->fill($request->all());
 
-            if ($checklist->save())
+            if ($checklist->save()) {
                 return redirect()
                     ->route('web.checklist.index')
                     ->with('success', 'Salvo com sucesso');
+            }
 
             return redirect()
                 ->route('web.checklist.index')
@@ -126,17 +133,19 @@ class ChecklistController extends AbstractController
     /**
      * Remove the specified resource from storage.
      *
-     * @param Checklist $checklist
+     * @param  Checklist  $checklist
+     *
      * @return \Illuminate\Http\Response
      * @throws \Exception
      */
     public function destroy(Checklist $checklist)
     {
         if (\Gate::allows('delete_checklists')) {
-            if ($checklist->delete())
+            if ($checklist->delete()) {
                 return redirect()
                     ->route('web.checklist.index')
                     ->with('success', 'Deletado com sucesso');
+            }
 
             return redirect()
                 ->route('web.checklist.index')
