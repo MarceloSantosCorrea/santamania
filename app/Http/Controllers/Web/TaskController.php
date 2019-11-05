@@ -8,7 +8,7 @@ use App\Models\{
 };
 use App\Http\Controllers\Controller;
 
-class TaskController extends Controller
+class TaskController extends AbstractController
 {
     /**
      * Display a listing of the resource.

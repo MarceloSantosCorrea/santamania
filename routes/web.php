@@ -74,94 +74,94 @@ Route::group(['middleware' => ['auth']], function () {
 
             Route::group(['prefix' => 'checklist'], function () {
                 Route::get('/', 'ChecklistController@index')
-                     ->name('checklist.index');
+                     ->name('checklist.index')->middleware('can:list_checklists');
                 Route::get('/create', 'ChecklistController@create')
-                     ->name('checklist.create');
+                     ->name('checklist.create')->middleware('can:create_checklists');
                 Route::post('/store', 'ChecklistController@store')
-                     ->name('checklist.store');
+                     ->name('checklist.store')->middleware('can:create_checklists');
                 Route::get('/show/{checklist}', 'ChecklistController@show')
-                     ->name('checklist.show');
+                     ->name('checklist.show')->middleware('can:show_checklists');
                 Route::get('/edit/{checklist}', 'ChecklistController@edit')
-                     ->name('checklist.edit');
+                     ->name('checklist.edit')->middleware('can:edit_checklists');
                 Route::put('/update/{checklist}', 'ChecklistController@update')
-                     ->name('checklist.update');
+                     ->name('checklist.update')->middleware('can:edit_checklists');
                 Route::get('/destroy/{checklist}', 'ChecklistController@destroy')
-                     ->name('checklist.destroy');
+                     ->name('checklist.destroy')->middleware('can:delete_checklists');
             });
 
             Route::group(['prefix' => 'production'], function () {
                 Route::get('/', 'ProductionController@index')
-                     ->name('production.index');
+                     ->name('production.index')->middleware('can:list_productions');
                 Route::get('/create', 'ProductionController@create')
-                     ->name('production.create');
+                     ->name('production.create')->middleware('can:create_productions');
                 Route::post('/store', 'ProductionController@store')
-                     ->name('production.store');
+                     ->name('production.store')->middleware('can:create_productions');
                 Route::get('/edit/{production}', 'ProductionController@edit')
-                     ->name('production.edit');
+                     ->name('production.edit')->middleware('can:edit_productions');
                 Route::put('/update/{production}', 'ProductionController@update')
-                     ->name('production.update');
+                     ->name('production.update')->middleware('can:edit_productions');
                 Route::get('/destroy/{production}', 'ProductionController@destroy')
-                     ->name('production.destroy');
+                     ->name('production.destroy')->middleware('can:delete_productions');
             });
 
             Route::group(['prefix' => 'discard'], function () {
                 Route::get('/', 'DiscardController@index')
-                     ->name('discard.index');
+                     ->name('discard.index')->middleware('can:list_discards');
                 Route::get('/create', 'DiscardController@create')
-                     ->name('discard.create');
+                     ->name('discard.create')->middleware('can:create_discards');
                 Route::post('/store', 'DiscardController@store')
-                     ->name('discard.store');
+                     ->name('discard.store')->middleware('can:create_discards');
                 Route::get('/edit/{discard}', 'DiscardController@edit')
-                     ->name('discard.edit');
+                     ->name('discard.edit')->middleware('can:edit_discards');
                 Route::put('/update/{discard}', 'DiscardController@update')
-                     ->name('discard.update');
+                     ->name('discard.update')->middleware('can:edit_discards');
                 Route::get('/destroy/{discard}', 'DiscardController@destroy')
-                     ->name('discard.destroy');
+                     ->name('discard.destroy')->middleware('can:delete_discards');
             });
 
             Route::group(['prefix' => 'supplier'], function () {
                 Route::get('/', 'SupplierController@index')
-                     ->name('supplier.index');
+                     ->name('supplier.index')->middleware('can:list_suppliers');
                 Route::get('/create', 'SupplierController@create')
-                     ->name('supplier.create');
+                     ->name('supplier.create')->middleware('can:create_suppliers');
                 Route::post('/store', 'SupplierController@store')
-                     ->name('supplier.store');
+                     ->name('supplier.store')->middleware('can:create_suppliers');
                 Route::get('/edit/{supplier}', 'SupplierController@edit')
-                     ->name('supplier.edit');
+                     ->name('supplier.edit')->middleware('can:edit_suppliers');
                 Route::put('/update/{supplier}', 'SupplierController@update')
-                     ->name('supplier.update');
+                     ->name('supplier.update')->middleware('can:edit_suppliers');
                 Route::get('/destroy/{supplier}', 'SupplierController@destroy')
-                     ->name('supplier.destroy');
+                     ->name('supplier.destroy')->middleware('can:delete_suppliers');
             });
 
             Route::group(['prefix' => 'product'], function () {
                 Route::get('/', 'ProductController@index')
-                     ->name('product.index'); //->middleware('can:list_products'); //
+                     ->name('product.index')->middleware('can:list_products');
                 Route::get('/create', 'ProductController@create')
-                     ->name('product.create');
+                     ->name('product.create')->middleware('can:create_products');
                 Route::post('/store', 'ProductController@store')
-                     ->name('product.store');
+                     ->name('product.store')->middleware('can:create_products');
                 Route::get('/edit/{product}', 'ProductController@edit')
-                     ->name('product.edit');
+                     ->name('product.edit')->middleware('can:edit_products');
                 Route::put('/update/{product}', 'ProductController@update')
-                     ->name('product.update');
+                     ->name('product.update')->middleware('can:edit_products');
                 Route::get('/destroy/{product}', 'ProductController@destroy')
-                     ->name('product.destroy');
+                     ->name('product.destroy')->middleware('can:delete_products');
             });
 
             Route::group(['prefix' => 'product-category'], function () {
                 Route::get('/', 'ProductCategoryController@index')
-                     ->name('product-category.index');
+                     ->name('product-category.index')->middleware('can:list_product_categories');
                 Route::get('/create', 'ProductCategoryController@create')
-                     ->name('product-category.create');
+                     ->name('product-category.create')->middleware('can:create_product_categories');
                 Route::post('/store', 'ProductCategoryController@store')
-                     ->name('product-category.store');
+                     ->name('product-category.store')->middleware('can:create_product_categories');
                 Route::get('/edit/{product_category}', 'ProductCategoryController@edit')
-                     ->name('product-category.edit');
+                     ->name('product-category.edit')->middleware('can:edit_product_categories');
                 Route::put('/update/{product_category}', 'ProductCategoryController@update')
-                     ->name('product-category.update');
+                     ->name('product-category.update')->middleware('can:edit_product_categories');
                 Route::get('/destroy/{product_category}', 'ProductCategoryController@destroy')
-                     ->name('product-category.destroy');
+                     ->name('product-category.destroy')->middleware('can:delete_product_categories');
             });
 
             Route::group(['prefix' => 'product-days'], function () {

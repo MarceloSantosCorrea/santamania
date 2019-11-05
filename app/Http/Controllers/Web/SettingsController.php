@@ -6,7 +6,7 @@ use App\Http\Requests\SettingsRequest;
 use App\Models\Setting;
 use App\Http\Controllers\Controller;
 
-class SettingsController extends Controller
+class SettingsController extends AbstractController
 {
     /**
      * Display a listing of the resource.

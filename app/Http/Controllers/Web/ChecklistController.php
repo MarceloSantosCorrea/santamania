@@ -16,19 +16,15 @@ class ChecklistController extends AbstractController
      */
     public function index(Request $request)
     {
-        if (\Gate::allows('list_checklists')) {
-
-            $params = $request->all();
-            if (isset($params['search'])) {
-                $data = (new Checklist)->search($params['search'])->orderBy('date', 'desc')->orderBy('id', 'desc')->paginate(30);
-            } else {
-                $data = Checklist::orderBy('date', 'desc')->orderBy('id', 'desc')->paginate();
-            }
-
-            return view('pages.checklist.index', compact('data'));
+        $params = $request->all();
+        if (isset($params['search'])) {
+            $data = (new Checklist)->search($params['search'])->orderBy('date', 'desc')->orderBy('id',
+                'desc')->paginate(30);
+        } else {
+            $data = Checklist::orderBy('date', 'desc')->orderBy('id', 'desc')->paginate();
         }
 
-        return view('pages.acl.unauthorized');
+        return view('pages.checklist.index', compact('data'));
     }
 
     /**
@@ -38,11 +34,7 @@ class ChecklistController extends AbstractController
      */
     public function create()
     {
-        if (\Gate::allows('create_checklists')) {
-            return view('pages.checklist.create');
-        }
-
-        return view('pages.acl.unauthorized');
+        return view('pages.checklist.create');
     }
 
     /**
@@ -54,19 +46,15 @@ class ChecklistController extends AbstractController
      */
     public function store(ChecklistRequest $request)
     {
-        if (\Gate::allows('create_checklists')) {
-            if (Checklist::create($request->all())) {
-                return redirect()
-                    ->route('web.checklist.index')
-                    ->with('success', 'Salvo com sucesso');
-            }
-
+        if (Checklist::create($request->all())) {
             return redirect()
                 ->route('web.checklist.index')
-                ->with('error', 'Erro ao salvar');
+                ->with('success', 'Salvo com sucesso');
         }
 
-        return view('pages.acl.unauthorized');
+        return redirect()
+            ->route('web.checklist.index')
+            ->with('error', 'Erro ao salvar');
     }
 
     /**
@@ -78,13 +66,9 @@ class ChecklistController extends AbstractController
      */
     public function show(Checklist $checklist)
     {
-        if (\Gate::allows('show_checklists')) {
-            $products = Product::productsByChecklist($checklist);
+        $products = Product::productsByChecklist($checklist);
 
-            return view('pages.checklist.show', compact('checklist', 'products'));
-        }
-
-        return view('pages.acl.unauthorized');
+        return view('pages.checklist.show', compact('checklist', 'products'));
     }
 
     /**
@@ -96,11 +80,7 @@ class ChecklistController extends AbstractController
      */
     public function edit(Checklist $checklist)
     {
-        if (\Gate::allows('edit_checklists')) {
-            return view('pages.checklist.edit', compact('checklist'));
-        }
-
-        return view('pages.acl.unauthorized');
+        return view('pages.checklist.edit', compact('checklist'));
     }
 
     /**
@@ -113,21 +93,17 @@ class ChecklistController extends AbstractController
      */
     public function update(ChecklistRequest $request, Checklist $checklist)
     {
-        if (\Gate::allows('edit_checklists')) {
-            $checklist->fill($request->all());
+        $checklist->fill($request->all());
 
-            if ($checklist->save()) {
-                return redirect()
-                    ->route('web.checklist.index')
-                    ->with('success', 'Salvo com sucesso');
-            }
-
+        if ($checklist->save()) {
             return redirect()
                 ->route('web.checklist.index')
-                ->with('error', 'Erro ao salvar');
+                ->with('success', 'Salvo com sucesso');
         }
 
-        return view('pages.acl.unauthorized');
+        return redirect()
+            ->route('web.checklist.index')
+            ->with('error', 'Erro ao salvar');
     }
 
     /**
@@ -140,18 +116,14 @@ class ChecklistController extends AbstractController
      */
     public function destroy(Checklist $checklist)
     {
-        if (\Gate::allows('delete_checklists')) {
-            if ($checklist->delete()) {
-                return redirect()
-                    ->route('web.checklist.index')
-                    ->with('success', 'Deletado com sucesso');
-            }
-
+        if ($checklist->delete()) {
             return redirect()
                 ->route('web.checklist.index')
-                ->with('error', 'Erro ao deletar');
+                ->with('success', 'Deletado com sucesso');
         }
 
-        return view('pages.acl.unauthorized');
+        return redirect()
+            ->route('web.checklist.index')
+            ->with('error', 'Erro ao deletar');
     }
 }
