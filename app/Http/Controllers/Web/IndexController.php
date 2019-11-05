@@ -12,30 +12,14 @@ class IndexController extends AbstractController
 {
     public function index()
     {
-        //        Filter::create([
-        //            'name'    => 'Filter 01',
-        //            'options' => [
-        //                'feriado'      => true,
-        //                'futebol'      => true,
-        //                'is_period'    => true,
-        //                'period_start' => '08:00:00',
-        //                'period_end'   => '08:00:00',
-        //            ],
-        //        ]);
+        $categories = ProductCategory::with(['product'])->orderBy('name')->get();
 
-        if (\Gate::allows('home')) {
+        $checklistPreview = Checklist::where('status', 0)
+                                     ->orderBy('date', 'desc')->with(['checklistProduct'])->first();
 
-            $categories = ProductCategory::with(['product'])->orderBy('name')->get();
+        $tasks = Task::where(['status' => 1])->with(['product'])->get();
 
-            $checklistPreview = Checklist::where('status', 0)
-                                         ->orderBy('date', 'desc')->with(['checklistProduct'])->first();
-
-            $tasks = Task::where(['status' => 1])->with(['product'])->get();
-
-            return view('welcome', compact('categories', 'checklistPreview', 'tasks'));
-        }
-
-        return view('pages.acl.unauthorized');
+        return view('welcome', compact('categories', 'checklistPreview', 'tasks'));
     }
 
     public function logout()

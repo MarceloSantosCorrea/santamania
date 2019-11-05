@@ -55,7 +55,7 @@ return [
             'visibility' => 'public',
         ],
 
-        's3' => [
+        's3'     => [
             'driver' => 's3',
             'key'    => env('AWS_ACCESS_KEY_ID'),
             'secret' => env('AWS_SECRET_ACCESS_KEY'),
@@ -63,7 +63,13 @@ return [
             'bucket' => env('AWS_BUCKET'),
             'url'    => env('AWS_URL'),
         ],
-
+        'google' => [
+            'driver'       => 'google',
+            'clientId'     => env('742239462997-sgpevm55s7k5l31f298p57udsikgbd0j.apps.googleusercontent.com'),
+            'clientSecret' => env('4ZpNF-iszn3jvXHetj9VLL-o'),
+            'refreshToken' => env('1//04w8b0fkrPSZ0CgYIARAAGAQSNwF-L9IrNYYXVuhA4jEWeuKfXKZnjmOT6swyph5ElWDofra6QDOb6B0PVcPMVgETtMSDefzPVDo'),
+            'folderId'     => env(''),
+        ],
     ],
 
 ];

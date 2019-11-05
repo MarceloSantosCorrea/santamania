@@ -14,13 +14,9 @@ class WarehouseController extends AbstractController
      */
     public function index()
     {
-        if (\Gate::allows('list_warehouses')) {
-            $data = Warehouse::paginate(10);
+        $data = Warehouse::paginate(10);
 
-            return view('pages.warehouse.index', compact('data'));
-        }
-
-        return view('pages.acl.unauthorized');
+        return view('pages.warehouse.index', compact('data'));
     }
 
     /**
@@ -30,11 +26,7 @@ class WarehouseController extends AbstractController
      */
     public function create()
     {
-        if (\Gate::allows('create_warehouses')) {
-            return view('pages.warehouse.create');
-        }
-
-        return view('pages.acl.unauthorized');
+        return view('pages.warehouse.create');
     }
 
     /**
@@ -46,19 +38,15 @@ class WarehouseController extends AbstractController
      */
     public function store(WarehouseRequest $request)
     {
-        if (\Gate::allows('create_warehouses')) {
-            if (Warehouse::create($request->all())) {
-                return redirect()
-                    ->route('web.warehouse.index')
-                    ->with('success', 'Salvo com sucesso');
-            }
-
+        if (Warehouse::create($request->all())) {
             return redirect()
                 ->route('web.warehouse.index')
-                ->with('error', 'Erro ao salvar');
+                ->with('success', 'Salvo com sucesso');
         }
 
-        return view('pages.acl.unauthorized');
+        return redirect()
+            ->route('web.warehouse.index')
+            ->with('error', 'Erro ao salvar');
     }
 
     /**
@@ -70,11 +58,7 @@ class WarehouseController extends AbstractController
      */
     public function edit(Warehouse $warehouse)
     {
-        if (\Gate::allows('edit_warehouses')) {
-            return view('pages.warehouse.edit', compact('warehouse'));
-        }
-
-        return view('pages.acl.unauthorized');
+        return view('pages.warehouse.edit', compact('warehouse'));
     }
 
     /**
@@ -87,21 +71,17 @@ class WarehouseController extends AbstractController
      */
     public function update(WarehouseRequest $request, Warehouse $warehouse)
     {
-        if (\Gate::allows('edit_warehouses')) {
-            $warehouse->fill($request->all());
+        $warehouse->fill($request->all());
 
-            if ($warehouse->save()) {
-                return redirect()
-                    ->route('web.warehouse.index')
-                    ->with('success', 'Salvo com sucesso');
-            }
-
+        if ($warehouse->save()) {
             return redirect()
                 ->route('web.warehouse.index')
-                ->with('error', 'Erro ao salvar');
+                ->with('success', 'Salvo com sucesso');
         }
 
-        return view('pages.acl.unauthorized');
+        return redirect()
+            ->route('web.warehouse.index')
+            ->with('error', 'Erro ao salvar');
     }
 
     /**
@@ -113,18 +93,14 @@ class WarehouseController extends AbstractController
      */
     public function destroy(Warehouse $warehouse)
     {
-        if (\Gate::allows('delete_warehouses')) {
-            if ($warehouse->delete()) {
-                return redirect()
-                    ->route('web.warehouse.index')
-                    ->with('success', 'Deletado com sucesso');
-            }
-
+        if ($warehouse->delete()) {
             return redirect()
                 ->route('web.warehouse.index')
-                ->with('error', 'Erro ao deletar');
+                ->with('success', 'Deletado com sucesso');
         }
 
-        return view('pages.acl.unauthorized');
+        return redirect()
+            ->route('web.warehouse.index')
+            ->with('error', 'Erro ao deletar');
     }
 }

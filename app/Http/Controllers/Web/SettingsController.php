@@ -15,11 +15,7 @@ class SettingsController extends Controller
      */
     public function index()
     {
-        //        if (\Gate::allows('update_settings')) {
         return view('pages.settings.index');
-        //        }
-
-        //        return view('pages.acl.unauthorized');
     }
 
     /**
@@ -31,25 +27,20 @@ class SettingsController extends Controller
      */
     public function store(SettingsRequest $request)
     {
-//        if (\Gate::allows('update_settings')) {
-
-            try {
-                if (Setting::saveCustom($request->all())) {
-                    return redirect()->action([
-                        \App\Http\Controllers\Web\SettingsController::class, 'index',
-                    ])->with('success', 'Successfully saved');
-                } else {
-                    return redirect()->action([
-                        \App\Http\Controllers\Web\SettingsController::class, 'index',
-                    ])->with('error', 'Error to save');
-                }
-            } catch (\Exception $e) {
+        try {
+            if (Setting::saveCustom($request->all())) {
                 return redirect()->action([
                     \App\Http\Controllers\Web\SettingsController::class, 'index',
-                ])->with('error', $e->getMessage());
+                ])->with('success', 'Successfully saved');
+            } else {
+                return redirect()->action([
+                    \App\Http\Controllers\Web\SettingsController::class, 'index',
+                ])->with('error', 'Error to save');
             }
-//        }
-//
-//        return view('pages.acl.unauthorized');
+        } catch (\Exception $e) {
+            return redirect()->action([
+                \App\Http\Controllers\Web\SettingsController::class, 'index',
+            ])->with('error', $e->getMessage());
+        }
     }
 }

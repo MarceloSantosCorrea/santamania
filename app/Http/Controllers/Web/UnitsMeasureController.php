@@ -14,13 +14,9 @@ class UnitsMeasureController extends AbstractController
      */
     public function index()
     {
-        if (\Gate::allows('list_units_measures')) {
-            $data = UnitsMeasure::paginate();
+        $data = UnitsMeasure::paginate();
 
-            return view('pages.units-measure.index', compact('data'));
-        }
-
-        return view('pages.acl.unauthorized');
+        return view('pages.units-measure.index', compact('data'));
     }
 
     /**
@@ -30,11 +26,7 @@ class UnitsMeasureController extends AbstractController
      */
     public function create()
     {
-        if (\Gate::allows('create_units_measures')) {
-            return view('pages.units-measure.create');
-        }
-
-        return view('pages.acl.unauthorized');
+        return view('pages.units-measure.create');
     }
 
     /**
@@ -46,19 +38,15 @@ class UnitsMeasureController extends AbstractController
      */
     public function store(UnitsMeasureRequest $request)
     {
-        if (\Gate::allows('create_units_measures')) {
-            if (UnitsMeasure::create($request->all())) {
-                return redirect()
-                    ->route('web.units-measure.index')
-                    ->with('success', 'Salvo com sucesso');
-            }
-
+        if (UnitsMeasure::create($request->all())) {
             return redirect()
                 ->route('web.units-measure.index')
-                ->with('error', 'Erro ao salvar');
+                ->with('success', 'Salvo com sucesso');
         }
 
-        return view('pages.acl.unauthorized');
+        return redirect()
+            ->route('web.units-measure.index')
+            ->with('error', 'Erro ao salvar');
     }
 
     /**
@@ -70,11 +58,7 @@ class UnitsMeasureController extends AbstractController
      */
     public function edit(UnitsMeasure $unitsMeasure)
     {
-        if (\Gate::allows('edit_units_measures')) {
-            return view('pages.units-measure.edit', compact('unitsMeasure'));
-        }
-
-        return view('pages.acl.unauthorized');
+        return view('pages.units-measure.edit', compact('unitsMeasure'));
     }
 
     /**
@@ -87,21 +71,17 @@ class UnitsMeasureController extends AbstractController
      */
     public function update(UnitsMeasureRequest $request, UnitsMeasure $unitsMeasure)
     {
-        if (\Gate::allows('edit_units_measures')) {
-            $unitsMeasure->fill($request->all());
+        $unitsMeasure->fill($request->all());
 
-            if ($unitsMeasure->save()) {
-                return redirect()
-                    ->route('web.units-measure.index')
-                    ->with('success', 'Salvo com sucesso');
-            }
-
+        if ($unitsMeasure->save()) {
             return redirect()
                 ->route('web.units-measure.index')
-                ->with('error', 'Erro ao salvar');
+                ->with('success', 'Salvo com sucesso');
         }
 
-        return view('pages.acl.unauthorized');
+        return redirect()
+            ->route('web.units-measure.index')
+            ->with('error', 'Erro ao salvar');
     }
 
     /**
@@ -114,18 +94,14 @@ class UnitsMeasureController extends AbstractController
      */
     public function destroy(UnitsMeasure $unitsMeasure)
     {
-        if (\Gate::allows('delete_units_measures')) {
-            if ($unitsMeasure->delete()) {
-                return redirect()
-                    ->route('web.units-measure.index')
-                    ->with('success', 'Deletado com sucesso');
-            }
-
+        if ($unitsMeasure->delete()) {
             return redirect()
                 ->route('web.units-measure.index')
-                ->with('error', 'Erro ao deletar');
+                ->with('success', 'Deletado com sucesso');
         }
 
-        return view('pages.acl.unauthorized');
+        return redirect()
+            ->route('web.units-measure.index')
+            ->with('error', 'Erro ao deletar');
     }
 }
