@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "46b02a056cf546a9c8cf3f76749a15cc",
+    "content-hash": "4516b6bfd1297c7a9b52873250864c33",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1653,6 +1653,51 @@
                 "server"
             ],
             "time": "2019-05-05T09:22:01+00:00"
+        },
+        {
+            "name": "marcelo-correa/laravel-create-database",
+            "version": "v1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/correa-marcelo/laravel-create-database.git",
+                "reference": "9222b4b5082436846923f8d291a2f6185b788d4c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/correa-marcelo/laravel-create-database/zipball/9222b4b5082436846923f8d291a2f6185b788d4c",
+                "reference": "9222b4b5082436846923f8d291a2f6185b788d4c",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "^5.5|^6",
+                "illuminate/support": "^5.5|^6",
+                "php": ">=7"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "MarceloCorrea\\LaravelCreateDatabase\\CreateDatabaseServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "MarceloCorrea\\LaravelCreateDatabase\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Marcelo Corrêa",
+                    "email": "marcelocorrea229@gmail.com"
+                }
+            ],
+            "description": "Create a new Database with Laravel Command",
+            "time": "2019-10-08T19:47:44+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -6773,7 +6818,9 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.2"
+        "php": "^7.2",
+        "ext-json": "*",
+        "ext-pdo": "*"
     },
     "platform-dev": []
 }

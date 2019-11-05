@@ -27,15 +27,15 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        if (\Schema::hasTable('acl_permissions')) {
-            $aclPermissions = AclPermission::with('roles')->get();
-
-            foreach ($aclPermissions as $aclPermission) {
-
-                Gate::define($aclPermission->name, function (User $user) use ($aclPermission) {
-                    return $user->hasPermission($aclPermission);
-                });
-            }
-        }
+//        if (\Schema::hasTable('acl_permissions')) {
+//            $aclPermissions = AclPermission::with('roles')->get();
+//
+//            foreach ($aclPermissions as $aclPermission) {
+//
+//                Gate::define($aclPermission->name, function (User $user) use ($aclPermission) {
+//                    return $user->hasPermission($aclPermission);
+//                });
+//            }
+//        }
     }
 }
