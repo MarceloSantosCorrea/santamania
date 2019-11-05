@@ -18,6 +18,11 @@
                         <a href="/production" class="waves-effect"><i class="fa fa-rocket"></i><span> {{ __('Produção') }} </span></a>
                     </li>
                 @endcan
+                @can('list_discards')
+                    <li>
+                        <a href="/discard" class="waves-effect"><i class="fa fa-trash"></i><span> {{ __('Descartes') }} </span></a>
+                    </li>
+                @endcan
                 @can('list_tasks')
                     <li>
                         <a href="/task" class="waves-effect"><i class="fa fa-tasks"></i><span> {{ __('Tarefas') }} </span></a>
@@ -25,7 +30,7 @@
                 @endcan
 
                 @if(Gate::check('list_products') || Gate::check('list_product_categories')|| Gate::check('list_units_measures')
-                || Gate::check('list_warehouses') || Gate::check('list_acl_roles') || Gate::check('list_users'))
+                || Gate::check('list_warehouses') || Gate::check('list_acl_roles') || Gate::check('list_users') || Gate::check('list_suppliers'))
 
                     <li class="has_sub">
                         <a href="javascript:void(0);" class="waves-effect"><i class="glyphicon glyphicon-cog"></i>
@@ -40,7 +45,9 @@
                                     <a href="{{ route('web.product-category.index') }}"> {{ __('Categorias de Produtos') }} </a>
                                 </li>
                             @endcan
-                            <li><a href="{{ route('web.filters.index') }}"> {{ __('Filtros') }} </a></li>
+                            @can('list_filters')
+                                <li><a href="{{ route('web.filters.index') }}"> {{ __('Filtros') }} </a></li>
+                            @endcan
                             @can('list_units_measures')
                                 <li>
                                     <a href="{{ route('web.units-measure.index') }}"> {{ __('Unidades de Medida') }} </a>
@@ -49,6 +56,11 @@
                             @can('list_warehouses')
                                 <li>
                                     <a href="{{ route('web.warehouse.index') }}"> {{ __('Local de Armazenamento') }} </a>
+                                </li>
+                            @endcan
+                            @can('list_suppliers')
+                                <li>
+                                    <a href="{{ route('web.supplier.index') }}"> {{ __('Fornecedores') }} </a>
                                 </li>
                             @endcan
                             @can('list_users')

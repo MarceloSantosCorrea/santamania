@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Production;
+use App\Models\Task;
 
 class ProductionObserver
 {
@@ -13,6 +14,17 @@ class ProductionObserver
             auth()->user()->name." adicionou entrada ao estoque: `#{$production->id}` - {$production->product->name} ".json_encode($production->toArray()),
             ['user_id' => auth()->user()->id]
         );
+
+        $tasks = Task::where([
+            'product_id' => $production->product_id,
+            'status'     => 1,
+        ])->get();
+        if ($tasks->count()) {
+            /** @var \App\Models\Task $task */
+            foreach ($tasks as $task) {
+                $task->finalize();
+            }
+        }
     }
 
     public function updated(Production $production)
@@ -30,7 +42,7 @@ class ProductionObserver
         if (count($inputs)) {
             \Logs::database(
                 'Productions',
-                auth()->user()->name." alterou entrada ao estoque: ".json_encode($inputs),
+                auth()->user()->name." alterou entrada ao estoque: Produto `#{$production->product->id} {$production->product->name}` ".json_encode($inputs),
                 ['user_id' => auth()->user()->id]
             );
         }

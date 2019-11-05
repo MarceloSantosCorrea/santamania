@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use App\Models\ProductCategory;
+use App\Models\Supplier;
 use App\Models\UnitsMeasure;
 use Illuminate\Http\Request;
 
@@ -41,8 +42,9 @@ class ProductController extends AbstractController
     {
         $productCategories = ProductCategory::where(['active' => 1])->get();
         $unitsMeasures     = UnitsMeasure::all();
+        $suppliers         = Supplier::all();
 
-        return view('pages.product.create', compact('productCategories', 'unitsMeasures'));
+        return view('pages.product.create', compact('productCategories', 'unitsMeasures', 'suppliers'));
     }
 
     /**
@@ -66,18 +68,6 @@ class ProductController extends AbstractController
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  Product  $product
@@ -88,8 +78,9 @@ class ProductController extends AbstractController
     {
         $productCategories = ProductCategory::where(['active' => 1])->get();
         $unitsMeasures     = UnitsMeasure::all();
+        $suppliers         = Supplier::all();
 
-        return view('pages.product.edit', compact('product', 'productCategories', 'unitsMeasures'));
+        return view('pages.product.edit', compact('product', 'productCategories', 'unitsMeasures', 'suppliers'));
     }
 
     /**

@@ -29,6 +29,7 @@
                                 <div class="col-md-12">
                                     @include('form._form_errors')
                                     <form class="form-horizontal" method="post" action="{{ route('web.production.store') }}">
+                                        @csrf
                                         @include('pages.production._form', ['products' => $products])
                                     </form>
                                 </div>

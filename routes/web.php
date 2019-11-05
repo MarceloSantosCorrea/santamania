@@ -9,6 +9,8 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/logout', 'IndexController@logout')->name('logout');
 
         Route::group(['as' => 'web.'], function () {
+            Route::get('/logs', 'LogController@index')->name('log.index');
+
             Route::get('/profile', 'UserController@profile')->name('user.profile');
             Route::put('/profile', 'UserController@updateProfile')->name('user.updateProfile');
 
@@ -67,6 +69,24 @@ Route::group(['middleware' => ['auth']], function () {
                 Route::get('/edit/{production}', 'ProductionController@edit')->name('production.edit');
                 Route::put('/update/{production}', 'ProductionController@update')->name('production.update');
                 Route::get('/destroy/{production}', 'ProductionController@destroy')->name('production.destroy');
+            });
+
+            Route::group(['prefix' => 'discard'], function () {
+                Route::get('/', 'DiscardController@index')->name('discard.index');
+                Route::get('/create', 'DiscardController@create')->name('discard.create');
+                Route::post('/store', 'DiscardController@store')->name('discard.store');
+                Route::get('/edit/{discard}', 'DiscardController@edit')->name('discard.edit');
+                Route::put('/update/{discard}', 'DiscardController@update')->name('discard.update');
+                Route::get('/destroy/{discard}', 'DiscardController@destroy')->name('discard.destroy');
+            });
+
+            Route::group(['prefix' => 'supplier'], function () {
+                Route::get('/', 'SupplierController@index')->name('supplier.index');
+                Route::get('/create', 'SupplierController@create')->name('supplier.create');
+                Route::post('/store', 'SupplierController@store')->name('supplier.store');
+                Route::get('/edit/{supplier}', 'SupplierController@edit')->name('supplier.edit');
+                Route::put('/update/{supplier}', 'SupplierController@update')->name('supplier.update');
+                Route::get('/destroy/{supplier}', 'SupplierController@destroy')->name('supplier.destroy');
             });
 
             Route::group(['prefix' => 'product'], function () {

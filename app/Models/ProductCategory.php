@@ -13,7 +13,7 @@ class ProductCategory extends Model
 
     public function product()
     {
-        return $this->hasMany(Product::class)->with('productDailyChecklist');
+        return $this->hasMany(Product::class)->orderBy('name')->with('productDailyChecklist');
     }
 
     public function getCreatedAtAttribute($value)

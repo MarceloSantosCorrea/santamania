@@ -27,14 +27,14 @@ class TaskController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Mostrar formulário para criar uma nova tarefa.
      *
      * @return \Illuminate\Http\Response
      */
     public function create()
     {
         if (\Gate::allows('create_tasks')) {
-            $products = Product::all();
+            $products = Product::where('active', 1)->orderBy('name')->get();
 
             return view('pages.task.create', compact('products'));
         }
@@ -56,14 +56,10 @@ class TaskController extends Controller
             $data           = $request->all();
             $data['status'] = 1;
             if (Task::create($data)) {
-                return redirect()
-                    ->route('web.task.index')
-                    ->with('success', 'Salvo com sucesso');
+                return redirect()->route('web.task.index')->with('success', 'Salvo com sucesso');
             }
 
-            return redirect()
-                ->route('web.task.index')
-                ->with('error', 'Erro ao salvar');
+            return redirect()->route('web.task.index')->with('error', 'Erro ao salvar');
         }
 
         return view('pages.acl.unauthorized');
@@ -79,7 +75,7 @@ class TaskController extends Controller
     public function edit(Task $task)
     {
         if (\Gate::allows('edit_tasks')) {
-            $products = Product::all();
+            $products = Product::where('active', 1)->orderBy('name')->get();
 
             return view('pages.task.edit', compact('products', 'task'));
         }

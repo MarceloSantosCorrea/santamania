@@ -1,7 +1,5 @@
 @extends('layouts.default')
-
 @section('title', __('Meus Dados'))
-
 @section('content')
     <div class="content-page">
         <div class="content">
@@ -27,9 +25,7 @@
                                 <div class="col-md-12">
                                     @include('form._form_errors')
                                     <form class="form-horizontal" method="post" action="{{ route('web.user.updateProfile') }}">
-                                        {{method_field('PUT')}}
-                                        {!! csrf_field() !!}
-
+                                        @csrf @method('put')
                                         <div class="form-group">
                                             <label class="col-md-2 control-label" for="firstname">{{ __('Nome') }}</label>
                                             <div class="col-md-8">

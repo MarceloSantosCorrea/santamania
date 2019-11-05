@@ -1,4 +1,7 @@
-{!! csrf_field() !!}
+@push('plugins')
+    <link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet">
+@endpush
+
 <div class="form-group">
     <label class="col-md-2 control-label">{{ __('Nome') }}</label>
     <div class="col-md-8">
@@ -10,7 +13,7 @@
 <div class="form-group">
     <label class="col-md-2 control-label">{{ __('Categoria') }}</label>
     <div class="col-md-8">
-        <select class="form-control" name="product_category_id">
+        <select class="form-control select2" name="product_category_id">
             <option value="">{{ __('Selecione') }}...</option>
             @if($productCategories)
                 @foreach($productCategories as $productCategory)
@@ -25,11 +28,26 @@
 <div class="form-group">
     <label class="col-md-2 control-label">{{ __('Unidate de Medida') }}</label>
     <div class="col-md-8">
-        <select class="form-control" name="units_measure_id">
+        <select class="form-control select2" name="units_measure_id">
             <option value="">{{ __('Selecione') }}...</option>
             @if($unitsMeasures)
                 @foreach($unitsMeasures as $unitsMeasure)
                     <option value="{{$unitsMeasure->id}}" {{ isset($product) && $product->units_measure_id == $unitsMeasure->id ? 'selected': null }}>{{$unitsMeasure->name}}</option>
+                @endforeach
+            @endif
+        </select>
+        <span class="help-block"></span>
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-md-2 control-label">{{ __('Fornecedor') }}</label>
+    <div class="col-md-8">
+        <select class="form-control select2" name="supplier_id">
+            <option value="">{{ __('Selecione') }}...</option>
+            @if($suppliers)
+                @foreach($suppliers as $supplier)
+                    <option value="{{$supplier->id}}" {{ isset($product) && $product->supplier_id == $supplier->id ? 'selected': null }}>{{$supplier->name}}</option>
                 @endforeach
             @endif
         </select>
@@ -51,3 +69,12 @@
         <button name="submit" class="btn btn-info waves-effect waves-light">{{ __('Salvar') }}</button>
     </div>
 </div>
+
+@push('scripts')
+    <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
+    <script>
+        jQuery(document).ready(function () {
+            $(".select2").select2();
+        });
+    </script>
+@endpush

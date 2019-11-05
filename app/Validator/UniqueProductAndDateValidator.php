@@ -3,12 +3,14 @@
 namespace App\Validator;
 
 use App\Models\Production;
+use Illuminate\Validation\Rules\DatabaseRule;
 
 class UniqueProductAndDateValidator implements ValidatorInterface
 {
+    use DatabaseRule;
+
     public function validate($attribute, $value, $parameters, $validator)
     {
-
         $id = isset($parameters[1]) ? $parameters[1] : null;
 
         $res = Production::where([

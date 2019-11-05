@@ -1,7 +1,5 @@
 @extends('layouts.default')
-
 @section('title', __('Editar Produto'))
-
 @section('content')
     <div class="content-page">
         <div class="content">
@@ -29,7 +27,7 @@
                                 <div class="col-md-12">
                                     @include('form._form_errors')
                                     <form class="form-horizontal" method="post" action="{{ route('web.product.update', ['product' => $product->id]) }}">
-                                        {{method_field('PUT')}}
+                                        @csrf @method('put')
                                         @include('pages.product._form')
                                     </form>
                                 </div>
