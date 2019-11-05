@@ -17,14 +17,9 @@ class UserController extends AbstractController
      */
     public function index()
     {
-        if (\Gate::allows('list_users')) {
+        $data = User::paginate(10);
 
-            $data = User::paginate(10);
-
-            return view('pages.user.index', compact('data'));
-        }
-
-        return view('pages.acl.unauthorized');
+        return view('pages.user.index', compact('data'));
     }
 
     /**
@@ -34,14 +29,9 @@ class UserController extends AbstractController
      */
     public function create()
     {
-        if (\Gate::allows('create_users')) {
+        $aclRoles = AclRole::all();
 
-            $aclRoles = AclRole::all();
-
-            return view('pages.user.create', compact('aclRoles'));
-        }
-
-        return view('pages.acl.unauthorized');
+        return view('pages.user.create', compact('aclRoles'));
     }
 
     /**
@@ -53,45 +43,23 @@ class UserController extends AbstractController
      */
     public function store(UserRequest $request)
     {
-        if (\Gate::allows('create_users')) {
+        if ($user = User::create($request->all())) {
 
-            if ($user = User::create($request->all())) {
-
-                foreach ($request->all()['roles'] as $role) {
-                    AclRoleUser::create([
-                        'user_id'     => $user->id,
-                        'acl_role_id' => $role,
-                    ]);
-                }
-
-                return redirect()
-                    ->route('web.user.index')
-                    ->with('success', 'Salvo com sucesso');
+            foreach ($request->all()['roles'] as $role) {
+                AclRoleUser::create([
+                    'user_id'     => $user->id,
+                    'acl_role_id' => $role,
+                ]);
             }
 
             return redirect()
                 ->route('web.user.index')
-                ->with('error', 'Erro ao salvar');
+                ->with('success', 'Salvo com sucesso');
         }
 
-        return view('pages.acl.unauthorized');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        if (\Gate::allows('show_users')) {
-
-        }
-
-        return view('pages.acl.unauthorized');
-
+        return redirect()
+            ->route('web.user.index')
+            ->with('error', 'Erro ao salvar');
     }
 
     /**
@@ -103,15 +71,10 @@ class UserController extends AbstractController
      */
     public function edit(User $user)
     {
-        if (\Gate::allows('edit_users')) {
+        $user     = User::with('roles')->find($user->id);
+        $aclRoles = AclRole::all();
 
-            $user     = User::with('roles')->find($user->id);
-            $aclRoles = AclRole::all();
-
-            return view('pages.user.edit', compact('user', 'aclRoles'));
-        }
-
-        return view('pages.acl.unauthorized');
+        return view('pages.user.edit', compact('user', 'aclRoles'));
     }
 
     /**
@@ -124,36 +87,32 @@ class UserController extends AbstractController
      */
     public function update(UserRequest $request, User $user)
     {
-        if (\Gate::allows('edit_users')) {
-            $user->fill($request->all());
+        $user->fill($request->all());
 
-            if ($user->save()) {
+        if ($user->save()) {
 
 
-                if (isset($request->all()['roles'])) {
+            if (isset($request->all()['roles'])) {
 
-                    AclRoleUser::where(['user_id' => $user->id])->delete();
+                AclRoleUser::where(['user_id' => $user->id])->delete();
 
-                    foreach ($request->all()['roles'] as $role) {
-                        AclRoleUser::create([
-                            'user_id'     => $user->id,
-                            'acl_role_id' => $role,
-                        ]);
-                    }
+                foreach ($request->all()['roles'] as $role) {
+                    AclRoleUser::create([
+                        'user_id'     => $user->id,
+                        'acl_role_id' => $role,
+                    ]);
                 }
-
-                return redirect()
-                    ->route('web.user.index')
-                    ->with('success', 'Salvo com sucesso');
             }
-
 
             return redirect()
                 ->route('web.user.index')
-                ->with('error', 'Erro ao salvar');
+                ->with('success', 'Salvo com sucesso');
         }
 
-        return view('pages.acl.unauthorized');
+
+        return redirect()
+            ->route('web.user.index')
+            ->with('error', 'Erro ao salvar');
     }
 
     /**
@@ -165,19 +124,15 @@ class UserController extends AbstractController
      */
     public function destroy(User $user)
     {
-        if (\Gate::allows('delete_users')) {
-            if ($user->delete()) {
-                return redirect()
-                    ->route('web.user.index')
-                    ->with('success', 'Deletado com sucesso');
-            }
-
+        if ($user->delete()) {
             return redirect()
                 ->route('web.user.index')
-                ->with('error', 'Erro ao deletar');
+                ->with('success', 'Deletado com sucesso');
         }
 
-        return view('pages.acl.unauthorized');
+        return redirect()
+            ->route('web.user.index')
+            ->with('error', 'Erro ao deletar');
     }
 
     public function profile()

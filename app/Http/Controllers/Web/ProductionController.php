@@ -16,19 +16,14 @@ class ProductionController extends AbstractController
      */
     public function index(Request $request)
     {
-        if (\Gate::allows('list_productions')) {
-
-            $params = $request->all();
-            if (isset($params['search'])) {
-                $data = (new Production)->search($params['search'])->orderBy('id', 'desc')->paginate(30);
-            } else {
-                $data = Production::with(['product'])->orderBy('id', 'desc')->paginate(30);
-            }
-
-            return view('pages.production.index', compact('data'));
+        $params = $request->all();
+        if (isset($params['search'])) {
+            $data = (new Production)->search($params['search'])->orderBy('id', 'desc')->paginate(30);
+        } else {
+            $data = Production::with(['product'])->orderBy('id', 'desc')->paginate(30);
         }
 
-        return view('pages.acl.unauthorized');
+        return view('pages.production.index', compact('data'));
     }
 
     /**
@@ -38,15 +33,11 @@ class ProductionController extends AbstractController
      */
     public function create()
     {
-        if (\Gate::allows('create_productions')) {
-            $products = Product::where('active', 1)
-                               ->orderBy('name')
-                               ->get();
+        $products = Product::where('active', 1)
+                           ->orderBy('name')
+                           ->get();
 
-            return view('pages.production.create', compact('products'));
-        }
-
-        return view('pages.acl.unauthorized');
+        return view('pages.production.create', compact('products'));
     }
 
     /**
@@ -58,19 +49,15 @@ class ProductionController extends AbstractController
      */
     public function store(ProductionRequest $request)
     {
-        if (\Gate::allows('create_productions')) {
-            if (Production::create($request->all())) {
-                return redirect()
-                    ->route('web.production.index')
-                    ->with('success', 'Salvo com sucesso');
-            }
-
+        if (Production::create($request->all())) {
             return redirect()
                 ->route('web.production.index')
-                ->with('error', 'Erro ao salvar');
+                ->with('success', 'Salvo com sucesso');
         }
 
-        return view('pages.acl.unauthorized');
+        return redirect()
+            ->route('web.production.index')
+            ->with('error', 'Erro ao salvar');
     }
 
     /**
@@ -82,13 +69,9 @@ class ProductionController extends AbstractController
      */
     public function edit(Production $production)
     {
-        if (\Gate::allows('edit_productions')) {
-            $products = Product::where('active', 1)->orderBy('name')->get();
+        $products = Product::where('active', 1)->orderBy('name')->get();
 
-            return view('pages.production.edit', compact('products', 'production'));
-        }
-
-        return view('pages.acl.unauthorized');
+        return view('pages.production.edit', compact('products', 'production'));
     }
 
     /**
@@ -101,21 +84,17 @@ class ProductionController extends AbstractController
      */
     public function update(ProductionRequest $request, Production $production)
     {
-        if (\Gate::allows('edit_productions')) {
-            $production->fill($request->all());
+        $production->fill($request->all());
 
-            if ($production->save()) {
-                return redirect()
-                    ->route('web.production.index')
-                    ->with('success', 'Salvo com sucesso');
-            }
-
+        if ($production->save()) {
             return redirect()
                 ->route('web.production.index')
-                ->with('error', 'Erro ao salvar');
+                ->with('success', 'Salvo com sucesso');
         }
 
-        return view('pages.acl.unauthorized');
+        return redirect()
+            ->route('web.production.index')
+            ->with('error', 'Erro ao salvar');
     }
 
     /**
@@ -128,18 +107,14 @@ class ProductionController extends AbstractController
      */
     public function destroy(Production $production)
     {
-        if (\Gate::allows('delete_productions')) {
-            if ($production->delete()) {
-                return redirect()
-                    ->route('web.production.index')
-                    ->with('success', 'Deletado com sucesso');
-            }
-
+        if ($production->delete()) {
             return redirect()
                 ->route('web.production.index')
-                ->with('error', 'Erro ao deletar');
+                ->with('success', 'Deletado com sucesso');
         }
 
-        return view('pages.acl.unauthorized');
+        return redirect()
+            ->route('web.production.index')
+            ->with('error', 'Erro ao deletar');
     }
 }

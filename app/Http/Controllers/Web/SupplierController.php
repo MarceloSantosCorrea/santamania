@@ -7,7 +7,7 @@ use App\Http\Requests\SupplierRequest;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
 
-class SupplierController extends Controller
+class SupplierController extends AbstractController
 {
     /**
      * Display a listing of the resource.
@@ -16,19 +16,14 @@ class SupplierController extends Controller
      */
     public function index(Request $request)
     {
-        if (\Gate::allows('list_suppliers')) {
-
-            $params = $request->all();
-            if (isset($params['search'])) {
-                $data = Supplier::search($params['search'])->orderBy('name')->paginate(30);
-            } else {
-                $data = Supplier::orderBy('name')->paginate(30);
-            }
-
-            return view('pages.supplier.index', compact('data'));
+        $params = $request->all();
+        if (isset($params['search'])) {
+            $data = Supplier::search($params['search'])->orderBy('name')->paginate(30);
+        } else {
+            $data = Supplier::orderBy('name')->paginate(30);
         }
 
-        return view('pages.acl.unauthorized');
+        return view('pages.supplier.index', compact('data'));
     }
 
     /**
@@ -38,12 +33,7 @@ class SupplierController extends Controller
      */
     public function create()
     {
-        if (\Gate::allows('create_suppliers')) {
-
-            return view('pages.supplier.create');
-        }
-
-        return view('pages.acl.unauthorized');
+        return view('pages.supplier.create');
     }
 
     /**
@@ -55,19 +45,15 @@ class SupplierController extends Controller
      */
     public function store(SupplierRequest $request)
     {
-        if (\Gate::allows('create_suppliers')) {
-            if (Supplier::create($request->all())) {
-                return redirect()
-                    ->route('web.supplier.index')
-                    ->with('success', 'Salvo com sucesso');
-            }
-
+        if (Supplier::create($request->all())) {
             return redirect()
                 ->route('web.supplier.index')
-                ->with('error', 'Erro ao salvar');
+                ->with('success', 'Salvo com sucesso');
         }
 
-        return view('pages.acl.unauthorized');
+        return redirect()
+            ->route('web.supplier.index')
+            ->with('error', 'Erro ao salvar');
     }
 
     /**
@@ -79,12 +65,7 @@ class SupplierController extends Controller
      */
     public function edit(Supplier $supplier)
     {
-        if (\Gate::allows('edit_suppliers')) {
-
-            return view('pages.supplier.edit', compact('supplier'));
-        }
-
-        return view('pages.acl.unauthorized');
+        return view('pages.supplier.edit', compact('supplier'));
     }
 
     /**
@@ -97,21 +78,17 @@ class SupplierController extends Controller
      */
     public function update(SupplierRequest $request, Supplier $supplier)
     {
-        if (\Gate::allows('edit_suppliers')) {
-            $supplier->fill($request->all());
+        $supplier->fill($request->all());
 
-            if ($supplier->save()) {
-                return redirect()
-                    ->route('web.supplier.index')
-                    ->with('success', 'Salvo com sucesso');
-            }
-
+        if ($supplier->save()) {
             return redirect()
                 ->route('web.supplier.index')
-                ->with('error', 'Erro ao salvar');
+                ->with('success', 'Salvo com sucesso');
         }
 
-        return view('pages.acl.unauthorized');
+        return redirect()
+            ->route('web.supplier.index')
+            ->with('error', 'Erro ao salvar');
     }
 
     /**
@@ -124,18 +101,14 @@ class SupplierController extends Controller
      */
     public function destroy(Supplier $supplier)
     {
-        if (\Gate::allows('delete_suppliers')) {
-            if ($supplier->delete()) {
-                return redirect()
-                    ->route('web.supplier.index')
-                    ->with('success', 'Deletado com sucesso');
-            }
-
+        if ($supplier->delete()) {
             return redirect()
                 ->route('web.supplier.index')
-                ->with('error', 'Erro ao deletar');
+                ->with('success', 'Deletado com sucesso');
         }
 
-        return view('pages.acl.unauthorized');
+        return redirect()
+            ->route('web.supplier.index')
+            ->with('error', 'Erro ao deletar');
     }
 }

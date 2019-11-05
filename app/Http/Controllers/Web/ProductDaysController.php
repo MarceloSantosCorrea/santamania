@@ -7,7 +7,7 @@ use App\Models\ProductDailyChecklist;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class ProductDaysController extends Controller
+class ProductDaysController extends AbstractController
 {
     public function index(Product $product)
     {

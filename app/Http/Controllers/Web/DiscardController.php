@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\DiscardRequest;
 use App\Models\Discard;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
-class DiscardController extends Controller
+class DiscardController extends AbstractController
 {
     /**
      * Display a listing of the resource.
@@ -17,18 +16,14 @@ class DiscardController extends Controller
      */
     public function index(Request $request)
     {
-        if (\Gate::allows('list_discards')) {
-            $params = $request->all();
-            if (isset($params['search'])) {
-                $data = Discard::search($params['search'])->orderBy('id', 'desc')->paginate(30);
-            } else {
-                $data = Discard::with(['product'])->orderBy('id', 'desc')->paginate(30);
-            }
-
-            return view('pages.discard.index', compact('data'));
+        $params = $request->all();
+        if (isset($params['search'])) {
+            $data = Discard::search($params['search'])->orderBy('id', 'desc')->paginate(30);
+        } else {
+            $data = Discard::with(['product'])->orderBy('id', 'desc')->paginate(30);
         }
 
-        return view('pages.acl.unauthorized');
+        return view('pages.discard.index', compact('data'));
     }
 
     /**
@@ -38,15 +33,11 @@ class DiscardController extends Controller
      */
     public function create()
     {
-        if (\Gate::allows('create_productions')) {
-            $products = Product::where('active', 1)
-                               ->orderBy('name')
-                               ->get();
+        $products = Product::where('active', 1)
+                           ->orderBy('name')
+                           ->get();
 
-            return view('pages.discard.create', compact('products'));
-        }
-
-        return view('pages.acl.unauthorized');
+        return view('pages.discard.create', compact('products'));
     }
 
     /**
@@ -58,19 +49,15 @@ class DiscardController extends Controller
      */
     public function store(DiscardRequest $request)
     {
-        if (\Gate::allows('create_discards')) {
-            if (Discard::create($request->all())) {
-                return redirect()
-                    ->route('web.discard.index')
-                    ->with('success', 'Salvo com sucesso');
-            }
-
+        if (Discard::create($request->all())) {
             return redirect()
                 ->route('web.discard.index')
-                ->with('error', 'Erro ao salvar');
+                ->with('success', 'Salvo com sucesso');
         }
 
-        return view('pages.acl.unauthorized');
+        return redirect()
+            ->route('web.discard.index')
+            ->with('error', 'Erro ao salvar');
     }
 
     /**
@@ -82,15 +69,11 @@ class DiscardController extends Controller
      */
     public function edit(Discard $discard)
     {
-        if (\Gate::allows('edit_discards')) {
-            $products = Product::where('active', 1)
-                               ->orderBy('name')
-                               ->get();
+        $products = Product::where('active', 1)
+                           ->orderBy('name')
+                           ->get();
 
-            return view('pages.discard.edit', compact('products', 'discard'));
-        }
-
-        return view('pages.acl.unauthorized');
+        return view('pages.discard.edit', compact('products', 'discard'));
     }
 
     /**
@@ -103,21 +86,17 @@ class DiscardController extends Controller
      */
     public function update(DiscardRequest $request, Discard $discard)
     {
-        if (\Gate::allows('edit_discards')) {
-            $discard->fill($request->all());
+        $discard->fill($request->all());
 
-            if ($discard->save()) {
-                return redirect()
-                    ->route('web.discard.index')
-                    ->with('success', 'Salvo com sucesso');
-            }
-
+        if ($discard->save()) {
             return redirect()
                 ->route('web.discard.index')
-                ->with('error', 'Erro ao salvar');
+                ->with('success', 'Salvo com sucesso');
         }
 
-        return view('pages.acl.unauthorized');
+        return redirect()
+            ->route('web.discard.index')
+            ->with('error', 'Erro ao salvar');
     }
 
     /**
@@ -129,18 +108,14 @@ class DiscardController extends Controller
      */
     public function destroy(Discard $discard)
     {
-        if (\Gate::allows('delete_productions')) {
-            if ($discard->delete()) {
-                return redirect()
-                    ->route('web.discard.index')
-                    ->with('success', 'Deletado com sucesso');
-            }
-
+        if ($discard->delete()) {
             return redirect()
-                ->route('web.discard---.index')
-                ->with('error', 'Erro ao deletar');
+                ->route('web.discard.index')
+                ->with('success', 'Deletado com sucesso');
         }
 
-        return view('pages.acl.unauthorized');
+        return redirect()
+            ->route('web.discard---.index')
+            ->with('error', 'Erro ao deletar');
     }
 }

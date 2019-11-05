@@ -4,9 +4,8 @@ namespace App\Http\Controllers\Web;
 
 use App\Models\Checklist;
 use App\Models\ChecklistTotal;
-use App\Http\Controllers\Controller;
 
-class ChecklistTotalController extends Controller
+class ChecklistTotalController extends AbstractController
 {
     public function index(Checklist $checklist)
     {
