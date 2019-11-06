@@ -29,7 +29,7 @@ class ProductionRequest extends FormRequest
                 return [
                     'product_id' => 'required',
                     'quantity'   => 'required',
-                    'date'       => 'required|uniqueProductAndDate:product_id',
+                    'date'       => 'required', //|uniqueProductAndDate:product_id
                 ];
             case'PUT':
                 $production = $this->route('production');
@@ -39,7 +39,7 @@ class ProductionRequest extends FormRequest
                 return [
                     'product_id' => 'required',
                     'quantity'   => 'required',
-                    'date'       => 'required|uniqueProductAndDate:product_id,'.$id,
+                    'date'       => 'required', //|uniqueProductAndDate:product_id,'.$id,
                 ];
         }
     }

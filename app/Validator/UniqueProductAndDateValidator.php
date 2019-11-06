@@ -11,6 +11,7 @@ class UniqueProductAndDateValidator implements ValidatorInterface
 
     public function validate($attribute, $value, $parameters, $validator)
     {
+        dd($attribute, $value, $parameters, $validator);
         $id = isset($parameters[1]) ? $parameters[1] : null;
 
         $res = Production::where([

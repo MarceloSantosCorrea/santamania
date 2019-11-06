@@ -18,7 +18,7 @@ class ProductDailyChecklistListener
     {
         ProductDailyChecklist::create([
             'product_id' => $event->product->id,
-            'days'       => json_encode([0, 0, 0]),
+            'days'       => json_encode([1, 1, 1]),
         ]);
     }
 }
