@@ -30,6 +30,12 @@ class EventServiceProvider extends ServiceProvider
         \Illuminate\Auth\Events\PasswordReset::class => [
             \App\Listeners\LogPasswordReset::class,
         ],
+        /**
+         * Backups
+         */
+        \Spatie\Backup\Events\BackupWasSuccessful::class => [
+            \App\Listeners\SendBackupToGoogleDriveListener::class,
+        ],
     ];
 
     /**
