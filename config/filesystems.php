@@ -66,10 +66,10 @@ return [
 
         'google' => [
             'driver'       => 'google',
-            'clientId'     => '742239462997-sgpevm55s7k5l31f298p57udsikgbd0j.apps.googleusercontent.com',
-            'clientSecret' => '4ZpNF-iszn3jvXHetj9VLL-o',
-            'refreshToken' => '1//04w8b0fkrPSZ0CgYIARAAGAQSNwF-L9IrNYYXVuhA4jEWeuKfXKZnjmOT6swyph5ElWDofra6QDOb6B0PVcPMVgETtMSDefzPVDo',
-            'folderId'     => '1vkfyvCOoy_9z3rJ4qo_GUAOs1Pj3w9Tt',
+            'clientId'     => env('GOOGLE_DRIVE_CLIENT_ID'),
+            'clientSecret' => env('GOOGLE_DRIVE_CLIENT_SECRET'),
+            'refreshToken' => env('GOOGLE_DRIVE_REFRESH_TOKEN'),
+            'folderId'     => env('GOOGLE_DRIVE_FOLDER_ID'),
         ],
     ],
 ];
