@@ -55,6 +55,6 @@ class UniqProductAndDate implements Rule
      */
     public function message()
     {
-        return 'Encontrado outro registro com este producto e esta data.';
+        return 'Encontrado outro registro com este produto e esta data.';
     }
 }

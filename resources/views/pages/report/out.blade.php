@@ -80,12 +80,42 @@
                                         <div class="portlet">
                                             <div class="panel-collapse collapse show">
                                                 <div class="portlet-body">
-                                                    <div id="morris-area-with-dotted" style="height: 300px;"></div>
+                                                    <div class="table-responsive">
+                                                        <table class="table table-striped table-hover m-t-10">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>{{ __('Produto') }}</th>
+                                                                    <th>{{ __('Fornecedor') }}</th>
+                                                                    <th class="text-right">{{ __('Total') }}</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @foreach($data as $item)
+                                                                    <tr>
+                                                                        <td>{{ $item->product->name }}</td>
+                                                                        <td>{{ $item->product->supplier ? $item->product->supplier->name : '-' }}</td>
+                                                                        <td class="text-right">{{ $item->product->unitsMeasure->symbol == 'Un' ? number_format($item->total) : $item->total }} {{ $item->product->unitsMeasure->symbol }}</td>
+                                                                    </tr>
+                                                                @endforeach
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                {{--<div class="row">--}}
+                                {{--    <div class="col-lg-12">--}}
+                                {{--        <div class="portlet">--}}
+                                {{--            <div class="panel-collapse collapse show">--}}
+                                {{--                <div class="portlet-body">--}}
+                                {{--                    <div id="morris-area-with-dotted" style="height: 300px;"></div>--}}
+                                {{--                </div>--}}
+                                {{--            </div>--}}
+                                {{--        </div>--}}
+                                {{--    </div>--}}
+                                {{--</div>--}}
                             @endif
                         </div>
                     </div>

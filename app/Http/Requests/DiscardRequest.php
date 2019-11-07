@@ -39,7 +39,6 @@ class DiscardRequest extends FormRequest
                 $discard = $this->route('discard');
                 $id      = is_object($discard) ? $discard->id : $discard;
 
-                //'|uniqueProductAndDate:product_id,'.$id
                 return [
                     'product_id' => 'required',
                     'quantity'   => 'required',

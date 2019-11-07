@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Web;
 
 use App\Models\Product;
+use App\Models\Production;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class ReportController extends AbstractController
 {
@@ -15,23 +15,18 @@ class ReportController extends AbstractController
 
     public function out(Request $request)
     {
-        $data = $productModel = $dataPost = null;
-
-        $products = Product::where('active', 1)
-                           ->orderBy('name')
-                           ->get();
+        $data     = $productModel = $dataPost = null;
+        $products = Product::where('active', 1)->orderBy('name')->get();
 
         if ($request->method() == 'POST') {
 
             $dataPost = $request->all();
-
             if (isset($dataPost['product_id'])) {
 
                 $productModel = Product::find($dataPost['product_id']);
-
-                $date_start = isset($dataPost['date_start']) ? date('Y-m-d',
+                $date_start   = isset($dataPost['date_start']) ? date('Y-m-d',
                     strtotime($dataPost['date_start'].'-1day')) : date('Y-m-d', strtotime(date('Y-m-01').'-1day'));
-                $date_end   = isset($dataPost['date_end']) ? date('Y-m-d',
+                $date_end     = isset($dataPost['date_end']) ? date('Y-m-d',
                     strtotime($dataPost['date_end'].'+1day')) : date('Y-m-d', strtotime(date('Y-m-d').'+1day'));
 
                 $rows = \DB::table('checklist_products')
@@ -60,42 +55,32 @@ class ReportController extends AbstractController
 
     public function production(Request $request)
     {
-        $data = $productModel = $dataPost = null;
+        $data = null;
 
-        $products = Product::where('active', 1)
-                           ->orderBy('name')
-                           ->get();
+        $products = Product::where('active', 1)->orderBy('name')->get();
 
         if ($request->method() == 'POST') {
 
-            $dataPost = $request->all();
-
-            if (isset($dataPost['product_id'])) {
-
-                $productModel = Product::find($dataPost['product_id']);
-
-                $date_start = isset($dataPost['date_start']) ? $dataPost['date_start'] : date('Y-m-01');
-                $date_end   = isset($dataPost['date_end']) ? $dataPost['date_end'] : date('Y-m-d');
-
-                $rows = \DB::table('productions')->where('productions.product_id', $dataPost['product_id'])
-                           ->whereBetween('productions.date', [$date_start, $date_end])
-                    //->toSql();
-                           ->get();
-
-
-                if ($rows->count()) {
-                    foreach ($rows as $row) {
-                        $data[] = [
-                            'y' => $row->date,
-                            'a' => $row->quantity,
-                        ];
-                    }
-
-                    $data = json_encode($data);
-                }
+            $query = Production::query();
+            if ($request->product_id) {
+                $query->where('product_id', $request->product_id);
             }
+
+            if ($request->date_start) {
+                $query->where('date', '>=', $request->date_start);
+            }
+
+            if ($request->date_end) {
+                $query->where('date', '<=', $request->date_end);
+            }
+
+            $query->groupBy('product_id');
+
+            $data = $query->get([
+                'product_id', \DB::raw('SUM(quantity) as "total"'),
+            ]);
         }
 
-        return view('pages.report.production', compact('products', 'data', 'productModel', 'dataPost'));
+        return view('pages.report.production', compact('products', 'data'));
     }
 }

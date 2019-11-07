@@ -79,7 +79,8 @@
 
                 <li>
                     <a href="{{ route('web.report.index') }}" class="waves-effect">
-                        <i class="ti-bar-chart"></i><span> {{ __('Gráficos') }} </span>
+                        <i class="ti-bar-chart"></i>
+                        <span> {{ __('Relatórios') }} </span>
                     </a>
                 </li>
             </ul>
