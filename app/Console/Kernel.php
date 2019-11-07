@@ -27,6 +27,10 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+
+        $schedule->call(function () {
+            \Artisan::call('backup:run --only-db');
+        })->daily();
     }
 
     /**
