@@ -9,7 +9,7 @@
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <link rel="shortcut icon" type="image/x-icon" href="{{ url('assets/images/logo-pizza-place.jpg') }}">
+        <link rel="shortcut icon" type="image/x-icon" href="{{ url('assets/images/logo.jpg') }}">
         <title>{{ config('app.name') }} Checklist - @yield('title')</title>
 
         @stack('plugins')

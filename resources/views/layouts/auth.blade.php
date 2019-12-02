@@ -7,7 +7,7 @@
         <meta name="author" content="Maxim Web">
 
         <title>{{ config('app.name') }} Checklist - Login</title>
-        <link rel="shortcut icon" type="image/x-icon" href="{{ url('assets/images/logo-pizza-place.jpg') }}">
+        <link rel="shortcut icon" type="image/x-icon" href="{{ url('assets/images/logo.jpg') }}">
 
         <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
         <link href="{{ asset('assets/css/core.css') }}" rel="stylesheet" type="text/css"/>
