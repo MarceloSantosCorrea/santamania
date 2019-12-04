@@ -53,6 +53,11 @@
                                     <a href="{{ route('web.units-measure.index') }}"> {{ __('Unidades de Medida') }} </a>
                                 </li>
                             @endcan
+                            @can('list_sectors')
+                                <li>
+                                    <a href="{{ route('web.sector.index') }}"> {{ __('Setores') }} </a>
+                                </li>
+                            @endcan
                             @can('list_warehouses')
                                 <li>
                                     <a href="{{ route('web.warehouse.index') }}"> {{ __('Local de Armazenamento') }} </a>

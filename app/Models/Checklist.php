@@ -62,6 +62,7 @@ class Checklist extends Model
         if ($checklist->status) {
 
             Task::where('status', 0)->delete();
+
             return DB::transaction(function () use ($checklist) {
                 \Log::debug("L".__LINE__." > Fechamento checklist {$checklist->id}");
                 /*
@@ -115,7 +116,10 @@ class Checklist extends Model
                 $checklistAnterior = self::where('date', '<', $date)->where('status', 0)->orderBy('date',
                     'desc')->with(['checklistProduct'])->first();
 
-                \Log::debug("L".__LINE__." > Checklist anterior encontrado: {$checklistAnterior->id}");
+                if ($checklistAnterior) {
+                    \Log::debug("L".__LINE__." > Checklist anterior encontrado: {$checklistAnterior->id}");
+                }
+
                 /**
                  * Manipulando todos os produtos ativos
                  */
@@ -169,31 +173,31 @@ class Checklist extends Model
                         }
 
                         \Log::debug("L".__LINE__." > Total anterior - checklist anterior: `{$totalAnterior}`");
+                    }
 
-                        /**
-                         * Se houver produção desse produto neste dia,
-                         * alterar a variável $totalAnterior somando a quantidade produzida
-                         */
-                        if ($production) {
-                            $totalAnterior = $totalAnterior + $production->quantity;
-                            \Log::debug("L".__LINE__." > Total anterior - checklist anterior + produção: quantidade: {$production->quantity} = `{$totalAnterior}`");
-                        }
+                    /**
+                     * Se houver produção desse produto neste dia,
+                     * alterar a variável $totalAnterior somando a quantidade produzida
+                     */
+                    if ($production) {
+                        $totalAnterior = $totalAnterior + $production->quantity;
+                        \Log::debug("L".__LINE__." > Total anterior - checklist anterior + produção: quantidade: {$production->quantity} = `{$totalAnterior}`");
+                    }
 
-                        \Log::debug("L".__LINE__." >  Total anterior: `{$totalAnterior}`");
-                        /**
-                         * Se há checklist do dia anterior e/ou se houve produção do produto
-                         * a variável $totalAnterior será maior que zero
-                         * então esse valor menos o total contado neste dia será a quantidade
-                         * que foi utilizada.
-                         */
-                        if ($totalAnterior > 0) {
-                            $difference = $totalAnterior - $checklistProduct->total;
-                            \Log::debug("L".__LINE__." > Total anterior menos o total do produto encontrado: `{$totalAnterior}` - `{$checklistProduct->total}` = `{$difference}`");
-                        }
+                    \Log::debug("L".__LINE__." >  Total anterior: `{$totalAnterior}`");
+                    /**
+                     * Se há checklist do dia anterior e/ou se houve produção do produto
+                     * a variável $totalAnterior será maior que zero
+                     * então esse valor menos o total contado neste dia será a quantidade
+                     * que foi utilizada.
+                     */
+                    if ($totalAnterior > 0) {
+                        $difference = $totalAnterior - $checklistProduct->total;
+                        \Log::debug("L".__LINE__." > Total anterior menos o total do produto encontrado: `{$totalAnterior}` - `{$checklistProduct->total}` = `{$difference}`");
+                    }
 
-                        if ($discard) {
-                            $difference = $difference - $discard->quantity;
-                        }
+                    if ($discard) {
+                        $difference = $difference - $discard->quantity;
                     }
 
                     /**

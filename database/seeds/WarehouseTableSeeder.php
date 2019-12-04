@@ -12,7 +12,6 @@ class WarehouseTableSeeder extends Seeder
     public function run()
     {
         $warehouses = [
-            'Câmara Fria',
             'Geladeira Produção',
         ];
 

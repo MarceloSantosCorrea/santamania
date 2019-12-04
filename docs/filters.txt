@@ -29,3 +29,35 @@ Fechamento Checklist
     Customização
         - Dia do Jogo de Futebol
         - Festa de Aniversário do Cliente
+
+
+------------------------------------------------------------------------------------------------------------------------
+Acesso aos produtos por setor
+
+Setor A
+    - Produto A
+    - Produto B
+Setor B
+    - Produto C
+    - Produto D
+Setor C
+    - Produto E
+    - Produto F
+
+-> Cadastro de Setores
+    -> Vínculo de Setor -> Usuário
+    -> Vínculo de Produto -> Setor
+------------------------------------------------------------------------------------------------------------------------
+
+
+Fechamento de Checklist
+
+- vários checklists no mesmo dia
+- fechamento por setor
+
+ - produção -> setar como já contabilizada por algum checklist
+
+ - Eventos
+    - Atualizar tabela de saídas diárias
+    - Previsão de término do produto
+
