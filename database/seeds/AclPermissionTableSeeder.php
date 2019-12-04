@@ -239,6 +239,46 @@ class AclPermissionTableSeeder extends Seeder
                 'name'  => 'delete_acl_permissions',
                 'label' => 'Deletar Permissões',
             ],
+            [
+                'name'  => 'list_discards',
+                'label' => 'Listar Descartes',
+            ],
+            [
+                'name'  => 'create_discards',
+                'label' => 'Criar Descarte',
+            ],
+            [
+                'name'  => 'edit_discards',
+                'label' => 'Editar Discarte',
+            ],
+            [
+                'name'  => 'delete_discards',
+                'label' => 'Deletar Descarte',
+            ],
+            [
+                'name'  => 'list_suppliers',
+                'label' => 'Listar Fornecedores',
+            ],
+            [
+                'name'  => 'create_suppliers',
+                'label' => 'Criar Fornecedor',
+            ],
+            [
+                'name'  => 'edit_suppliers',
+                'label' => 'Editar Fornecedor',
+            ],
+            [
+                'name'  => 'delete_suppliers',
+                'label' => 'Deletar Fornecedor',
+            ],
+            [
+                'name'  => 'update_settings',
+                'label' => 'Alterar Configurações Gerais',
+            ],
+            [
+                'name'  => 'update_product_days',
+                'label' => 'Alterar Produtos Diários',
+            ],
         ];
 
         foreach ($permissions as $permission) {

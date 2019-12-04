@@ -29,7 +29,7 @@ class ProductTableSeeder extends Seeder
     {
         $products = [
             [
-                'name'                => 'Strogonoff',
+                'name'                => 'Produto 01',
                 'product_category_id' => self::Molhos,
                 'units_measure_id'    => self::Balde,
             ],

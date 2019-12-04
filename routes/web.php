@@ -166,7 +166,7 @@ Route::group(['middleware' => ['auth']], function () {
 
             Route::group(['prefix' => 'product-days'], function () {
                 Route::get('/{product}', 'ProductDaysController@index')
-                     ->name('product-days.index')->middleware('can:update_product_days');
+                     ->name('product-days.index')->middleware('can:role');
                 Route::put('/update/{dailyChecklist}', 'ProductDaysController@update')
                      ->name('product-days.update')->middleware('can:update_product_days');
             });
@@ -189,6 +189,21 @@ Route::group(['middleware' => ['auth']], function () {
                      ->name('units-measure.update')->middleware('can:edit_units_measures');
                 Route::get('/destroy/{units_measure}', 'UnitsMeasureController@destroy')
                      ->name('units-measure.destroy')->middleware('can:delete_units_measures');
+            });
+
+            Route::group(['prefix' => 'sector'], function () {
+                Route::get('/', 'SectorController@index')
+                     ->name('sector.index')->middleware('can:list_sectors');
+                Route::get('/create', 'SectorController@create')
+                     ->name('sector.create')->middleware('can:create_sectors');
+                Route::post('/store', 'SectorController@store')
+                     ->name('sector.store')->middleware('can:create_sectors');
+                Route::get('/edit/{sector}', 'SectorController@edit')
+                     ->name('sector.edit')->middleware('can:edit_sectors');
+                Route::put('/update/{sector}', 'SectorController@update')
+                     ->name('sector.update')->middleware('can:edit_sectors');
+                Route::get('/destroy/{sector}', 'SectorController@destroy')
+                     ->name('sector.destroy')->middleware('can:delete_sectors');
             });
 
             Route::group(['prefix' => 'warehouse'], function () {

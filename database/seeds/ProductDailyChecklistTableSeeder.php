@@ -17,9 +17,9 @@ class ProductDailyChecklistTableSeeder extends Seeder
         if ($products) {
 
             $days = [
-                0,
-                0,
-                0,
+                1,
+                1,
+                1,
             ];
 
             foreach ($products as $product) {
