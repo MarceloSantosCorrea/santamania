@@ -29,7 +29,7 @@
                                 <div class="col-md-12">
                                     @include('form._form_errors')
                                     <form class="form-horizontal" method="post" action="{{ route('web.sector.update', $sector->id) }}">
-                                        {{method_field('PUT')}}
+                                        @csrf @method('put')
                                         @include('pages.sector._form')
                                     </form>
                                 </div>
