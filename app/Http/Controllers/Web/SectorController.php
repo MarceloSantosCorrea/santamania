@@ -40,7 +40,7 @@ class SectorController extends Controller
      */
     public function store(SectorRequest $request)
     {
-        if (Sector::create($request->all())) {
+        if (Sector::createCustom($request->all())) {
             return redirect()->route('web.sector.index')->with('success', 'Salvo com sucesso');
         }
 
@@ -71,9 +71,7 @@ class SectorController extends Controller
      */
     public function update(SectorRequest $request, Sector $sector)
     {
-        $sector->fill($request->all());
-
-        if ($sector->save()) {
+        if (Sector::updateCustom($sector, $request->all())) {
             return redirect()
                 ->route('web.sector.index')
                 ->with('success', 'Salvo com sucesso');
@@ -87,12 +85,21 @@ class SectorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Sector  $sector
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
-    public function destroy($id)
+    public function destroy(Sector $sector)
     {
-        //
+        if ($sector->delete()) {
+            return redirect()
+                ->route('web.sector.index')
+                ->with('success', 'Deletado com sucesso');
+        }
+
+        return redirect()
+            ->route('web.sector.index')
+            ->with('error', 'Erro ao deletar');
     }
 }

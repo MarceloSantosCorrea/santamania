@@ -15,19 +15,19 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        Registered::class                            => [
+        Registered::class                                => [
             SendEmailVerificationNotification::class,
         ],
-        \App\Events\ProductCreatedEvent::class       => [
+        \App\Events\ProductCreatedEvent::class           => [
             \App\Listeners\ProductDailyChecklistListener::class,
         ],
-        \Illuminate\Auth\Events\Login::class         => [
+        \Illuminate\Auth\Events\Login::class             => [
             \App\Listeners\LogSuccessfulLogin::class,
         ],
-        \Illuminate\Auth\Events\Logout::class        => [
+        \Illuminate\Auth\Events\Logout::class            => [
             \App\Listeners\LogSuccessfulLogout::class,
         ],
-        \Illuminate\Auth\Events\PasswordReset::class => [
+        \Illuminate\Auth\Events\PasswordReset::class     => [
             \App\Listeners\LogPasswordReset::class,
         ],
         /**
@@ -35,6 +35,17 @@ class EventServiceProvider extends ServiceProvider
          */
         \Spatie\Backup\Events\BackupWasSuccessful::class => [
             \App\Listeners\SendBackupToGoogleDriveListener::class,
+        ],
+        /**
+         * Sectors
+         */
+        \App\Events\SectorCreatedEvent::class            => [
+            \App\Listeners\SectorCreatedSectorProductListener::class,
+            \App\Listeners\SectorCreatedUserSectorListener::class,
+        ],
+        \App\Events\SectorEditedEvent::class             => [
+            \App\Listeners\SectorEditedSectorProductListener::class,
+            \App\Listeners\SectorEditedUserSectorListener::class,
         ],
     ];
 

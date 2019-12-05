@@ -26,7 +26,7 @@
             @php $products = \App\Models\Product::where(['active' => 1])->get() @endphp
             @if($products->count())
                 @foreach($products as $product)
-                    <option value="{{ $product->id }}">{{ $product->name }}</option>
+                    <option value="{{ $product->id }}" {{ isset($sector) && $sector->products->contains('id', $product->id) ? 'selected' : null }}>{{ $product->name }}</option>
                 @endforeach
             @endif
         </select>
@@ -41,7 +41,7 @@
             @php $users = \App\Models\User::where(['active' => 1])->get() @endphp
             @if($users->count())
                 @foreach($users as $user)
-                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                    <option value="{{ $user->id }}" {{ isset($sector) && $sector->user->first()->id == $user->id ? 'selected' : null }} >{{ $user->name }}</option>
                 @endforeach
             @endif
         </select>
