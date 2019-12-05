@@ -23,6 +23,10 @@ class SectorRequest extends FormRequest
      */
     public function rules()
     {
+        $this->merge([
+            'active' => in_array($this->input('active', null), [1, 'on']) ? 1 : 0,
+        ]);
+
         switch ($this->method()) {
             case 'POST':
                 return [
@@ -32,12 +36,6 @@ class SectorRequest extends FormRequest
                 $sector = $this->route('sector');
 
                 $id = is_object($sector) ? $sector->id : $sector;
-
-                if (! is_null($this->input('active', null))) {
-                    $this->merge([
-                        'active' => in_array($this->input('active', null), [1, 'on']) ? 1 : 0,
-                    ]);
-                }
 
                 return [
                     'name' => 'required|unique:sectors,name,'.$id,
