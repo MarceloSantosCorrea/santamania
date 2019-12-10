@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Acl\AclPermission;
 use App\Models\Acl\AclRole;
+use Illuminate\Support\Collection;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -39,6 +40,25 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function sectors()
+    {
+        return $this->belongsToMany(Sector::class, 'user_sectors', 'user_id', 'sector_id')->with('products');
+    }
+
+    public function products()
+    {
+        $products = [];
+        foreach ($this->sectors as $sector) {
+            if ($sector->products->count()) {
+                foreach ($sector->products as $product) {
+                    $products[] = $product;
+                }
+            }
+        }
+        dd(collect($products)->modelKeys());
+        return collect($products);
+    }
 
     public function roles()
     {

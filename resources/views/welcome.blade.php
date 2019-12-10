@@ -39,24 +39,20 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @if($categories)
-                                            @foreach($categories as $category)
-
+                                        @if($categories->count())
+                                            @foreach($categories as $item)
                                                 <tr class="category_name">
-                                                    <th colspan="4" class="text-center">{{ $category->name }}</th>
+                                                    <th colspan="4" class="text-center">{{ $item['name']}}</th>
                                                 </tr>
-
-                                                @if($category->product)
-                                                    @foreach($category->product as $product)
-                                                        <?php $days = json_decode($product->productDailyChecklist->days);?>
-                                                        <tr style="{{ ($loop->index % 2 == 0) ? 'background-color: #f8f9fa' : null }}">
-                                                            <th class="text-nowrap" scope="row">{{ $product->name }}</th>
-                                                            <td class="text-center">{{ $days[0] }} </td>
-                                                            <td class="text-center">{{ $days[1] }}</td>
-                                                            <td class="text-center">{{ $days[2] }}</td>
-                                                        </tr>
-                                                    @endforeach
-                                                @endif
+                                                @foreach($item['products'] as $product)
+                                                    <?php $days = json_decode($product->productDailyChecklist->days);?>
+                                                    <tr style="{{ ($loop->index % 2 == 0) ? 'background-color: #f8f9fa' : null }}">
+                                                        <th class="text-nowrap" scope="row">{{ $product->name }}</th>
+                                                        <td class="text-center">{{ $days[0] }} </td>
+                                                        <td class="text-center">{{ $days[1] }}</td>
+                                                        <td class="text-center">{{ $days[2] }}</td>
+                                                    </tr>
+                                                @endforeach
                                             @endforeach
                                         @endif
                                     </tbody>

@@ -23,7 +23,6 @@
     <label class="col-md-2 control-label" for="products">{{ __('Produtos') }}</label>
     <div class="col-md-10">
         <select multiple="multiple" name="products[]" id="products" data-plugin="multiselect">
-            @php $products = \App\Models\Product::where(['active' => 1])->get() @endphp
             @if($products->count())
                 @foreach($products as $product)
                     <option value="{{ $product->id }}" {{ isset($sector) && $sector->products->contains('id', $product->id) ? 'selected' : null }}>{{ $product->name }}</option>
@@ -34,14 +33,13 @@
 </div>
 
 <div class="form-group">
-    <label class="col-md-2 control-label" for="user_id">{{ __('Usuário Responsável') }}</label>
-    <div class="col-md-8">
-        <select name="user_id" id="user_id" class="form-control select2">
-            <option value="">Selecione...</option>
+    <label class="col-md-2 control-label" for="users">{{ __('Usuários Responsáveis') }}</label>
+    <div class="col-md-10">
+        <select multiple="multiple" name="users[]" id="users" data-plugin="multiselect">
             @php $users = \App\Models\User::where(['active' => 1])->get() @endphp
             @if($users->count())
                 @foreach($users as $user)
-                    <option value="{{ $user->id }}" {{ isset($sector) && $sector->user->first()->id == $user->id ? 'selected' : null }} >{{ $user->name }}</option>
+                    <option value="{{ $user->id }}" {{ isset($sector) && $sector->users->contains('id' , $user->id) ? 'selected' : null }} >{{ $user->name }}</option>
                 @endforeach
             @endif
         </select>

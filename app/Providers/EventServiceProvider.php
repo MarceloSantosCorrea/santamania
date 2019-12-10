@@ -47,6 +47,12 @@ class EventServiceProvider extends ServiceProvider
             \App\Listeners\SectorEditedSectorProductListener::class,
             \App\Listeners\SectorEditedUserSectorListener::class,
         ],
+        \App\Events\ChecklistCreatedEvent::class         => [
+            \App\Listeners\ChecklistCreatedChecklistSectorListener::class,
+        ],
+        \App\Events\ChecklistEditedEvent::class          => [
+            \App\Listeners\ChecklistEditedChecklistSectorListener::class,
+        ],
     ];
 
     /**

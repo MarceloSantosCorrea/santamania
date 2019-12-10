@@ -12,7 +12,9 @@ class ChecklistController extends AbstractController
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
     {
@@ -30,7 +32,7 @@ class ChecklistController extends AbstractController
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
@@ -40,21 +42,23 @@ class ChecklistController extends AbstractController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  ChecklistRequest  $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(ChecklistRequest $request)
     {
-        if (Checklist::create($request->all())) {
+        try {
+            if (Checklist::createCustom($request->all())) {
+                return redirect()
+                    ->route('web.checklist.index')
+                    ->with('success', 'Salvo com sucesso');
+            }
+        } catch (\Exception $e) {
             return redirect()
                 ->route('web.checklist.index')
-                ->with('success', 'Salvo com sucesso');
+                ->with('error', 'Erro ao salvar');
         }
-
-        return redirect()
-            ->route('web.checklist.index')
-            ->with('error', 'Erro ao salvar');
     }
 
     /**
@@ -76,7 +80,7 @@ class ChecklistController extends AbstractController
      *
      * @param  Checklist  $checklist
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(Checklist $checklist)
     {
@@ -89,21 +93,21 @@ class ChecklistController extends AbstractController
      * @param  ChecklistRequest  $request
      * @param  Checklist  $checklist
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(ChecklistRequest $request, Checklist $checklist)
     {
-        $checklist->fill($request->all());
-
-        if ($checklist->save()) {
+        try {
+            if (Checklist::updateCustom($checklist, $request->all())) {
+                return redirect()
+                    ->route('web.checklist.index')
+                    ->with('success', 'Salvo com sucesso');
+            }
+        } catch (\Exception $e) {
             return redirect()
                 ->route('web.checklist.index')
-                ->with('success', 'Salvo com sucesso');
+                ->with('error', 'Erro ao salvar');
         }
-
-        return redirect()
-            ->route('web.checklist.index')
-            ->with('error', 'Erro ao salvar');
     }
 
     /**
@@ -111,7 +115,7 @@ class ChecklistController extends AbstractController
      *
      * @param  Checklist  $checklist
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
     public function destroy(Checklist $checklist)

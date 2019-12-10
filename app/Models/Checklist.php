@@ -37,6 +37,11 @@ class Checklist extends Model
         return $this->hasMany(ChecklistProduct::class)->with(['product']);
     }
 
+    public function sectors()
+    {
+        return $this->belongsToMany(Sector::class, 'checklist_sectors', 'checklist_id', 'sector_id')->with('products');
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -372,5 +377,59 @@ class Checklist extends Model
         $c = Carbon::createFromFormat('Y-m-d H:i:s', $value);
 
         return $c->toW3cString();
+    }
+
+    /**
+     * @param  array  $data
+     *
+     * @return Checklist|array|\Illuminate\Database\Eloquent\Builder|Model
+     * @throws \Exception
+     */
+    public static function createCustom(Array $data)
+    {
+        try {
+            \DB::beginTransaction();
+            if ($model = self::query()->create($data)) {
+
+                event(new \App\Events\ChecklistCreatedEvent($model, $data));
+                \DB::commit();
+
+                return $model;
+            }
+
+        } catch (\Exception $e) {
+            \DB::rollBack();
+            \Log::error("L".__LINE__." > ".__METHOD__." message `{$e->getMessage()}` - file `{$e->getFile()}` - line `{$e->getLine()}`");
+
+            return ['error' => $e->getMessage()];
+        }
+    }
+
+    /**
+     * @param  Sector  $model
+     * @param  array  $data
+     *
+     * @return Checklist|array
+     * @throws \Exception
+     */
+    public static function updateCustom(Checklist $model, Array $data)
+    {
+        try {
+            $model->fill($data);
+            \DB::beginTransaction();
+            if ($model->save()) {
+
+                event(new \App\Events\ChecklistEditedEvent($model, $data));
+                \DB::commit();
+
+                return $model;
+            }
+
+        } catch (\Exception $e) {
+            \DB::rollBack();
+            \Log::error("L".__LINE__." > ".__METHOD__." message `{$e->getMessage()}` - file `{$e->getFile()}` - line `{$e->getLine()}`");
+
+            return ['error' => $e->getMessage()];
+        }
     }
 }

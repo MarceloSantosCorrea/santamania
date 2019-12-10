@@ -68,7 +68,7 @@ class Product extends Model
      */
     public static function productsByChecklist(Checklist $checklist)
     {
-        return self::where(['active' => 1])->orderBy('name', 'ASC')->with([
+        return self::where(['active' => 1])->bySector()->orderBy('name', 'ASC')->with([
             'checklistProduct' => function ($query) use ($checklist) {
                 $query->where('checklist_id', $checklist->id);
             },
@@ -129,5 +129,49 @@ class Product extends Model
         $c = Carbon::createFromFormat('Y-m-d H:i:s', $value);
 
         return $c->toW3cString();
+    }
+
+    public static function listProductsFront()
+    {
+        $categories = collect();
+        $products   = self::query()->bySector()->get();
+        if ($products->count()) {
+
+            /** @var Product $product */
+            foreach ($products as $product) {
+                if (! $categories->contains('id', $product->product_category_id)) {
+                    $categories->add(collect([
+                        'id'       => $product->productCategory->id,
+                        'name'     => $product->productCategory->name,
+                        'category' => $product->productCategory,
+                        'products' => collect([$product]),
+                    ]));
+                } else {
+                    $categories->map(function ($item, $key) use ($product) {
+                        if ($item['id'] == $product->product_category_id) {
+                            $item['products']->add($product);
+                        }
+                    });
+                }
+            }
+        }
+
+        return $categories;
+    }
+
+    public function scopeBySector($query)
+    {
+        $id = [];
+        if (\Auth::user()->sectors->count()) {
+            foreach (\Auth::user()->sectors as $sector) {
+                if ($sector->products->count()) {
+                    foreach ($sector->products as $product) {
+                        $id[] = $product->id;
+                    }
+                }
+            }
+        }
+
+        return $query->whereIn('id', $id);
     }
 }

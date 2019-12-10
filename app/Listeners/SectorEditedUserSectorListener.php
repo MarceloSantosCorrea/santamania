@@ -3,6 +3,7 @@
 namespace App\Listeners;
 
 use App\Events\SectorEditedEvent;
+use App\Models\UserSector;
 
 class SectorEditedUserSectorListener
 {
@@ -15,5 +16,6 @@ class SectorEditedUserSectorListener
      */
     public function handle(SectorEditedEvent $event)
     {
+        UserSector::updateByArray($event->sector, $event->data['users'] ?? []);
     }
 }

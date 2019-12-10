@@ -58,7 +58,9 @@ class SectorController extends Controller
      */
     public function edit(Sector $sector)
     {
-        return view('pages.sector.edit', compact('sector'));
+        $products = $sector->getProductsSectorForm($sector->id);
+
+        return view('pages.sector.edit', compact('sector', 'products'));
     }
 
     /**

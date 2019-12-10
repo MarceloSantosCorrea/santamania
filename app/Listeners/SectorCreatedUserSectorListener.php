@@ -16,11 +16,10 @@ class SectorCreatedUserSectorListener
      */
     public function handle(SectorCreatedEvent $event)
     {
-        if (\Arr::has($event->data, 'user_id')) {
-            UserSector::query()->create([
-                'user_id'   => $event->data['user_id'],
-                'sector_id' => $event->sector->id,
-            ]);
+        if (\Arr::has($event->data, 'users')) {
+            if (count($event->data['users'])) {
+                UserSector::createByArray($event->sector, $event->data['users']);
+            }
         }
     }
 }

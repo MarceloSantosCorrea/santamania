@@ -2,20 +2,26 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Models\Checklist;
-use App\Models\Filter;
-use App\Models\ProductCategory;
-use App\Models\Task;
-use Auth;
+use App\Models\{Checklist, Product, ProductCategory, Sector, Task};
 
 class IndexController extends AbstractController
 {
     public function index()
     {
-        $categories = ProductCategory::with(['product'])->orderBy('name')->get();
+        $categories = Product::listProductsFront();
+
+//        dd($categories);
+
+
+        //        $categories = ProductCategory::with(['product'])
+        //                                     ->orderBy('name')
+        //                                     ->get();
+
 
         $checklistPreview = Checklist::where('status', 0)
-                                     ->orderBy('date', 'desc')->with(['checklistProduct'])->first();
+                                     ->orderBy('date', 'desc')
+                                     ->with(['checklistProduct'])
+                                     ->first();
 
         $tasks = Task::where(['status' => 1])->with(['product'])->get();
 
@@ -24,7 +30,7 @@ class IndexController extends AbstractController
 
     public function logout()
     {
-        Auth::logout();
+        \Auth::logout();
 
         return redirect('login');
     }

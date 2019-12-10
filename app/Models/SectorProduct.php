@@ -37,7 +37,7 @@ class SectorProduct extends Model
             }
         }
 
-        $deletes = self::query()->whereNotIn('id', $ids)->get();
+        $deletes = self::query()->whereNotIn('id', $ids)->where(['sector_id' => $sector->id])->get();
         if ($deletes->count()) {
             foreach ($deletes as $delete) {
                 $delete->delete();

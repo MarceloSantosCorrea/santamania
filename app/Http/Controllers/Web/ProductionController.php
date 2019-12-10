@@ -12,7 +12,9 @@ class ProductionController extends AbstractController
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
     {
@@ -29,12 +31,13 @@ class ProductionController extends AbstractController
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
         $products = Product::where('active', 1)
                            ->orderBy('name')
+                           ->bySector()
                            ->get();
 
         return view('pages.production.create', compact('products'));
@@ -43,9 +46,9 @@ class ProductionController extends AbstractController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  ProductionRequest  $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(ProductionRequest $request)
     {
@@ -63,13 +66,13 @@ class ProductionController extends AbstractController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Production  $production
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(Production $production)
     {
-        $products = Product::where('active', 1)->orderBy('name')->get();
+        $products = Product::where('active', 1)->bySector()->orderBy('name')->get();
 
         return view('pages.production.edit', compact('products', 'production'));
     }

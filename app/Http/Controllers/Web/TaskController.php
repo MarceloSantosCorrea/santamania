@@ -13,7 +13,7 @@ class TaskController extends AbstractController
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
@@ -25,11 +25,11 @@ class TaskController extends AbstractController
     /**
      * Mostrar formulário para criar uma nova tarefa.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
-        $products = Product::where('active', 1)->orderBy('name')->get();
+        $products = Product::where('active', 1)->bySector()->orderBy('name')->get();
 
         return view('pages.task.create', compact('products'));
     }
@@ -37,9 +37,9 @@ class TaskController extends AbstractController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  TaskRequest  $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(TaskRequest $request)
     {
@@ -55,13 +55,13 @@ class TaskController extends AbstractController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Task  $production
+     * @param  Task  $task
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(Task $task)
     {
-        $products = Product::where('active', 1)->orderBy('name')->get();
+        $products = Product::where('active', 1)->bySector()->orderBy('name')->get();
 
         return view('pages.task.edit', compact('products', 'task'));
     }
