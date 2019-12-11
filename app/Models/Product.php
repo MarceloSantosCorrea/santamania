@@ -18,7 +18,7 @@ class Product extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'active', 'product_category_id', 'units_measure_id', 'supplier_id',
+        'name', 'current_quantity', 'active', 'product_category_id', 'units_measure_id', 'supplier_id',
     ];
 
     /**
@@ -173,5 +173,17 @@ class Product extends Model
         }
 
         return $query->whereIn('id', $id);
+    }
+
+    public function addCurrentQuantity($value)
+    {
+        $this->current_quantity += $value;
+        $this->save();
+    }
+
+    public function removeCurrentQuantity($value)
+    {
+        $this->current_quantity -= $value;
+        $this->save();
     }
 }

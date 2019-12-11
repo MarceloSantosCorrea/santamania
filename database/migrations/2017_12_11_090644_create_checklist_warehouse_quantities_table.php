@@ -22,7 +22,7 @@ class CreateChecklistWarehouseQuantitiesTable extends Migration
             $table->unsignedInteger('checklist_product_id');
             $table->foreign('checklist_product_id')->references('id')->on('checklist_products')->onDelete('cascade');
 
-            $table->unsignedDecimal('quantity', 9, 1);
+            $table->unsignedDecimal('quantity', 9, 3);
 
             $table->timestamps();
         });

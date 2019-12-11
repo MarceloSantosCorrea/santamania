@@ -7,6 +7,11 @@ use App\Models\Task;
 
 class ProductionObserver
 {
+    public function creating(Production $production)
+    {
+        $production->product->addCurrentQuantity($production->quantity);
+    }
+
     public function created(Production $production)
     {
         \Logs::database(
@@ -45,6 +50,16 @@ class ProductionObserver
                 auth()->user()->name." alterou entrada ao estoque: Produto `#{$production->product->id} {$production->product->name}` ".json_encode($inputs),
                 ['user_id' => auth()->user()->id]
             );
+
+            if (isset($inputs['quantity'])) {
+                if ($original['quantity'] > $changes['quantity']) {
+                    $value = $original['quantity'] - $changes['quantity'];
+                    $production->product->removeCurrentQuantity($value);
+                } else {
+                    $value = $changes['quantity'] - $original['quantity'];
+                    $production->product->addCurrentQuantity($value);
+                }
+            }
         }
     }
 
@@ -55,5 +70,7 @@ class ProductionObserver
             auth()->user()->name." deletou entrada ao estoque `#{$production->id}` - {$production->name} ".json_encode($production->toArray()),
             ['user_id' => auth()->user()->id]
         );
+
+        $production->product->removeCurrentQuantity($production->quantity);
     }
 }

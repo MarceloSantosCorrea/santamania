@@ -10,39 +10,6 @@
  */
 
 
-namespace App{
-/**
- * App\User
- *
- * @property int $id
- * @property string $firstname
- * @property string $lastname
- * @property string $name
- * @property string $email
- * @property string $password
- * @property int $active
- * @property string|null $remember_token
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
- * @property-read int|null $notifications_count
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereActive($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereEmail($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereFirstname($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereLastname($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User wherePassword($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereRememberToken($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\User whereUpdatedAt($value)
- */
-	class User extends \Eloquent {}
-}
-
 namespace App\Models{
 /**
  * App\Models\ChecklistWarehouseQuantity
@@ -93,6 +60,7 @@ namespace App\Models{
  *
  * @property int $id
  * @property string $name
+ * @property float $current_quantity
  * @property int $active
  * @property int $product_category_id
  * @property int $units_measure_id
@@ -105,11 +73,13 @@ namespace App\Models{
  * @property-read \App\Models\ProductDailyChecklist $productDailyChecklist
  * @property-read \App\Models\Supplier|null $supplier
  * @property-read \App\Models\UnitsMeasure $unitsMeasure
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product bySector()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product query()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereActive($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereCurrentQuantity($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereProductCategoryId($value)
@@ -213,6 +183,8 @@ namespace App\Models{
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Acl\AclRole[] $roles
  * @property-read int|null $roles_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Sector[] $sectors
+ * @property-read int|null $sectors_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Token[] $tokens
  * @property-read int|null $tokens_count
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newModelQuery()
@@ -277,6 +249,10 @@ namespace App\Models{
  * @property int $active
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Product[] $products
+ * @property-read int|null $products_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
+ * @property-read int|null $users_count
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Sector newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Sector newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Sector query()
@@ -381,6 +357,27 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\SectorProduct
+ *
+ * @property int $id
+ * @property int $product_id
+ * @property int $sector_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SectorProduct newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SectorProduct newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SectorProduct query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SectorProduct whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SectorProduct whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SectorProduct whereProductId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SectorProduct whereSectorId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SectorProduct whereUpdatedAt($value)
+ */
+	class SectorProduct extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Log
  *
  * @property int $id
@@ -428,6 +425,48 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\UserSector
+ *
+ * @property int $id
+ * @property int $user_id
+ * @property int $sector_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserSector newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserSector newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserSector query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserSector whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserSector whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserSector whereSectorId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserSector whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserSector whereUserId($value)
+ */
+	class UserSector extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\ChecklistSector
+ *
+ * @property int $id
+ * @property int $checklist_id
+ * @property int $sector_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChecklistSector newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChecklistSector newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChecklistSector query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChecklistSector whereChecklistId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChecklistSector whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChecklistSector whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChecklistSector whereSectorId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ChecklistSector whereUpdatedAt($value)
+ */
+	class ChecklistSector extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Checklist
  *
  * @property int $id
@@ -441,6 +480,8 @@ namespace App\Models{
  * @property-read int|null $checklist_product_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ChecklistTotal[] $checklistTotals
  * @property-read int|null $checklist_totals_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Sector[] $sectors
+ * @property-read int|null $sectors_count
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Checklist newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Checklist newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Checklist query()
@@ -571,28 +612,5 @@ namespace App\Models\Acl{
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Acl\AclPermission whereUpdatedAt($value)
  */
 	class AclPermission extends \Eloquent {}
-}
-
-namespace App\Models{
-/**
- * App\Models\ProductCategory
- *
- * @property int $id
- * @property string $name
- * @property int $active
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Product[] $product
- * @property-read int|null $product_count
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductCategory newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductCategory newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductCategory query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductCategory whereActive($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductCategory whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductCategory whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductCategory whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductCategory whereUpdatedAt($value)
- */
-	class ProductCategory extends \Eloquent {}
 }
 

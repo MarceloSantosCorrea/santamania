@@ -78,4 +78,54 @@ class Production extends Model
 
         return $c->toW3cString();
     }
+
+    /**
+     * @param  array  $data
+     *
+     * @return Production|array|\Illuminate\Database\Eloquent\Builder|Model
+     * @throws \Exception
+     */
+    public static function createCustom(Array $data)
+    {
+        try {
+            \DB::beginTransaction();
+            if ($model = self::query()->create($data)) {
+                \DB::commit();
+
+                return $model;
+            }
+
+        } catch (\Exception $e) {
+            \DB::rollBack();
+            \Log::error("L".__LINE__." > ".__METHOD__." message `{$e->getMessage()}` - file `{$e->getFile()}` - line `{$e->getLine()}`");
+
+            return ['error' => $e->getMessage()];
+        }
+    }
+
+    /**
+     * @param  Production  $model
+     * @param  array  $data
+     *
+     * @return Production|array
+     * @throws \Exception
+     */
+    public static function updateCustom(Production $model, Array $data)
+    {
+        try {
+            $model->fill($data);
+            \DB::beginTransaction();
+            if ($model->save()) {
+                \DB::commit();
+
+                return $model;
+            }
+
+        } catch (\Exception $e) {
+            \DB::rollBack();
+            \Log::error("L".__LINE__." > ".__METHOD__." message `{$e->getMessage()}` - file `{$e->getFile()}` - line `{$e->getLine()}`");
+
+            return ['error' => $e->getMessage()];
+        }
+    }
 }

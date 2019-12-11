@@ -52,15 +52,17 @@ class ProductionController extends AbstractController
      */
     public function store(ProductionRequest $request)
     {
-        if (Production::create($request->all())) {
+        try {
+            if (Production::createCustom($request->all())) {
+                return redirect()
+                    ->route('web.production.index')
+                    ->with('success', 'Salvo com sucesso');
+            }
+        } catch (\Exception $e) {
             return redirect()
                 ->route('web.production.index')
-                ->with('success', 'Salvo com sucesso');
+                ->with('error', 'Erro ao salvar');
         }
-
-        return redirect()
-            ->route('web.production.index')
-            ->with('error', 'Erro ao salvar');
     }
 
     /**
@@ -87,17 +89,18 @@ class ProductionController extends AbstractController
      */
     public function update(ProductionRequest $request, Production $production)
     {
-        $production->fill($request->all());
 
-        if ($production->save()) {
+        try {
+            if (Production::updateCustom($production, $request->all())) {
+                return redirect()
+                    ->route('web.production.index')
+                    ->with('success', 'Salvo com sucesso');
+            }
+        } catch (\Exception $e) {
             return redirect()
                 ->route('web.production.index')
-                ->with('success', 'Salvo com sucesso');
+                ->with('error', 'Erro ao salvar');
         }
-
-        return redirect()
-            ->route('web.production.index')
-            ->with('error', 'Erro ao salvar');
     }
 
     /**

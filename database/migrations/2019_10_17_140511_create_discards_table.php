@@ -17,7 +17,7 @@ class CreateDiscardsTable extends Migration
             $table->bigIncrements('id');
 
             $table->date('date');
-            $table->unsignedDecimal('quantity', 9, 1);
+            $table->unsignedDecimal('quantity', 9, 3);
 
             $table->unsignedInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
