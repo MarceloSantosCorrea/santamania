@@ -19,7 +19,12 @@ class ProductTableSeeder extends Seeder
             ],
             [
                 'name'                => 'Produto 02',
-                'product_category_id' => 1,
+                'product_category_id' => 2,
+                'units_measure_id'    => 1,
+            ],
+            [
+                'name'                => 'Produto 03',
+                'product_category_id' => 3,
                 'units_measure_id'    => 1,
             ],
         ];

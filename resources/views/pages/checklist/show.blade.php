@@ -70,11 +70,22 @@
                                             </thead>
                                             <tbody>
                                                 @if($checklist->checklistSectors->count())
-                                                    @foreach($checklist->checklistSectors as $sector)
+                                                    @foreach($checklist->checklistSectors->sortBy('name') as $sector)
+
+                                                        <tr>
+                                                            <th colspan="4" class="text-center" style="background-color: rgba(29,145,53,0.19)">{{ $sector->name }}</th>
+                                                        </tr>
+
                                                         @foreach($sector->products as $product)
+
                                                             <?php
+
+                                                            if ($product->active != 1) {
+                                                                continue;
+                                                            }
+
                                                             $total = $product->checklistProduct ? $product->checklistProduct->total : 0;
-                                                            $alterado = $product->checklistProduct ? true : false;
+                                                            $alterado = ($product->checklistProduct && $product->checklistProduct->quantities->count()) ? true : false;
                                                             ?>
                                                             <tr>
                                                                 <td>{{ $product->name }}</td>
@@ -85,7 +96,7 @@
                                                                 </span>
                                                                 </td>
                                                                 <td>
-                                                                    <a href="{{ route( $alterado ? 'web.checklist-product.edit' : 'web.checklist-product.create',[$checklist, $product]) }}"
+                                                                    <a href="{{ route( $product->checklistProduct ? 'web.checklist-product.edit' : 'web.checklist-product.create',[$checklist, $product]) }}"
                                                                        class="btn btn-success btn-sm tooltips"
                                                                        data-toggle="tooltip" data-placement="top"
                                                                        title="Contar">

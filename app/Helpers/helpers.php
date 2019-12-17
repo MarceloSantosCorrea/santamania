@@ -84,3 +84,12 @@ if (! function_exists('arrayMapAssoc')) {
     }
 }
 
+if (! function_exists('arrayFilter')) {
+    function arrayFilter($array)
+    {
+        return array_filter($array, function ($value) {
+            return ! is_null($value) && $value !== '';
+        });
+    }
+}
+

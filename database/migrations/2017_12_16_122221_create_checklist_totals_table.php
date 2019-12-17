@@ -22,8 +22,7 @@ class CreateChecklistTotalsTable extends Migration
             $table->unsignedBigInteger('checklist_product_id');
             $table->foreign('checklist_product_id')->references('id')->on('checklist_products')->onDelete('cascade');
 
-            $table->unsignedDecimal('total', 9, 3);
-            $table->unsignedDecimal('difference', 9, 3);
+            $table->unsignedDecimal('output', 9, 3);
 
             $table->timestamps();
         });

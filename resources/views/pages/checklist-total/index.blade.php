@@ -52,7 +52,6 @@
                                             <thead>
                                                 <tr>
                                                     <th>{{ __('Produto') }}</th>
-                                                    <th>{{ __('Total') }}</th>
                                                     <th>{{ __('Saída') }}</th>
                                                     <th>{{ __('Descarte') }}</th>
                                                 </tr>
@@ -62,8 +61,7 @@
                                                     @foreach($checklistTotal as $checklistProduct)
                                                         <tr>
                                                             <td>{{ $checklistProduct->checklistProduct->product->name }}</td>
-                                                            <td>{{ $checklistProduct->total }} {{ $checklistProduct->checklistProduct->product->unitsMeasure->symbol }}</td>
-                                                            <td>{{ $checklistProduct->difference }}</td>
+                                                            <td>{{ $checklistProduct->output }} {{ $checklistProduct->checklistProduct->product->unitsMeasure->symbol }}</td>
                                                             <td>
                                                                 @php $discard = \App\Models\Discard::where([
                                                               'product_id' => $checklistProduct->checklistProduct->product_id,

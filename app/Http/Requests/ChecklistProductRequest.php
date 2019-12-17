@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Rules\ChecklistProductTotalRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class ChecklistProductRequest extends FormRequest
@@ -28,11 +29,13 @@ class ChecklistProductRequest extends FormRequest
                 return [
                     'checklist_id' => 'required',
                     'product_id'   => 'required',
+                    'quantities'   => new ChecklistProductTotalRule($this->input('product_id')),
                 ];
             case'PUT':
                 return [
                     'checklist_id' => 'required',
                     'product_id'   => 'required',
+                    'quantities'   => new ChecklistProductTotalRule($this->input('product_id')),
                 ];
         }
     }

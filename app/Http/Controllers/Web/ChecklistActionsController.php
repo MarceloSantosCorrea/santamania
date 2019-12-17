@@ -7,18 +7,20 @@ use App\Models\Checklist;
 class ChecklistActionsController extends AbstractController
 {
     /**
-     * @return \Illuminate\Http\RedirectResponse
+     * @param  Checklist  $checklist
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function close(Checklist $checklist)
     {
         if (\Gate::allows('close_checklists')) {
 
-            $result = (new Checklist())->closeChecklist($checklist);
+            $result = $checklist->closeChecklist();
 
             if ($result['success'] == true) {
                 return redirect()
-                    ->back()
-                    ->with('success', 'Salvo com sucesso');
+                    ->route('web.checklist.index')
+                    ->with('success', 'Checklist finalizado com sucesso');
             }
 
             return redirect()
@@ -29,23 +31,25 @@ class ChecklistActionsController extends AbstractController
         return view('pages.acl.unauthorized');
     }
 
+    /**
+     * @param  Checklist  $checklist
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
     public function reopen(Checklist $checklist)
     {
         if (\Gate::allows('reopen_checklists')) {
-            $checklist->fill(['status' => 1]);
-            $checklist->save();
+            $result = $checklist->openChecklist();
 
-            $checklists = Checklist::where('date', '>', $checklist->date)->get();
-
-            if ($checklists->count()) {
-                foreach ($checklists as $checklist) {
-
-                    $checklist->fill(['status' => 1]);
-                    $checklist->save();
-                }
+            if ($result['success'] == true) {
+                return redirect()
+                    ->route('web.checklist.index')
+                    ->with('success', 'Checklist aberto com sucesso');
             }
 
-            return redirect()->route('web.checklist.index');
+            return redirect()
+                ->back()
+                ->with('error', $result['message']);
         }
 
         return view('pages.acl.unauthorized');

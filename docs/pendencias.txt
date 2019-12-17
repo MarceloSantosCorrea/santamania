@@ -1,0 +1,11 @@
+Filtros
+Tela inicial
+Fechar Checklist
+
+Ao Editar Checklist se remover setor, verificar se produtos já não foram contados.
+
+Listar checklist somente setores com acesso
+Criar Checklist somente para setores quen não há checklist aberto. Validar.
+
+Produção ou Descarte quando um checklist estiver aberto.
+Notificação saída muito abaixo ou muito acima.

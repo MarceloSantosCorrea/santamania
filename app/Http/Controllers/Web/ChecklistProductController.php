@@ -78,14 +78,25 @@ class ChecklistProductController extends AbstractController
      * @param  Checklist  $checklist
      * @param  Product  $product
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function edit(Checklist $checklist, Product $product)
     {
+        if ($product->active != 1) {
+            return redirect()
+                ->route('web.checklist.show', $checklist)
+                ->with('error', 'Este Produto com status "Desativado".');
+        }
+
+        if ($checklist->status == 0) {
+            return redirect()
+                ->route('web.checklist.index')
+                ->with('error', 'Este Checklist já "Finalizado".');
+        }
+
         /** @var \App\Models\ChecklistProduct $checklistProduct */
-        $checklistProduct = ChecklistProduct::where([
-            'checklist_id' => $checklist->id,
-            'product_id'   => $product->id,
+        $checklistProduct = ChecklistProduct::query()->where([
+            'checklist_id' => $checklist->id, 'product_id' => $product->id,
         ])->first();
 
         $warehouses = Warehouse::warehouseWithQuantities($checklistProduct);

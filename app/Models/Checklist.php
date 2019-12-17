@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Events\ChecklistClosedEvent;
+use App\Events\ChecklistOpenedEvent;
 use App\Services\Feriados;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -10,7 +12,7 @@ use Illuminate\Support\Facades\DB;
 class Checklist extends Model
 {
     protected $fillable = [
-        'date', 'status', 'time_start', 'time_end',
+        'date', 'status',
     ];
 
     /**
@@ -55,6 +57,51 @@ class Checklist extends Model
         return $this->hasMany(ChecklistTotal::class);
     }
 
+    public function closeChecklist()
+    {
+        try {
+            \DB::beginTransaction();
+            $this->status = 0;
+
+            if ($this->save()) {
+                event(new ChecklistClosedEvent($this));
+                \DB::commit();
+
+                return [
+                    'success' => true,
+                    'message' => 'Checklist finalizado com sucesso.',
+                ];
+            }
+
+        } catch (\Exception $e) {
+            \DB::rollBack();
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function openChecklist()
+    {
+        try {
+            \DB::beginTransaction();
+            $this->status = 1;
+
+            if ($this->save()) {
+                event(new ChecklistOpenedEvent($this));
+                \DB::commit();
+
+                return [
+                    'success' => true,
+                    'message' => 'Checklist aberto com sucesso.',
+                ];
+            }
+
+        } catch (\Exception $e) {
+            \DB::rollBack();
+        }
+    }
+
     /**
      * Fechar Checklist
      *
@@ -63,7 +110,7 @@ class Checklist extends Model
      * @return array|mixed
      * @throws \Throwable
      */
-    public function closeChecklist(Checklist $checklist)
+    public function closeChecklist_old(Checklist $checklist)
     {
         set_time_limit(0);
         /*

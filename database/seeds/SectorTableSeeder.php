@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class WarehouseTableSeeder extends Seeder
+class SectorTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,12 +11,10 @@ class WarehouseTableSeeder extends Seeder
      */
     public function run()
     {
-        $warehouses = ['Local 01', 'Local 02'];
-
-        foreach ($warehouses as $warehouse) {
-            DB::table('warehouses')->insert([
-                'name'       => $warehouse,
-                'active'     => 1,
+        foreach (['Setor 01', 'Setor 02', 'Setor 03', 'Setor 04', 'Setor 05'] as $sector) {
+            DB::table('sectors')->insert([
+                "name"       => $sector,
+                "active"     => 1,
                 "created_at" => new \DateTime("now"),
                 "updated_at" => new \DateTime("now"),
             ]);

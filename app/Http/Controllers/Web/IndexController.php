@@ -10,22 +10,11 @@ class IndexController extends AbstractController
     {
         $categories = Product::listProductsFront();
 
-//        dd($categories);
-
-
-        //        $categories = ProductCategory::with(['product'])
-        //                                     ->orderBy('name')
-        //                                     ->get();
-
-
-        $checklistPreview = Checklist::where('status', 0)
-                                     ->orderBy('date', 'desc')
-                                     ->with(['checklistProduct'])
-                                     ->first();
-
         $tasks = Task::where(['status' => 1])->with(['product'])->get();
 
-        return view('welcome', compact('categories', 'checklistPreview', 'tasks'));
+        $products = \App\Models\Product::query()->where('active', 1)->bySector()->get();
+
+        return view('welcome', compact('categories', 'products', 'tasks'));
     }
 
     public function logout()

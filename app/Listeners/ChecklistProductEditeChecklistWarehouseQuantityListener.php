@@ -15,7 +15,7 @@ class ChecklistProductEditeChecklistWarehouseQuantityListener
     public function handle(ChecklistProductEditedEvent $event)
     {
         $id = [];
-        foreach (array_filter($event->data['quantities']) as $warehouse => $quantity) {
+        foreach (arrayFilter($event->data['quantities']) as $warehouse => $quantity) {
 
             $data = [
                 'checklist_product_id' => $event->checklistProduct->id,

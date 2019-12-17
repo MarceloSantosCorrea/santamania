@@ -62,17 +62,11 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="card-box">
-                            <h4 class="header-title m-t-0">{{ __('Totais') }}
-                                @if($checklistPreview)
-                                    <span class="pull-right" style="color: red">{{ (new \DateTime($checklistPreview->date))->format('d/m/Y') }}</span>
-                                @endif
-                            </h4>
-
                             <div class="table-responsive">
                                 <table class="table table-bordered table-striped">
                                     <thead>
                                         <tr>
-                                            <th></th>
+                                            <th><small>{{ __('Produtos') }}</small></th>
                                             <th class="text-center" style="width: 100px">
                                                 <small>{{ __('Atual') }}</small>
                                             </th>
@@ -82,13 +76,13 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @if($checklistPreview)
-                                            @foreach($checklistPreview->checklistProduct as $checklistProduct)
+                                        @if($products->count())
+                                            @foreach($products as $product)
                                                 <tr>
-                                                    <th class="text-nowrap" scope="row">{{ $checklistProduct->product->name }}</th>
-                                                    <td class="text-center">{{ "{$checklistProduct->total} {$checklistProduct->product->unitsMeasure->symbol}" }}</td>
+                                                    <th class="text-nowrap" scope="row">{{ $product->name }}</th>
+                                                    <td class="text-center">{{ "{$product->current_quantity} {$product->unitsMeasure->symbol}" }}</td>
                                                     <td class="text-center">
-                                                        {{ $checklistProduct->product->prevision ? \Carbon\Carbon::parse($checklistProduct->product->prevision->prevision_date)->format('d/m/Y'): null }}
+                                                        {{--{{ $checklistProduct->product->prevision ? \Carbon\Carbon::parse($checklistProduct->product->prevision->prevision_date)->format('d/m/Y'): null }}--}}
                                                     </td>
                                                 </tr>
                                             @endforeach

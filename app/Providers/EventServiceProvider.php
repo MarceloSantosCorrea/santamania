@@ -37,6 +37,24 @@ class EventServiceProvider extends ServiceProvider
         /**
          * Checklists
          */
+        \App\Events\ChecklistCreatedEvent::class         => [
+            \App\Listeners\ChecklistCreatedChecklistSectorListener::class,
+        ],
+        \App\Events\ChecklistEditedEvent::class          => [
+            \App\Listeners\ChecklistEditedChecklistSectorListener::class,
+        ],
+        \App\Events\ChecklistClosedEvent::class          => [
+            \App\Listeners\ChecklistCloseTotalListener::class,
+            \App\Listeners\ChecklistCloseTasksListener::class,
+            \App\Listeners\ChecklistCloseProductDailyListener::class,
+            \App\Listeners\ChecklistClosePrevisionListener::class,
+        ],
+        \App\Events\ChecklistOpenedEvent::class          => [
+            \App\Listeners\ChecklistOpenTotalListener::class,
+        ],
+        /**
+         * Checklist Product
+         */
         \App\Events\ChecklistProductCreatedEvent::class  => [
             \App\Listeners\ChecklistProductCreateChecklistWarehouseQuantityListener::class,
         ],
@@ -53,12 +71,6 @@ class EventServiceProvider extends ServiceProvider
         \App\Events\SectorEditedEvent::class             => [
             \App\Listeners\SectorEditedSectorProductListener::class,
             \App\Listeners\SectorEditedUserSectorListener::class,
-        ],
-        \App\Events\ChecklistCreatedEvent::class         => [
-            \App\Listeners\ChecklistCreatedChecklistSectorListener::class,
-        ],
-        \App\Events\ChecklistEditedEvent::class          => [
-            \App\Listeners\ChecklistEditedChecklistSectorListener::class,
         ],
         /**
          * Products

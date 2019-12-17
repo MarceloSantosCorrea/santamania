@@ -18,6 +18,9 @@ class ChecklistProduct extends Model
         return $this->belongsTo(Checklist::class);
     }
 
+    /**
+     * @return Product
+     */
     public function product()
     {
         return $this->belongsTo(Product::class)->with(["unitsMeasure", "prevision"]);
@@ -56,7 +59,7 @@ class ChecklistProduct extends Model
     public static function createCustom(Array $data)
     {
         if (isset($data['quantities'])) {
-            $quantities = array_filter($data['quantities']);
+            $quantities = arrayFilter($data['quantities']);
             if (count($quantities)) {
                 $total = 0;
                 foreach ($quantities as $warehouse => $quantity) {

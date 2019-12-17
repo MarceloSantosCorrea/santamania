@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
+            SectorTableSeeder::class,
             ProductCategoryTableSeeder::class,
             UnitsMeasureTableSeeder::class,
             ProductTableSeeder::class,

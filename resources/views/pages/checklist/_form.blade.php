@@ -12,23 +12,23 @@
     </div>
 </div>
 
-<div class="form-group">
-    <label class="col-md-2 control-label" for="time_start">{{ __('Início') }}</label>
-    <div class="col-md-3">
-        <input type="time" name="time_start" id="time_start" class="form-control" value="{{ old('time_start', $checklist->time_start ?? null) }}">
-        @if ($errors->has('time_start'))
-            <span class="help-block text-danger"><strong>{{ $errors->first('time_start') }}</strong></span>
-        @endif
-    </div>
+{{--<div class="form-group">--}}
+{{--    <label class="col-md-2 control-label" for="time_start">{{ __('Início') }}</label>--}}
+{{--    <div class="col-md-3">--}}
+{{--        <input type="time" name="time_start" id="time_start" class="form-control" value="{{ old('time_start', $checklist->time_start ?? null) }}">--}}
+{{--        @if ($errors->has('time_start'))--}}
+{{--            <span class="help-block text-danger"><strong>{{ $errors->first('time_start') }}</strong></span>--}}
+{{--        @endif--}}
+{{--    </div>--}}
 
-    <label class="col-md-2 control-label" for="time_end">{{ __('Final') }}</label>
-    <div class="col-md-3">
-        <input type="time" name="time_end" id="time_end" class="form-control" value="{{ old('time_end', $checklist->time_end ?? null) }}">
-        @if ($errors->has('time_end'))
-            <span class="help-block text-danger"><strong>{{ $errors->first('time_end') }}</strong></span>
-        @endif
-    </div>
-</div>
+{{--    <label class="col-md-2 control-label" for="time_end">{{ __('Final') }}</label>--}}
+{{--    <div class="col-md-3">--}}
+{{--        <input type="time" name="time_end" id="time_end" class="form-control" value="{{ old('time_end', $checklist->time_end ?? null) }}">--}}
+{{--        @if ($errors->has('time_end'))--}}
+{{--            <span class="help-block text-danger"><strong>{{ $errors->first('time_end') }}</strong></span>--}}
+{{--        @endif--}}
+{{--    </div>--}}
+{{--</div>--}}
 
 <div class="form-group">
     <label class="col-md-2 control-label" for="sectors">{{ __('Setores') }}</label>
@@ -41,6 +41,9 @@
                 @endforeach
             @endif
         </select>
+        @if ($errors->has('sectors'))
+            <span class="help-block text-danger"><strong>{{ $errors->first('sectors') }}</strong></span>
+        @endif
     </div>
 </div>
 

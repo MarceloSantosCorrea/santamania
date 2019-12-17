@@ -5,9 +5,6 @@ Filtros Tags
 Filtros
     Nome: Dias da Semana
 
-    É período?
-        Período de xxx(08:00:00) até xxx(14:00:00)
-
     Dias
         - 1 = Domingo .... 7 = Sábado
         - 07/09

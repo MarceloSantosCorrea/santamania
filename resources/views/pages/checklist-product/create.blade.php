@@ -15,6 +15,9 @@
                                 <li>
                                     <a href="{{ route('web.checklist.index') }}">{{ __('Checklists') }}</a>
                                 </li>
+                                <li>
+                                    <a href="{{ route('web.checklist.show', [$checklist]) }}">{{ __('Checklist Produto') }}</a>
+                                </li>
                                 <li class="active">{{ __('Contagem') }}</li>
                             </ol>
                         </div>
@@ -36,6 +39,12 @@
                                                 <label class="col-md-2 control-label">{{ __('Produto') }}</label>
                                                 <div class="col-md-8">
                                                     <label class="control-label" style="font-size: 18px; padding-top: 4px">{{ __($product->name) }}</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label">{{ __('Estoque Atual') }}</label>
+                                                <div class="col-md-8">
+                                                    <label class="control-label" style="font-size: 18px; padding-top: 4px">{{ $product->current_quantity }} {{ $product->unitsMeasure->symbol }}</label>
                                                 </div>
                                             </div>
 
