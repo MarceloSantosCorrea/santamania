@@ -69,29 +69,31 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                @if($products)
-                                                    @foreach($products as $product)
-                                                        <?php
-                                                        $total = $product->checklistProduct ? $product->checklistProduct->total : 0;
-                                                        $alterado = $product->checklistProduct ? true : false;
-                                                        ?>
-                                                        <tr>
-                                                            <td>{{ $product->name }}</td>
-                                                            <td>{{ $total }} {{ $product->unitsMeasure->symbol }}</td>
-                                                            <td>
+                                                @if($checklist->checklistSectors->count())
+                                                    @foreach($checklist->checklistSectors as $sector)
+                                                        @foreach($sector->products as $product)
+                                                            <?php
+                                                            $total = $product->checklistProduct ? $product->checklistProduct->total : 0;
+                                                            $alterado = $product->checklistProduct ? true : false;
+                                                            ?>
+                                                            <tr>
+                                                                <td>{{ $product->name }}</td>
+                                                                <td>{{ $total }} {{ $product->unitsMeasure->symbol }}</td>
+                                                                <td>
                                                                 <span class="label label-{{ $alterado ? 'primary' : 'danger'  }}">
                                                                     {{ $alterado ? 'Conferido' : 'Conferir' }}
                                                                 </span>
-                                                            </td>
-                                                            <td>
-                                                                <a href="{{ route( $alterado ? 'web.checklist-product.edit' : 'web.checklist-product.create',[$checklist, $product]) }}"
-                                                                   class="btn btn-success btn-sm tooltips"
-                                                                   data-toggle="tooltip" data-placement="top"
-                                                                   title="Contar">
-                                                                    <i class="fa fa-bars"></i>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
+                                                                </td>
+                                                                <td>
+                                                                    <a href="{{ route( $alterado ? 'web.checklist-product.edit' : 'web.checklist-product.create',[$checklist, $product]) }}"
+                                                                       class="btn btn-success btn-sm tooltips"
+                                                                       data-toggle="tooltip" data-placement="top"
+                                                                       title="Contar">
+                                                                        <i class="fa fa-bars"></i>
+                                                                    </a>
+                                                                </td>
+                                                            </tr>
+                                                        @endforeach
                                                     @endforeach
                                                 @endif
                                             </tbody>

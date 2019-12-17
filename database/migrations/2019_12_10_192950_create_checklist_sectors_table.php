@@ -16,7 +16,7 @@ class CreateChecklistSectorsTable extends Migration
         Schema::create('checklist_sectors', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->unsignedInteger('checklist_id');
+            $table->unsignedBigInteger('checklist_id');
             $table->foreign('checklist_id')->references('id')->on('checklists')->onDelete('cascade');
 
             $table->unsignedBigInteger('sector_id');

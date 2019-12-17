@@ -11,12 +11,6 @@ class Product extends Model
     /**
      * @var array
      */
-    protected $dispatchesEvents = [
-        'created' => ProductCreatedEvent::class,
-    ];
-    /**
-     * @var array
-     */
     protected $fillable = [
         'name', 'current_quantity', 'active', 'product_category_id', 'units_measure_id', 'supplier_id',
     ];
@@ -53,6 +47,11 @@ class Product extends Model
         return $this->hasOne(ChecklistProduct::class)->with(['checklist']);
     }
 
+    public function warehouses()
+    {
+        return $this->belongsToMany(Warehouse::class, 'product_warehouses', 'product_id', 'warehouse_id');
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
@@ -68,6 +67,8 @@ class Product extends Model
      */
     public static function productsByChecklist(Checklist $checklist)
     {
+        dd($checklist);
+
         return self::where(['active' => 1])->bySector()->orderBy('name', 'ASC')->with([
             'checklistProduct' => function ($query) use ($checklist) {
                 $query->where('checklist_id', $checklist->id);
@@ -185,5 +186,59 @@ class Product extends Model
     {
         $this->current_quantity -= $value;
         $this->save();
+    }
+
+    /**
+     * @param  array  $data
+     *
+     * @return Product|array|\Illuminate\Database\Eloquent\Builder|Model
+     * @throws \Exception
+     */
+    public static function createCustom(Array $data)
+    {
+        try {
+            \DB::beginTransaction();
+            if ($model = self::query()->create($data)) {
+
+                event(new \App\Events\ProductCreatedEvent($model, $data));
+                \DB::commit();
+
+                return $model;
+            }
+
+        } catch (\Exception $e) {
+            \DB::rollBack();
+            \Log::error("L".__LINE__." > ".__METHOD__." message `{$e->getMessage()}` - file `{$e->getFile()}` - line `{$e->getLine()}`");
+
+            return ['error' => $e->getMessage()];
+        }
+    }
+
+    /**
+     * @param  Product  $model
+     * @param  array  $data
+     *
+     * @return Product|array
+     * @throws \Exception
+     */
+    public static function updateCustom(Product $model, Array $data)
+    {
+        try {
+            $model->fill($data);
+            \DB::beginTransaction();
+            if ($model->save()) {
+
+                event(new \App\Events\ProductEditedEvent($model, $data));
+                \DB::commit();
+
+                return $model;
+            }
+
+        } catch (\Exception $e) {
+            \DB::rollBack();
+            \Log::error("L".__LINE__." > ".__METHOD__." message `{$e->getMessage()}` - file `{$e->getFile()}` - line `{$e->getLine()}`");
+
+            return ['error' => $e->getMessage()];
+        }
     }
 }

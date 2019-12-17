@@ -13,22 +13,14 @@ Route::group(['middleware' => ['auth']], function () {
             Route::get('/logs', 'LogController@index')
                  ->name('log.index');
 
-            Route::get('/profile', 'UserController@profile')
-                 ->name('user.profile');
-            Route::put('/profile', 'UserController@updateProfile')
-                 ->name('user.updateProfile');
+            Route::get('/profile', 'UserController@profile')->name('user.profile');
+            Route::put('/profile', 'UserController@updateProfile')->name('user.updateProfile');
 
-            Route::get('/reports', 'ReportController@index')
-                 ->name('report.index');
-            Route::get('/reports/out', 'ReportController@out')
-                 ->name('report.out');
-            Route::post('/reports/out', 'ReportController@out')
-                 ->name('report.out');
-
-            Route::get('/reports/production', 'ReportController@production')
-                 ->name('report.production');
-            Route::post('/reports/production', 'ReportController@production')
-                 ->name('report.production');
+            Route::get('/reports', 'ReportController@index')->name('report.index');
+            Route::get('/reports/out', 'ReportController@out')->name('report.out');
+            Route::post('/reports/out', 'ReportController@out')->name('report.out');
+            Route::get('/reports/production', 'ReportController@production')->name('report.production');
+            Route::post('/reports/production', 'ReportController@production')->name('report.production');
 
             Route::group(['prefix' => 'checklist-actions'], function () {
                 Route::patch('{checklist}/close', 'ChecklistActionsController@close')
@@ -38,10 +30,12 @@ Route::group(['middleware' => ['auth']], function () {
             });
 
             Route::group(['prefix' => 'checklist-totals'], function () {
-                Route::get('{checklist}', 'ChecklistTotalController@index')
-                     ->name('checklist-totals.index');
+                Route::get('{checklist}', 'ChecklistTotalController@index')->name('checklist-totals.index');
             });
 
+            /**
+             * checklist-product
+             */
             Route::group(['prefix' => 'checklist-product'], function () {
                 Route::get('/create/{checklist}/{product}', 'ChecklistProductController@create')
                      ->name('checklist-product.create');
@@ -166,7 +160,7 @@ Route::group(['middleware' => ['auth']], function () {
 
             Route::group(['prefix' => 'product-days'], function () {
                 Route::get('/{product}', 'ProductDaysController@index')
-                     ->name('product-days.index')->middleware('can:role');
+                     ->name('product-days.index')->middleware('can:update_product_days');
                 Route::put('/update/{dailyChecklist}', 'ProductDaysController@update')
                      ->name('product-days.update')->middleware('can:update_product_days');
             });

@@ -14,7 +14,7 @@ class ChecklistProductController extends AbstractController
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
@@ -26,11 +26,14 @@ class ChecklistProductController extends AbstractController
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param  Checklist  $checklist
+     * @param  Product  $product
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create(Checklist $checklist, Product $product)
     {
-        $warehouses = Warehouse::where(['active' => 1])->get();
+        $warehouses = $product->warehouses;
 
         return view('pages.checklist-product.create', compact('checklist', 'product', 'warehouses'));
     }
@@ -38,41 +41,23 @@ class ChecklistProductController extends AbstractController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  ChecklistProductRequest  $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(ChecklistProductRequest $request)
     {
-        $params = $request->all();
-
-        $total = 0;
-        if (isset($params['quantities']) && count($params['quantities']) > 0) {
-
-            $row = [];
-            foreach ($params['quantities'] as $k => $v) {
-                $row[] = [
-                    "warehouse_id" => $k,
-                    "quantity"     => $v,
-                ];
-                $total += $v;
+        try {
+            if (ChecklistProduct::createCustom($request->all())) {
+                return redirect()
+                    ->route('web.checklist.show', $request->checklist_id)
+                    ->with('success', 'Salvo com sucesso');
             }
-
-            $params['quantities'] = json_encode($row);
-        }
-
-        $params['total'] = $total;
-
-        if (ChecklistProduct::create($params)) {
+        } catch (\Exception $e) {
             return redirect()
-                ->route('web.checklist.show', $params['checklist_id'])
-                ->with('success', 'Salvo com sucesso');
+                ->route('web.checklist.show', $request->checklist_id)
+                ->with('error', 'Erro ao salvar');
         }
-
-        return redirect()
-            ->route('web.checklist.show', $params['checklist_id'])
-            ->with('error', 'Erro ao salvar');
-
     }
 
     /**
@@ -90,12 +75,14 @@ class ChecklistProductController extends AbstractController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Checklist  $checklist
+     * @param  Product  $product
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(Checklist $checklist, Product $product)
     {
+        /** @var \App\Models\ChecklistProduct $checklistProduct */
         $checklistProduct = ChecklistProduct::where([
             'checklist_id' => $checklist->id,
             'product_id'   => $product->id,
@@ -109,45 +96,24 @@ class ChecklistProductController extends AbstractController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  ChecklistProductRequest  $request
+     * @param  ChecklistProduct  $checklistProduct
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, ChecklistProduct $checklistProduct)
+    public function update(ChecklistProductRequest $request, ChecklistProduct $checklistProduct)
     {
-        $params                 = $request->all();
-        $params['checklist_id'] = $checklistProduct->checklist_id;
-        $params['product_id']   = $checklistProduct->product_id;
-
-        $total = 0;
-        if (isset($params['quantities']) && count($params['quantities']) > 0) {
-            $row = [];
-
-            foreach ($params['quantities'] as $k => $v) {
-                $row[] = [
-                    "warehouse_id" => $k,
-                    "quantity"     => $v,
-                ];
-
-                $total += $v;
+        try {
+            if (ChecklistProduct::updateCustom($checklistProduct, $request->all())) {
+                return redirect()
+                    ->route('web.checklist.show', $checklistProduct->checklist_id)
+                    ->with('success', 'Salvo com sucesso');
             }
-
-            $params['quantities'] = json_encode($row);
-        }
-
-        $params['total'] = $total;
-
-        $checklistProduct->fill($params);
-        if ($checklistProduct->save()) {
+        } catch (\Exception $e) {
             return redirect()
                 ->route('web.checklist.show', $checklistProduct->checklist_id)
-                ->with('success', 'Salvo com sucesso');
+                ->with('error', 'Erro ao salvar');
         }
-
-        return redirect()
-            ->route('web.checklist.show', $checklistProduct->checklist_id)
-            ->with('error', 'Erro ao salvar');
     }
 
     /**

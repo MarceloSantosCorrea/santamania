@@ -1,4 +1,5 @@
 @push('plugins')
+    <link href="{{ asset('assets/plugins/multiselect/css/multi-select.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet">
 @endpush
 
@@ -64,6 +65,20 @@
     </div>
 </div>
 
+<div class="form-group">
+    <label class="col-md-2 control-label" for="warehouses">{{ __('Locais de Armazenamento') }}</label>
+    <div class="col-md-10">
+        <select multiple="multiple" name="warehouses[]" id="users" data-plugin="multiselect">
+            @php $warehouses = \App\Models\Warehouse::where(['active' => 1])->get() @endphp
+            @if($warehouses->count())
+                @foreach($warehouses as $warehouse)
+                    <option value="{{ $warehouse->id }}" {{ isset($product) && $product->warehouses->contains('id' , $warehouse->id) ? 'selected' : null }} >{{ $warehouse->name }}</option>
+                @endforeach
+            @endif
+        </select>
+    </div>
+</div>
+
 <div class="form-group m-b-0">
     <div class="col-sm-offset-2 col-sm-8">
         <button name="submit" class="btn btn-info waves-effect waves-light">{{ __('Salvar') }}</button>
@@ -71,6 +86,7 @@
 </div>
 
 @push('scripts')
+    <script src="{{ asset('assets/plugins/multiselect/js/jquery.multi-select.js') }}"></script>
     <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
     <script>
         jQuery(document).ready(function () {

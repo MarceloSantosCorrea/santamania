@@ -13,20 +13,6 @@
 </div>
 
 <div class="form-group">
-    <label class="col-md-2 control-label" for="sectors">{{ __('Setores') }}</label>
-    <div class="col-md-10">
-        <select multiple="multiple" name="sectors[]" id="sectors" data-plugin="multiselect">
-            @php $sectors = \App\Models\Sector::where(['active' => 1])->get() @endphp
-            @if($sectors->count())
-                @foreach($sectors as $sector)
-                    <option value="{{ $sector->id }}" {{ isset($checklist) && $checklist->sectors->contains('id' , $sector->id) ? 'selected' : null }}>{{ $sector->name }}</option>
-                @endforeach
-            @endif
-        </select>
-    </div>
-</div>
-
-<div class="form-group">
     <label class="col-md-2 control-label" for="time_start">{{ __('Início') }}</label>
     <div class="col-md-3">
         <input type="time" name="time_start" id="time_start" class="form-control" value="{{ old('time_start', $checklist->time_start ?? null) }}">
@@ -41,6 +27,20 @@
         @if ($errors->has('time_end'))
             <span class="help-block text-danger"><strong>{{ $errors->first('time_end') }}</strong></span>
         @endif
+    </div>
+</div>
+
+<div class="form-group">
+    <label class="col-md-2 control-label" for="sectors">{{ __('Setores') }}</label>
+    <div class="col-md-10">
+        <select multiple="multiple" name="sectors[]" id="sectors" data-plugin="multiselect">
+            @php $sectors = \App\Models\Sector::where(['active' => 1])->get() @endphp
+            @if($sectors->count())
+                @foreach($sectors as $sector)
+                    <option value="{{ $sector->id }}" {{ isset($checklist) && $checklist->sectors->contains('id' , $sector->id) ? 'selected' : null }}>{{ $sector->name }}</option>
+                @endforeach
+            @endif
+        </select>
     </div>
 </div>
 

@@ -28,7 +28,9 @@ class SectorController extends Controller
      */
     public function create()
     {
-        return view('pages.sector.create');
+        $products = (new Sector())->getProductsSectorForm();
+
+        return view('pages.sector.create', compact('products'));
     }
 
     /**
@@ -40,13 +42,15 @@ class SectorController extends Controller
      */
     public function store(SectorRequest $request)
     {
-        if (Sector::createCustom($request->all())) {
-            return redirect()->route('web.sector.index')->with('success', 'Salvo com sucesso');
+        try {
+            if (Sector::createCustom($request->all())) {
+                return redirect()->route('web.sector.index')->with('success', 'Salvo com sucesso');
+            }
+        } catch (\Exception $e) {
+            return redirect()
+                ->route('web.sector.index')
+                ->with('error', 'Erro ao salvar');
         }
-
-        return redirect()
-            ->route('web.sector.index')
-            ->with('error', 'Erro ao salvar');
     }
 
     /**

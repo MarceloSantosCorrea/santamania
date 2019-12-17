@@ -6,6 +6,13 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateSuppliersTable extends Migration
 {
+    private $permissions = [
+        ['name' => 'list_suppliers', 'label' => 'Listar Fornecedores'],
+        ['name' => 'create_suppliers', 'label' => 'Criar Fornecedor'],
+        ['name' => 'edit_suppliers', 'label' => 'Editar Fornecedor'],
+        ['name' => 'delete_suppliers', 'label' => 'Deletar Fornecedor'],
+    ];
+
     /**
      * Run the migrations.
      *
@@ -21,6 +28,15 @@ class CreateSuppliersTable extends Migration
 
             $table->timestamps();
         });
+
+        foreach ($this->permissions as $permission) {
+            DB::table('acl_permissions')->insert([
+                'name'       => $permission['name'],
+                'label'      => $permission['label'],
+                "created_at" => new \DateTime("now"),
+                "updated_at" => new \DateTime("now"),
+            ]);
+        }
     }
 
     /**
@@ -30,6 +46,13 @@ class CreateSuppliersTable extends Migration
      */
     public function down()
     {
+        foreach ($this->permissions as $permission) {
+            DB::table('acl_permissions')->where([
+                'name'  => $permission['name'],
+                'label' => $permission['label'],
+            ])->delete();
+        }
+
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Schema::dropIfExists('suppliers');
         DB::statement('SET FOREIGN_KEY_CHECKS = 1');

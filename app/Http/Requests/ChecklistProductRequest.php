@@ -26,17 +26,13 @@ class ChecklistProductRequest extends FormRequest
         switch ($this->method()) {
             case 'POST':
                 return [
-                    "checklist_id" => "required",
-                    "product_id"   => "required",
-                    'quantities.*' => 'required',
+                    'checklist_id' => 'required',
+                    'product_id'   => 'required',
                 ];
             case'PUT':
-                $warehouse = $this->route('warehouse');
-
                 return [
                     'checklist_id' => 'required',
                     'product_id'   => 'required',
-                    'quantities.*' => 'required',
                 ];
         }
     }

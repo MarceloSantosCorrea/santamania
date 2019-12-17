@@ -16,11 +16,7 @@ class ProductDailyChecklistTableSeeder extends Seeder
 
         if ($products) {
 
-            $days = [
-                1,
-                1,
-                1,
-            ];
+            $days = [1, 1, 1];
 
             foreach ($products as $product) {
                 DB::table('product_daily_checklist')->insert([

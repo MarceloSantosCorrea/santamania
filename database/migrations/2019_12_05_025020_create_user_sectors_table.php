@@ -16,7 +16,7 @@ class CreateUserSectorsTable extends Migration
         Schema::create('user_sectors', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->unsignedInteger('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->unsignedBigInteger('sector_id');

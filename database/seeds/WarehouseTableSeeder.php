@@ -12,7 +12,7 @@ class WarehouseTableSeeder extends Seeder
     public function run()
     {
         $warehouses = [
-            'Geladeira Produção',
+            'Local 01',
         ];
 
         foreach ($warehouses as $warehouse) {

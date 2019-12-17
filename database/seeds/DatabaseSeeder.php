@@ -18,8 +18,6 @@ class DatabaseSeeder extends Seeder
             WarehouseTableSeeder::class,
             UsersTableSeeder::class,
             ProductDailyChecklistTableSeeder::class,
-            AclRoleTableSeeder::class,
-            AclPermissionTableSeeder::class,
             AclRoleUserTableSeeder::class,
             AclPermissionAclRoleTableSeeder::class,
         ]);

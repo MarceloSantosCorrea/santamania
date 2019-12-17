@@ -37,6 +37,11 @@ class Checklist extends Model
         return $this->hasMany(ChecklistProduct::class)->with(['product']);
     }
 
+    public function checklistSectors()
+    {
+        return $this->belongsToMany(Sector::class, 'checklist_sectors');
+    }
+
     public function sectors()
     {
         return $this->belongsToMany(Sector::class, 'checklist_sectors', 'checklist_id', 'sector_id')->with('products');

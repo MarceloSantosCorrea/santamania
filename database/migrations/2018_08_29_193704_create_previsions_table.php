@@ -14,9 +14,9 @@ class CreatePrevisionsTable extends Migration
     public function up()
     {
         Schema::create('previsions', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
 
-            $table->unsignedInteger('product_id');
+            $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
 
             $table->dateTime('prevision_date');

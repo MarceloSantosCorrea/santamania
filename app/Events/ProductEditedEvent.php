@@ -3,11 +3,11 @@
 namespace App\Events;
 
 use App\Models\Product;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
 
-class ProductCreatedEvent
+class ProductEditedEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
     /**
@@ -20,7 +20,7 @@ class ProductCreatedEvent
     public $data;
 
     /**
-     * Create a new event instance.
+     * ProductEditedEvent constructor.
      *
      * @param  Product  $product
      * @param  array  $data
