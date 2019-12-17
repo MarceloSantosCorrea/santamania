@@ -12,7 +12,9 @@ class DiscardController extends AbstractController
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
     {
@@ -29,12 +31,14 @@ class DiscardController extends AbstractController
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
-        $products = Product::where('active', 1)
+        $products = Product::query()
+                           ->where('active', 1)
                            ->orderBy('name')
+                           ->bySector()
                            ->get();
 
         return view('pages.discard.create', compact('products'));
@@ -43,13 +47,13 @@ class DiscardController extends AbstractController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  DiscardRequest  $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(DiscardRequest $request)
     {
-        if (Discard::create($request->all())) {
+        if (Discard::query()->create($request->all())) {
             return redirect()
                 ->route('web.discard.index')
                 ->with('success', 'Salvo com sucesso');
@@ -65,12 +69,14 @@ class DiscardController extends AbstractController
      *
      * @param  Discard  $discard
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(Discard $discard)
     {
-        $products = Product::where('active', 1)
+        $products = Product::query()
+                           ->where('active', 1)
                            ->orderBy('name')
+                           ->bySector()
                            ->get();
 
         return view('pages.discard.edit', compact('products', 'discard'));
@@ -79,10 +85,10 @@ class DiscardController extends AbstractController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  DiscardRequest  $request
+     * @param  Discard  $discard
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(DiscardRequest $request, Discard $discard)
     {
@@ -102,9 +108,10 @@ class DiscardController extends AbstractController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Discard  $discard
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy(Discard $discard)
     {
@@ -115,7 +122,7 @@ class DiscardController extends AbstractController
         }
 
         return redirect()
-            ->route('web.discard---.index')
+            ->route('web.discard.index')
             ->with('error', 'Erro ao deletar');
     }
 }

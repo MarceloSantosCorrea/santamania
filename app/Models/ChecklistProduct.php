@@ -99,33 +99,31 @@ class ChecklistProduct extends Model
     public static function updateCustom(ChecklistProduct $model, Array $data)
     {
         if (isset($data['quantities'])) {
-            $quantities = array_filter($data['quantities']);
-            if (count($quantities)) {
-                $total = 0;
-                foreach ($quantities as $warehouse => $quantity) {
-                    $total += $quantity;
+            $quantities = $data['quantities'];
+            $total      = 0;
+            foreach ($quantities as $warehouse => $quantity) {
+                $total += $quantity ?? 0;
+            }
+
+            try {
+
+                \DB::beginTransaction();
+
+                $update = [
+                    'checklist_id' => $data['checklist_id'],
+                    'product_id'   => $data['product_id'],
+                    'total'        => $total,
+                ];
+                if ($model->update($update)) {
+                    event(new ChecklistProductEditedEvent($model, $data));
+                    \DB::commit();
+
+                    return $model;
                 }
-
-                try {
-
-                    \DB::beginTransaction();
-
-                    $update = [
-                        'checklist_id' => $data['checklist_id'],
-                        'product_id'   => $data['product_id'],
-                        'total'        => $total,
-                    ];
-                    if ($model->update($update)) {
-                        event(new ChecklistProductEditedEvent($model, $data));
-                        \DB::commit();
-
-                        return $model;
-                    }
-                } catch (\Exception $e) {
-                    \DB::rollBack();
-                    \Log::error("L".__LINE__." > ".__METHOD__." message `{$e->getMessage()}` - file `{$e->getFile()}` - line `{$e->getLine()}`");
-                    throw $e;
-                }
+            } catch (\Exception $e) {
+                \DB::rollBack();
+                \Log::error("L".__LINE__." > ".__METHOD__." message `{$e->getMessage()}` - file `{$e->getFile()}` - line `{$e->getLine()}`");
+                throw $e;
             }
         }
 
