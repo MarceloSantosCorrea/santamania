@@ -1,7 +1,8 @@
+Checklist (checklist_setors)-> Setor(s) (product_sectors)-> Product(s) | Listar Produtos - checklist/show
 
-CHECKLIST       PRODUTO
-
-    CHECKLIST_PRODUCT
+checklists {id: 1, date: 2019-12-10, time_start: 08:00:00, time_end: 12:00:00, status: 1}
+    checklist_products {id: 1, checklist_id: 2, product_id: 1, total: 1.0}
+        checklist_product_warehouses {id: 1, warehouse_id: 1, checklist_product_id: 1, quantity: 1.0}
 
 
 
