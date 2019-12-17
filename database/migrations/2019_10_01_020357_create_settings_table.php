@@ -6,6 +6,10 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateSettingsTable extends Migration
 {
+    private $permissions = [
+        ['name' => 'update_settings', 'label' => 'Alterar Configurações Gerais'],
+    ];
+
     /**
      * Run the migrations.
      *
@@ -17,6 +21,15 @@ class CreateSettingsTable extends Migration
             $table->string('option_name');
             $table->string('option_value')->nullable();
         });
+
+        foreach ($this->permissions as $permission) {
+            DB::table('acl_permissions')->insert([
+                'name'       => $permission['name'],
+                'label'      => $permission['label'],
+                "created_at" => new \DateTime("now"),
+                "updated_at" => new \DateTime("now"),
+            ]);
+        }
     }
 
     /**
@@ -26,6 +39,13 @@ class CreateSettingsTable extends Migration
      */
     public function down()
     {
+        foreach ($this->permissions as $permission) {
+            DB::table('acl_permissions')->where([
+                'name'  => $permission['name'],
+                'label' => $permission['label'],
+            ])->delete();
+        }
+
         Schema::dropIfExists('settings');
     }
 }

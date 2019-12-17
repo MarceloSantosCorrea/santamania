@@ -14,9 +14,9 @@ class CreateProductDailyChecklistTable extends Migration
     public function up()
     {
         Schema::create('product_daily_checklist', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
 
-            $table->unsignedInteger('product_id');
+            $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
 
             $table->longText('days')->nullable();

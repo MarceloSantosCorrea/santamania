@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSectorProductsTable extends Migration
+class CreateProductWarehousesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateSectorProductsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sector_products', function (Blueprint $table) {
+        Schema::create('product_warehouses', function (Blueprint $table) {
             $table->bigIncrements('id');
 
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
 
-            $table->unsignedBigInteger('sector_id');
-            $table->foreign('sector_id')->references('id')->on('sectors')->onDelete('cascade');
+            $table->unsignedBigInteger('warehouse_id');
+            $table->foreign('warehouse_id')->references('id')->on('warehouses')->onDelete('cascade');
 
             $table->timestamps();
         });
@@ -33,6 +33,6 @@ class CreateSectorProductsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sector_products');
+        Schema::dropIfExists('product_warehouses');
     }
 }

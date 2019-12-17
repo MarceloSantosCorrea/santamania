@@ -10,16 +10,16 @@ class ChecklistProductObserver
 {
     public function created(ChecklistProduct $checklistProduct)
     {
-        if (! is_null($checklistProduct->quantities)) {
-            $quantities = json_decode($checklistProduct->quantities, true);
-
-            if (count($quantities)) {
-                foreach ($quantities as $quantity) {
-                    $quantity['checklist_product_id'] = $checklistProduct->id;
-                    ChecklistWarehouseQuantity::create($quantity);
-                }
-            }
-        }
+        //        if (! is_null($checklistProduct->quantities)) {
+        //            $quantities = json_decode($checklistProduct->quantities, true);
+        //
+        //            if (count($quantities)) {
+        //                foreach ($quantities as $quantity) {
+        //                    $quantity['checklist_product_id'] = $checklistProduct->id;
+        //                    ChecklistWarehouseQuantity::create($quantity);
+        //                }
+        //            }
+        //        }
 
         \Logs::database(
             'Checklist Product',

@@ -18,13 +18,12 @@ class Warehouse extends Model
 
     public static function warehouseWithQuantities(ChecklistProduct $checklistProduct)
     {
-        return self::where(["active" => 1])
-                   ->with([
-                       "checklistWarehouseQuantities" => function ($query) use ($checklistProduct) {
-                           $query->where('checklist_product_id', $checklistProduct->id);
-                       },
-                   ])
-                   ->get();
+        return self::query()->whereIn('id',
+            $checklistProduct->product->warehouses->modelKeys())->where(["active" => 1])->with([
+            "checklistWarehouseQuantities" => function ($query) use ($checklistProduct) {
+                $query->where('checklist_product_id', $checklistProduct->id);
+            },
+        ])->get();
     }
 
     public function getCreatedAtAttribute($value)

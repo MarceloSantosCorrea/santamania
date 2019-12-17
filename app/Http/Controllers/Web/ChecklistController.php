@@ -70,9 +70,15 @@ class ChecklistController extends AbstractController
      */
     public function show(Checklist $checklist)
     {
-        $products = Product::productsByChecklist($checklist);
+        //        if ($checklist->checklistSectors->count()) {
+        //            /** @var \App\Models\Sector $sector */
+        //            foreach ($checklist->checklistSectors as $sector) {
+        //                dd($sector->products);
+        //            }
+        //        }
+        //        $products = Product::productsByChecklist($checklist);
 
-        return view('pages.checklist.show', compact('checklist', 'products'));
+        return view('pages.checklist.show', compact('checklist'));
     }
 
     /**

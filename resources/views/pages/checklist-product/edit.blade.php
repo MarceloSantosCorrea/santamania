@@ -29,7 +29,9 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     @include('form._form_errors')
-                                    <form class="form-horizontal" method="post" action="{{ route('web.checklist-product.update', [$checklistProduct]) }}">
+                                    <form class="form-horizontal" method="post" action="{{ route('web.checklist-product.update', [
+                                            'checklistProduct' => $checklistProduct, 'checklist_id' => $checklist->id, 'product_id' => $product->id
+                                        ]) }}">
                                         {{ method_field('PUT') }}
                                         @if($warehouses)
                                             {!! csrf_field() !!}
@@ -46,7 +48,7 @@
                                                 <div class="form-group">
                                                     <label class="col-md-2 control-label" for="date">{{ __($warehouse->name) }}</label>
                                                     <div class="col-md-4">
-                                                        <input type="number" step="any" name="quantities[{{ $warehouse->id }}]" id="date" class="form-control" value="{{ $warehouse->checklistWarehouseQuantities->quantity }}">
+                                                        <input type="number" step="any" name="quantities[{{ $warehouse->id }}]" id="date" class="form-control" value="{{ $warehouse->checklistWarehouseQuantities->quantity ?? null}}">
                                                         <span class="help-block"></span>
                                                     </div>
                                                 </div>

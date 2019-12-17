@@ -6,6 +6,11 @@ use App\Models\Discard;
 
 class DiscardObserver
 {
+    public function creating(Discard $discard)
+    {
+        $discard->product->removeCurrentQuantity($discard->quantity);
+    }
+
     /**
      * @param  Discard  $discard
      */
@@ -39,6 +44,16 @@ class DiscardObserver
                 auth()->user()->name." alterou entrada ao descarte: Produto `#{$discard->product->id} {$discard->product->name}` ".json_encode($inputs),
                 ['user_id' => auth()->user()->id]
             );
+
+            if (isset($inputs['quantity'])) {
+                if ($original['quantity'] > $changes['quantity']) {
+                    $value = $original['quantity'] - $changes['quantity'];
+                    $discard->product->addCurrentQuantity($value);
+                } else {
+                    $value = $changes['quantity'] - $original['quantity'];
+                    $discard->product->removeCurrentQuantity($value);
+                }
+            }
         }
     }
 
@@ -52,5 +67,7 @@ class DiscardObserver
             auth()->user()->name." deletou entrada ao descarte `#{$discard->id}` Produto `#{$discard->product->id} {$discard->product->name}` ".json_encode($discard->toArray()),
             ['user_id' => auth()->user()->id]
         );
+
+        $discard->product->addCurrentQuantity($discard->quantity);
     }
 }

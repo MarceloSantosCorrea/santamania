@@ -14,7 +14,9 @@ class ProductController extends AbstractController
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
     {
@@ -31,11 +33,11 @@ class ProductController extends AbstractController
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
-        $productCategories = ProductCategory::where(['active' => 1])->get();
+        $productCategories = ProductCategory::query()->where(['active' => 1])->get();
         $unitsMeasures     = UnitsMeasure::all();
         $suppliers         = Supplier::all();
 
@@ -45,21 +47,23 @@ class ProductController extends AbstractController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  ProductRequest  $request
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(ProductRequest $request)
     {
-        if (Product::create($request->all())) {
+        try {
+            if (Product::createCustom($request->all())) {
+                return redirect()
+                    ->route('web.product.index')
+                    ->with('success', 'Salvo com sucesso');
+            }
+        } catch (\Exception $e) {
             return redirect()
                 ->route('web.product.index')
-                ->with('success', 'Salvo com sucesso');
+                ->with('error', 'Erro ao salvar');
         }
-
-        return redirect()
-            ->route('web.product.index')
-            ->with('error', 'Erro ao salvar');
     }
 
     /**
@@ -67,11 +71,11 @@ class ProductController extends AbstractController
      *
      * @param  Product  $product
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(Product $product)
     {
-        $productCategories = ProductCategory::where(['active' => 1])->get();
+        $productCategories = ProductCategory::query()->where(['active' => 1])->get();
         $unitsMeasures     = UnitsMeasure::all();
         $suppliers         = Supplier::all();
 
@@ -81,24 +85,24 @@ class ProductController extends AbstractController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  ProductRequest  $request
+     * @param  Product  $product
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(ProductRequest $request, Product $product)
     {
-        $product->fill($request->all());
-
-        if ($product->save()) {
+        try {
+            if (Product::updateCustom($product, $request->all())) {
+                return redirect()
+                    ->route('web.product.index')
+                    ->with('success', 'Salvo com sucesso');
+            }
+        } catch (\Exception $e) {
             return redirect()
                 ->route('web.product.index')
-                ->with('success', 'Salvo com sucesso');
+                ->with('error', 'Erro ao salvar');
         }
-
-        return redirect()
-            ->route('web.product.index')
-            ->with('error', 'Erro ao salvar');
     }
 
     /**
@@ -106,7 +110,7 @@ class ProductController extends AbstractController
      *
      * @param  Product  $product
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
     public function destroy(Product $product)

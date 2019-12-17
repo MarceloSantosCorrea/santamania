@@ -14,17 +14,15 @@ class CreateChecklistProductsTable extends Migration
     public function up()
     {
         Schema::create('checklist_products', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
 
-            $table->unsignedInteger('checklist_id');
+            $table->unsignedBigInteger('checklist_id');
             $table->foreign('checklist_id')->references('id')->on('checklists')->onDelete('cascade');
 
-            $table->unsignedInteger('product_id');
+            $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
 
             $table->unsignedDecimal('total', 9, 3)->nullable(true);
-
-            $table->longText('quantities')->nullable();
 
             $table->timestamps();
         });

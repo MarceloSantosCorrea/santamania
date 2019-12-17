@@ -11,12 +11,7 @@ class ProductCategoryTableSeeder extends Seeder
      */
     public function run()
     {
-        $categories = [
-            'Molhos', 'Prontos',
-            'Industrializados', 'Frios/Fatiados',
-        ];
-
-        foreach ($categories as $category) {
+        foreach (['Categoria 01', 'Categoria 02', 'Categoria 03', 'Categoria 04', 'Categoria 05'] as $category) {
             DB::table('product_categories')->insert([
                 "name"       => $category,
                 "active"     => 1,

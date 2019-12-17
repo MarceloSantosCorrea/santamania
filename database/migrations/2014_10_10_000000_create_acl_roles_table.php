@@ -14,19 +14,24 @@ class CreateAclRolesTable extends Migration
     public function up()
     {
         Schema::create('acl_roles', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('name', 50);
             $table->string('label', 200);
             $table->timestamps();
         });
 
-        Schema::create('acl_role_user', function (Blueprint $table) {
-            $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+        $roles = [
+            ['name' => 'admin', 'label' => 'Administrador'],
+        ];
 
-            $table->integer('acl_role_id')->unsigned();
-            $table->foreign('acl_role_id')->references('id')->on('acl_roles')->onDelete('cascade');
-        });
+        foreach ($roles as $role) {
+            DB::table('acl_roles')->insert([
+                'name'       => $role['name'],
+                'label'      => $role['label'],
+                "created_at" => new \DateTime("now"),
+                "updated_at" => new \DateTime("now"),
+            ]);
+        }
     }
 
     /**
@@ -36,7 +41,6 @@ class CreateAclRolesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('acl_role_user');
         Schema::dropIfExists('acl_roles');
     }
 }

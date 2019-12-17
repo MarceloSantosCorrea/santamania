@@ -6,6 +6,15 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateUsersTable extends Migration
 {
+    private $permissions = [
+        ['name' => 'home', 'label' => 'Home'],
+        ['name' => 'list_users', 'label' => 'Listar Usuários'],
+        ['name' => 'create_users', 'label' => 'Criar Usuários'],
+        ['name' => 'edit_users', 'label' => 'Editar Usuários'],
+        ['name' => 'show_users', 'label' => 'Visualizar Usuários'],
+        ['name' => 'delete_users', 'label' => 'Deletar Usuários'],
+    ];
+
     /**
      * Run the migrations.
      *
@@ -14,7 +23,7 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('firstname');
             $table->string('lastname');
             $table->string('name');
@@ -24,6 +33,15 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        foreach ($this->permissions as $permission) {
+            DB::table('acl_permissions')->insert([
+                'name'       => $permission['name'],
+                'label'      => $permission['label'],
+                "created_at" => new \DateTime("now"),
+                "updated_at" => new \DateTime("now"),
+            ]);
+        }
     }
 
     /**
@@ -33,6 +51,12 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
+        foreach ($this->permissions as $permission) {
+            DB::table('acl_permissions')->where([
+                'name'  => $permission['name'],
+                'label' => $permission['label'],
+            ])->delete();
+        }
         Schema::dropIfExists('users');
     }
 }

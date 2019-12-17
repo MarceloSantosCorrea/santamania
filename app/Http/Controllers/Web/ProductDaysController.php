@@ -9,6 +9,11 @@ use App\Http\Controllers\Controller;
 
 class ProductDaysController extends AbstractController
 {
+    /**
+     * @param  Product  $product
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(Product $product)
     {
         $productDailyChecklist    = ProductDailyChecklist::where(['product_id' => $product->id])->first();
@@ -18,6 +23,12 @@ class ProductDaysController extends AbstractController
             compact('product', 'productDailyChecklist', 'productDailyChecklistArr'));
     }
 
+    /**
+     * @param  Request  $request
+     * @param  ProductDailyChecklist  $dailyChecklist
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request, ProductDailyChecklist $dailyChecklist)
     {
         $data = $request->all();
