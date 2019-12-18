@@ -40,10 +40,12 @@
                 {{--</ul>--}}
                 {{--</li>--}}
                 {{--</ul>--}}
-                {{--<form role="search" class="navbar-left app-search pull-left hidden-xs">--}}
-                {{--<input type="text" placeholder="Search..." class="form-control">--}}
-                {{--<a href="#"><i class="fa fa-search"></i></a>--}}
-                {{--</form>--}}
+
+{{--                <form role="search" class="navbar-left app-search pull-left hidden-xs">--}}
+{{--                    <input type="text" placeholder="Localizar..." class="form-control">--}}
+{{--                    <a href="#"><i class="fa fa-search"></i></a>--}}
+{{--                </form>--}}
+
                 <ul class="nav navbar-nav navbar-right pull-right">
                     {{--<li class="dropdown top-menu-item-xs">--}}
                     {{--<a href="#" data-target="#" class="dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-expanded="true">--}}

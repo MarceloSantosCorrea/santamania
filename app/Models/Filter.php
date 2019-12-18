@@ -10,7 +10,7 @@ class Filter extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'options',
+        'name', 'options', 'active',
     ];
 
     /**

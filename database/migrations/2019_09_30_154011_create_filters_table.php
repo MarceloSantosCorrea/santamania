@@ -20,6 +20,8 @@ class CreateFiltersTable extends Migration
             $table->string('name');
             $table->json('options');
 
+            $table->unsignedInteger('active');
+
             $table->timestamps();
         });
     }

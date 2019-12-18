@@ -5,6 +5,8 @@ Auth::routes(['register' => false]);
 Route::group(['middleware' => ['auth']], function () {
     Route::group(['namespace' => 'Web'], function () {
 
+        Route::get('help', 'HelpController@index')->name('help');
+
         Route::get('/', 'IndexController@index')
              ->name('home')->middleware('can:home');
         Route::get('/logout', 'IndexController@logout')->name('logout');

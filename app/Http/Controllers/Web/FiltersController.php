@@ -2,45 +2,49 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Http\Requests\FilterRequest;
+use App\Models\Filter;
 use Illuminate\Http\Request;
 
 class FiltersController extends AbstractController
 {
     /**
-     * Display a listing of the resource.
+     * Mostrar a Lista de Filtros.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        //
+        $data = Filter::paginate();
+
+        return view('pages.filters.index', compact('data'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Mostar um formulário para a criação de um novo filtro.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
-        //
+        return view('pages.filters.create');
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Salvar um novo filtro no banco de dados.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  FilterRequest  $request
      */
-    public function store(Request $request)
+    public function store(FilterRequest $request)
     {
-        //
+        dd($request->all());
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int  $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -52,6 +56,7 @@ class FiltersController extends AbstractController
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -64,6 +69,7 @@ class FiltersController extends AbstractController
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -75,6 +81,7 @@ class FiltersController extends AbstractController
      * Remove the specified resource from storage.
      *
      * @param  int  $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

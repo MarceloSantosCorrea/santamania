@@ -88,6 +88,13 @@
                         <span> {{ __('Relatórios') }} </span>
                     </a>
                 </li>
+
+                {{--<li>--}}
+                {{--    <a href="{{ route('help') }}" class="waves-effect">--}}
+                {{--        <i class="fa fa-question-circle-o"></i>--}}
+                {{--        <span> {{ __('Ajuda') }} </span>--}}
+                {{--    </a>--}}
+                {{--</li>--}}
             </ul>
             <div class="clearfix"></div>
         </div>
