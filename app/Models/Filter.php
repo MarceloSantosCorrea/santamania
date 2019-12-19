@@ -10,14 +10,7 @@ class Filter extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'options', 'active',
-    ];
-
-    /**
-     * @var array
-     */
-    protected $casts = [
-        'options' => 'array',
+        'name', 'active', 'default',
     ];
 
     public static function boot()

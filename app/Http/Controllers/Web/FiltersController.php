@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Requests\FilterRequest;
 use App\Models\Filter;
-use Illuminate\Http\Request;
 
 class FiltersController extends AbstractController
 {
@@ -15,7 +14,7 @@ class FiltersController extends AbstractController
      */
     public function index()
     {
-        $data = Filter::paginate();
+        $data = Filter::where('default', 0)->paginate();
 
         return view('pages.filters.index', compact('data'));
     }
@@ -37,44 +36,60 @@ class FiltersController extends AbstractController
      */
     public function store(FilterRequest $request)
     {
-        dd($request->all());
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        try {
+            if (Filter::create($request->all())) {
+                return redirect()->route('web.filters.index')->with('success', 'Salvo com sucesso');
+            }
+        } catch (\Exception $e) {
+            return redirect()->route('web.filters.index')->with('error', 'Erro ao salvar');
+        }
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Filter  $filter
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function edit($id)
+    public function edit($uid)
     {
-        //
+        try {
+            $filter = Filter::where(["uid" => $uid])->firstOrFail();
+        } catch (\Exception $e) {
+            abort(404);
+        }
+
+        return view('pages.filters.edit', compact('filter'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  FilterRequest  $request
+     * @param $uid
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(FilterRequest $request, $uid)
     {
-        //
+        try {
+            $filter = Filter::where(["uid" => $uid])->firstOrFail();
+        } catch (\Exception $e) {
+            abort(404);
+        }
+
+        $filter->fill($request->all());
+
+        if ($filter->save()) {
+            return redirect()
+                ->route('web.filters.index')
+                ->with('success', 'Salvo com sucesso');
+        }
+
+        return redirect()
+            ->route('web.filtersindex')
+            ->with('error', 'Erro ao salvar');
     }
 
     /**

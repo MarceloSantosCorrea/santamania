@@ -23,20 +23,18 @@ class FilterRequest extends FormRequest
      */
     public function rules()
     {
+        $this->merge(["active" => in_array($this->input('active', null), ['on', 1]) ? '1' : '0']);
         switch ($this->method()) {
             case 'POST':
                 return [
-                    'name' => 'required|unique:product_categories',
+                    'name' => 'required|unique:filters',
                 ];
             case'PUT':
-                $param = $this->route('filter');
-
-                $id = is_object($param) ? $param->id : $param;
-
-                $this->merge(['active' => $this->input('active', '0')]);
+                $param = $this->route('uid');
+                $uid   = is_object($param) ? $param->uid : $param;
 
                 return [
-                    'name' => 'required|unique:filters,name,'.$id,
+                    'name' => "required|unique:filters,name,{$uid},uid",
                 ];
         }
     }

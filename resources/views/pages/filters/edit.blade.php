@@ -28,7 +28,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     @include('form._form_errors')
-                                    <form class="form-horizontal" method="post" action="{{ route('web.filters.update', $filters->id) }}">
+                                    <form class="form-horizontal" method="post" action="{{ route('web.filters.update', $filter->uid) }}">
                                         @csrf @method('put')
                                         @include('pages.filters._form')
                                     </form>

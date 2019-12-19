@@ -18,6 +18,60 @@
                     </div>
                 </div>
                 <div class="row page-content">
+                    <div class="col-sm-12">
+                        <div class="card-box">
+                            <h4 class="header-title m-t-0">{{ __('Listagem de produtos e saídas') }}</h4>
+
+                            <div class="table-responsive">
+                                <table class="table table-header-rotated">
+                                    <thead>
+                                        <tr>
+                                            <th class="rotate"></th>
+                                            @foreach(\App\Models\Filter::all() as $filters)
+                                                <th class="rotate">
+                                                    <div><span>{{ $filters->name }}</span></div>
+                                                </th>
+                                            @endforeach
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if($categories->count())
+                                            @foreach($categories as $item)
+                                                <tr class="category_name">
+                                                    <td colspan="18" class="text-center">{{ $item['name']}}</td>
+                                                </tr>
+                                                @foreach($item['products'] as $product)
+                                                    <?php $days = json_decode($product->productDailyChecklist->days);?>
+                                                    <tr style="{{ ($loop->index % 2 == 0) ? 'background-color: #f8f9fa' : null }}">
+                                                        <td class="text-nowrap" scope="row">{{ $product->name }}</td>
+                                                        <td>{{ $days[0] }} </td>
+                                                        <td>{{ $days[1] }}</td>
+                                                        <td>{{ $days[2] }}</td>
+                                                        <td>{{ $days[2] }}</td>
+                                                        <td>{{ $days[2] }}</td>
+                                                        <td>{{ $days[2] }}</td>
+                                                        <td>{{ $days[2] }}</td>
+                                                        <td>{{ $days[2] }}</td>
+                                                        <td>{{ $days[2] }}</td>
+                                                        <td>{{ $days[2] }}</td>
+                                                        <td>{{ $days[2] }}</td>
+                                                        <td>{{ $days[2] }}</td>
+                                                        <td>{{ $days[2] }}</td>
+                                                        <td>{{ $days[2] }}</td>
+                                                        <td>{{ $days[2] }}</td>
+                                                        <td>{{ $days[2] }}</td>
+                                                        <td>{{ $days[2] }}</td>
+                                                    </tr>
+                                                @endforeach
+                                            @endforeach
+                                        @endif
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row page-content">
                     <div class="col-sm-6">
                         <div class="card-box">
                             <h4 class="header-title m-t-0">{{ __('Listagem de produtos e saídas') }}</h4>

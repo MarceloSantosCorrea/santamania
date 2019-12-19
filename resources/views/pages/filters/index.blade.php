@@ -40,7 +40,6 @@
                                                     <th class="bs-checkbox">
                                                         <input name="btSelectItem" type="checkbox">
                                                     </th>
-                                                    <th>#</th>
                                                     <th>{{ __('Nome') }}</th>
                                                     <th class="text-center" style="width: 150px"> {{ __('Opções') }} </th>
                                                 </tr>
