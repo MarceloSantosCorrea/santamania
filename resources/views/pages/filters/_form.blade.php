@@ -1,4 +1,5 @@
 @push('plugins')
+    <link href="{{ asset('assets/plugins/bootstrap-tagsinput/css/bootstrap-tagsinput.css') }}" rel="stylesheet"/>
     <link href="{{ asset('assets/plugins/multiselect/css/multi-select.css') }}" rel="stylesheet" type="text/css"/>
     <link href="{{ asset('assets/plugins/select2/css/select2.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/plugins/ion-rangeslider/ion.rangeSlider.css') }}" rel="stylesheet" type="text/css"/>
@@ -29,9 +30,16 @@
 </div>
 
 <div class="form-group">
-    <label for="range_04" class="col-sm-2 control-label"><b>Range</b><span class="font-normal text-muted f-s-12 clearfix">Set up range with negative values</span></label>
-    <div class="col-sm-10">
-        <input type="text" id="range_04">
+    <label for="monthly-period" class="col-sm-2 control-label">{{ __('Período do Mês') }}</label>
+    <div class="col-md-10">
+        <input type="text" id="monthly-period" name="options[monthly-period]">
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="monthly-period" class="col-sm-2 control-label">{{ __('Tags') }}</label>
+    <div class="col-md-10">
+        <input type="text" value="Amsterdam,Washington,Sydney" data-role="tagsinput" placeholder="add tags"/>
     </div>
 </div>
 
@@ -51,20 +59,24 @@
 </div>
 
 @push('scripts')
+    <script src="{{ asset('assets/plugins/bootstrap-tagsinput/js/bootstrap-tagsinput.min.js') }}"></script>
     <script src="{{ asset('assets/plugins/multiselect/js/jquery.multi-select.js') }}"></script>
     <script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
-    <script src="assets/plugins/ion-rangeslider/ion.rangeSlider.min.js"></script>
+    <script src="{{ asset('assets/plugins/ion-rangeslider/ion.rangeSlider.min.js') }}"></script>
     <script>
         jQuery(document).ready(function () {
             $(".select2").select2();
-            $("#range_04").ionRangeSlider({
+            $("#monthly-period").ionRangeSlider({
                 type: "double",
                 grid: true,
-                min : -1000,
-                max : 1000,
-                from: -500,
-                to  : 500
+                min : 1,
+                max : 31,
+                from: 0,
+                to  : 0,
+                // disable: true
             });
+
+            window.my_range = $("#monthly-period").data("ionRangeSlider");
         });
     </script>
 @endpush
