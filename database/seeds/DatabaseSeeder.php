@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             ProductDailyChecklistTableSeeder::class,
             AclRoleUserTableSeeder::class,
             AclPermissionAclRoleTableSeeder::class,
+            FilterTableSeeder::class,
         ]);
     }
 }

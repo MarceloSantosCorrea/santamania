@@ -47,6 +47,11 @@ class Product extends Model
         return $this->hasOne(ChecklistProduct::class)->with(['checklist']);
     }
 
+    public function productFilters()
+    {
+        return $this->hasMany(ProductFilter::class);
+    }
+
     public function warehouses()
     {
         return $this->belongsToMany(Warehouse::class, 'product_warehouses', 'product_id', 'warehouse_id');

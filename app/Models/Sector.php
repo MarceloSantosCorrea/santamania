@@ -105,4 +105,17 @@ class Sector extends Model
             return ['error' => $e->getMessage()];
         }
     }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($item) {
+            $uid = uniqid();
+            while (self::query()->where('uid', '=', $uid)->count() > 0) {
+                $uid = uniqid();
+            }
+            $item->uid = $uid;
+        });
+    }
 }

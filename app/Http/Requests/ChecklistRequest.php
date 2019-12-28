@@ -23,34 +23,24 @@ class ChecklistRequest extends FormRequest
      */
     public function rules()
     {
+        $this->merge(["active" => in_array($this->input('active', null), ['on', 1]) ? '1' : '0']);
         switch ($this->method()) {
             case 'POST':
-
-                $this->merge(['active' => $this->input('active', '0')]);
-
                 return [
                     'date'    => 'required',
+                    'filters' => 'required',
                     'sectors' => 'required',
                 ];
-
                 break;
             case'PUT':
-                $checklist = $this->route('checklist');
-
-                $id = is_object($checklist) ? $checklist->id : $checklist;
-
-                $this->merge(['active' => $this->input('active', '0')]);
-
                 return [
                     "date"    => "required",
+                    "filters" => "required",
                     'sectors' => 'required',
                 ];
                 break;
-
             case'PATCH':
-
                 return [];
-
                 break;
         }
     }

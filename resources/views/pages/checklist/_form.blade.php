@@ -12,6 +12,24 @@
     </div>
 </div>
 
+<div class="form-group">
+    <label class="col-md-2 control-label" for="filters">{{ __('Filtro') }}</label>
+    <div class="col-md-8">
+        <select name="filters[]" id="filters" class="form-control select2">
+            <option value="">Selecione...</option>
+            @php $filters = \App\Models\Filter::query()->where('active', 1)->get() @endphp
+            @if($filters->count())
+                @foreach($filters as $filter)
+                    <option value="{{ $filter->id }}" {{ isset($checklist) && $checklist->checklistFilters->contains('id' , $filter->id) ? 'selected' : null }}>{{ $filter->name }}</option>
+                @endforeach
+            @endif
+        </select>
+        @if ($errors->has('filters'))
+            <span class="help-block text-danger"><strong>{{ $errors->first('filters') }}</strong></span>
+        @endif
+    </div>
+</div>
+
 {{--<div class="form-group">--}}
 {{--    <label class="col-md-2 control-label" for="time_start">{{ __('Início') }}</label>--}}
 {{--    <div class="col-md-3">--}}
@@ -34,7 +52,7 @@
     <label class="col-md-2 control-label" for="sectors">{{ __('Setores') }}</label>
     <div class="col-md-10">
         <select multiple="multiple" name="sectors[]" id="sectors" data-plugin="multiselect">
-            @php $sectors = \App\Models\Sector::where(['active' => 1])->get() @endphp
+            @php $sectors = \Auth::user()->sectors->where('active', 1) @endphp
             @if($sectors->count())
                 @foreach($sectors as $sector)
                     <option value="{{ $sector->id }}" {{ isset($checklist) && $checklist->sectors->contains('id' , $sector->id) ? 'selected' : null }}>{{ $sector->name }}</option>

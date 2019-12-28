@@ -23,12 +23,11 @@ class SettingsRequest extends FormRequest
      */
     public function rules()
     {
-        $settings                            = $this->input();
-        $settings["settings"]["debug"] = $this->input('settings.debug',
-            null) == 'on' || $this->input('settings.debug', null) == '1' ? 'true' : 'false';
+        $settings = $this->input();
+
+        $settings["settings"]["debug"] = in_array($this->input('settings.debug', null), ['on', '1']) ? 'true' : 'false';
         $this->merge(['settings' => $settings["settings"]]);
 
-        return [
-        ];
+        return [];
     }
 }

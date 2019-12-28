@@ -38,15 +38,17 @@ class EventServiceProvider extends ServiceProvider
          * Checklists
          */
         \App\Events\ChecklistCreatedEvent::class         => [
+            \App\Listeners\ChecklistCreatedChecklistFilterListener::class,
             \App\Listeners\ChecklistCreatedChecklistSectorListener::class,
         ],
         \App\Events\ChecklistEditedEvent::class          => [
+            \App\Listeners\ChecklistEditedChecklistFilterListener::class,
             \App\Listeners\ChecklistEditedChecklistSectorListener::class,
         ],
         \App\Events\ChecklistClosedEvent::class          => [
             \App\Listeners\ChecklistCloseTotalListener::class,
-            \App\Listeners\ChecklistCloseTasksListener::class,
             \App\Listeners\ChecklistCloseProductDailyListener::class,
+            \App\Listeners\ChecklistCloseTasksListener::class,
             \App\Listeners\ChecklistClosePrevisionListener::class,
         ],
         \App\Events\ChecklistOpenedEvent::class          => [

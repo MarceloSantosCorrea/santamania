@@ -14,7 +14,8 @@ class FiltersController extends AbstractController
      */
     public function index()
     {
-        $data = Filter::where('default', 0)->paginate();
+        $data = Filter::where('default', 0)
+                      ->where('id', '>', 14)->paginate();
 
         return view('pages.filters.index', compact('data'));
     }

@@ -14,6 +14,7 @@ class SectorTableSeeder extends Seeder
         foreach (['Setor 01', 'Setor 02', 'Setor 03', 'Setor 04', 'Setor 05'] as $sector) {
             DB::table('sectors')->insert([
                 "name"       => $sector,
+                "uid"        => uniqid(),
                 "active"     => 1,
                 "created_at" => new \DateTime("now"),
                 "updated_at" => new \DateTime("now"),

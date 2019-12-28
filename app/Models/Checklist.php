@@ -44,6 +44,11 @@ class Checklist extends Model
         return $this->belongsToMany(Sector::class, 'checklist_sectors');
     }
 
+    public function checklistFilters()
+    {
+        return $this->belongsToMany(Filter::class, 'checklist_filters');
+    }
+
     public function sectors()
     {
         return $this->belongsToMany(Sector::class, 'checklist_sectors', 'checklist_id', 'sector_id')->with('products');

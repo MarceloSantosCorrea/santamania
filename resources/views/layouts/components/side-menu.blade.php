@@ -78,6 +78,9 @@
                             @can('list_acl_roles')
                                 <li><a href="{{ route('web.acl.role.index') }}"> {{ __('Perfis') }} </a></li>
                             @endcan
+                            @can('update_settings')
+                                <li><a href="{{ route('web.settings.index') }}"> {{ __('Configurações') }} </a></li>
+                            @endcan
                         </ul>
                     </li>
                 @endif
