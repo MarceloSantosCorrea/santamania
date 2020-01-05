@@ -10,7 +10,7 @@ class ChecklistCreatedChecklistFilterListener
     public function handle(ChecklistCreatedEvent $event)
     {
         if (\Arr::has($event->data, 'filters')) {
-            if (count($event->data['filters'])) {
+            if (count(arrayFilter($event->data['filters']))) {
                 ChecklistFilter::createByArray($event->checklist, $event->data['filters']);
             }
         }

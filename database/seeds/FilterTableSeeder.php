@@ -11,20 +11,31 @@ class FilterTableSeeder extends Seeder
      */
     public function run()
     {
-        foreach (
-            [
-                'Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado',
-                'Domingo Feriado', 'Segunda-feira Feriado', 'Terça-feira Feriado', 'Quarta-feira Feriado',
-                'Quinta-feira Feriado', 'Sexta-feira Feriado', 'Sábado Feriado',
-            ] as $sector
-        ) {
+        $filters = [
+            ["name" => 'Domingo', 'default' => 1],
+            ["name" => 'Segunda-feira', 'default' => 1],
+            ["name" => 'Terça-feira', 'default' => 1],
+            ["name" => 'Quarta-feira', 'default' => 1],
+            ["name" => 'Quinta-feira', 'default' => 1],
+            ["name" => 'Sexta-feira', 'default' => 1],
+            ["name" => 'Sábado', 'default' => 1],
+            ["name" => 'Domingo Feriado', 'default' => 0],
+            ["name" => 'Segunda-feira Feriado', 'default' => 0],
+            ["name" => 'Terça-feira Feriado', 'default' => 0],
+            ["name" => 'Quarta-feira Feriado', 'default' => 0],
+            ["name" => 'Quinta-feira Feriado', 'default' => 0],
+            ["name" => 'Sexta-feira Feriado', 'default' => 0],
+            ["name" => 'Sábado Feriado', 'default' => 0],
+        ];
+
+        foreach ($filters as $sector) {
             DB::table('filters')->insert([
-                "name"       => $sector,
-                "uid"        => uniqid(),
-                "active"     => 1,
-                "default"    => 1,
-                "created_at" => new \DateTime("now"),
-                "updated_at" => new \DateTime("now"),
+                'name'       => $sector['name'],
+                'uid'        => uniqid(),
+                'active'     => 1,
+                'default'    => $sector['default'],
+                'created_at' => new \DateTime('now'),
+                'updated_at' => new \DateTime('now'),
             ]);
         }
     }

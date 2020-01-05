@@ -11,9 +11,10 @@ use Illuminate\Support\Facades\DB;
 
 class Checklist extends Model
 {
-    protected $fillable = [
-        'date', 'status',
-    ];
+    protected $fillable = ['date', 'status'];
+
+    protected $dates = ['date'];
+    protected $casts = ['datetime' => 'date'];
 
     /**
      * @param  string  $string
@@ -415,26 +416,26 @@ class Checklist extends Model
         ];
     }
 
-    public function getDateAttribute($value)
-    {
-        $c = Carbon::createFromFormat('Y-m-d', $value);
-
-        return $c->toW3cString();
-    }
-
-    public function getCreatedAtAttribute($value)
-    {
-        $c = Carbon::createFromFormat('Y-m-d H:i:s', $value);
-
-        return $c->toW3cString();
-    }
-
-    public function getUpdatedAtAttribute($value)
-    {
-        $c = Carbon::createFromFormat('Y-m-d H:i:s', $value);
-
-        return $c->toW3cString();
-    }
+//    public function getDateAttribute($value)
+//    {
+//        $c = Carbon::createFromFormat('Y-m-d', $value);
+//
+//        return $c->toW3cString();
+//    }
+//
+//    public function getCreatedAtAttribute($value)
+//    {
+//        $c = Carbon::createFromFormat('Y-m-d H:i:s', $value);
+//
+//        return $c->toW3cString();
+//    }
+//
+//    public function getUpdatedAtAttribute($value)
+//    {
+//        $c = Carbon::createFromFormat('Y-m-d H:i:s', $value);
+//
+//        return $c->toW3cString();
+//    }
 
     /**
      * @param  array  $data

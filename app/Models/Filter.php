@@ -7,6 +7,37 @@ use Illuminate\Database\Eloquent\Model;
 class Filter extends Model
 {
     static $filtersDefault = null;
+
+    /**
+     * Dias normais
+     * Relação nº dia da semana -> id filtro no DB
+     * @var array
+     */
+    static $filtersWeekDays = [
+        '0' => '1', // Domingo,
+        '1' => '2', // Segunda-feira
+        '2' => '3', // Terça-feira
+        '3' => '4', // Quarta-feira
+        '4' => '5', // Quinta-feira
+        '5' => '6', // Sexta-feira
+        '6' => '7', // Sábado
+    ];
+
+    /**
+     * Dias Feriados
+     * Relação nº dia da semana -> id filtro no DB
+     * @var array
+     */
+    static $filtersWeekDaysHoliday = [
+        '0' => '8', // Domingo Feriado
+        '1' => '9', // Segunda-feira Feriado
+        '2' => '10', //	Terça-feira Feriado
+        '3' => '11', // Quarta-feira Feriado
+        '4' => '12', // Quinta-feira Feriado
+        '5' => '13', // Sexta-feira Feriado
+        '6' => '14', // Sábado Feriado
+    ];
+
     /**
      * @var array
      */
@@ -33,13 +64,13 @@ class Filter extends Model
         if (count($ids)) {
             $query->whereIn('id', $ids);
         }
-//        else {
-//            $query->whereIn('id', [3]);
-//        }
+        //        else {
+        //            $query->whereIn('id', [3]);
+        //        }
 
         $filters = $query->get();
 
-        $data = [];
+        $data = ['header' => [], 'categories' => []];
         if ($filters->count()) {
             foreach ($filters as $filter) {
                 $data['header'][$filter->id] = $filter->name;

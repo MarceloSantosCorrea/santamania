@@ -17,7 +17,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-12">
-                        <p class="text-muted page-title-alt">Olá {{ auth()->user()->name }}</p>
+                        <p class="text-muted page-title-alt">Olá {{ \Auth::user()->name }}</p>
                     </div>
                 </div>
                 <div class="row page-content">

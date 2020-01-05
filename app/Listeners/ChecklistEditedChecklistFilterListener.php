@@ -16,6 +16,6 @@ class ChecklistEditedChecklistFilterListener
      */
     public function handle(ChecklistEditedEvent $event)
     {
-        ChecklistFilter::updateByArray($event->checklist, $event->data['filters']);
+        ChecklistFilter::updateByArray($event->checklist, arrayFilter($event->data['filters']));
     }
 }
