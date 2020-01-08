@@ -12,13 +12,13 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            SectorTableSeeder::class,
-            ProductCategoryTableSeeder::class,
+//            SectorTableSeeder::class,
+//            ProductCategoryTableSeeder::class,
             UnitsMeasureTableSeeder::class,
-            ProductTableSeeder::class,
-            WarehouseTableSeeder::class,
+//            ProductTableSeeder::class,
+//            WarehouseTableSeeder::class,
             UsersTableSeeder::class,
-            ProductDailyChecklistTableSeeder::class,
+//            ProductDailyChecklistTableSeeder::class,
             AclRoleUserTableSeeder::class,
             AclPermissionAclRoleTableSeeder::class,
             FilterTableSeeder::class,
