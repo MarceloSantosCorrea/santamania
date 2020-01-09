@@ -43,6 +43,13 @@
                                                 </div>
                                             </div>
 
+                                            <div class="form-group">
+                                                <label class="col-md-2 control-label">{{ __('Estoque Atual') }}</label>
+                                                <div class="col-md-8">
+                                                    <label class="control-label" style="font-size: 18px; padding-top: 4px">{{ $product->current_quantity }} {{ $product->unitsMeasure->symbol }}</label>
+                                                </div>
+                                            </div>
+
                                             @foreach($warehouses as $warehouse)
 
                                                 <div class="form-group">
