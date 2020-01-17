@@ -62,7 +62,9 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th class="rotate"></th>
+                                            <th></th>
+                                            <th><small>{{ __('Atual') }}</small></th>
+                                            <th><small>{{ __('Prev. Término') }}</small></th>
                                             @if(count($data['header']))
                                                 @foreach($data['header'] as $filterId => $filterName)
                                                     <th class="text-center rotate filter-{{ $filterId }} {{ !in_array($filterId, $filtersDefault) ? 'hide': null }}">
@@ -81,45 +83,15 @@
                                                 @php $i = 0; @endphp
                                                 @foreach($item['products'] as $product)
                                                     <tr style="{{ ($i % 2 != 0) ? 'background-color: #f8f9fa' : null }}">
-                                                        <td class="text-nowrap" scope="row">{{ $product['product']->name }}</td>
+                                                        <td class="text-nowrap">{{ $product['product']->name }}</td>
+                                                        <td class="text-nowrap">{{ $product['product']->current_quantity }}</td>
+                                                        <td class="text-nowrap"></td>
                                                         @foreach($product['values'] as $key => $value)
                                                             <td class="text-center {{ !in_array($key, $filtersDefault) ? 'hide': null }} filter-{{ $key }}">{{ $value }}</td>
                                                         @endforeach
                                                     </tr>
                                                     @php $i++; @endphp
                                                 @endforeach
-                                            @endforeach
-                                        @endif
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="card-box">
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                            <th><small>{{ __('Produtos') }}</small></th>
-                                            <th class="text-center" style="width: 100px">
-                                                <small>{{ __('Atual') }}</small>
-                                            </th>
-                                            <th class="text-center" style="width: 100px">
-                                                <small>{{ __('Prev. Término') }}</small>
-                                            </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @if($products->count())
-                                            @foreach($products as $product)
-                                                <tr>
-                                                    <th class="text-nowrap" scope="row">{{ $product->name }}</th>
-                                                    <td class="text-center">{{ "{$product->current_quantity} {$product->unitsMeasure->symbol}" }}</td>
-                                                    <td class="text-center">
-                                                        {{--{{ $checklistProduct->product->prevision ? \Carbon\Carbon::parse($checklistProduct->product->prevision->prevision_date)->format('d/m/Y'): null }}--}}
-                                                    </td>
-                                                </tr>
                                             @endforeach
                                         @endif
                                     </tbody>
@@ -142,7 +114,6 @@
 
             checkboxArray.forEach(function (checkbox) {
                 checkbox.addEventListener('change', function () {
-                    console.log('change');
                     if (this.checked) {
                         $('.filter-' + $(this).val()).each(function () {
                             $(this).removeClass('hide');
@@ -156,9 +127,7 @@
             });
 
             $('.dropdown-menu li').on('click', function (event) {
-
                 if ($(event.target).is("a")) {
-
                     if ($(event.target).hasClass('remove-all')) {
                         $('#dropdown-filters').find('input[type=checkbox]').each(function () {
                             $(this).prop('checked', false).change();
@@ -190,25 +159,11 @@
                                 $(this).addClass('hide');
                             });
                         }
-                        // console.log(checkbox.is('checked'));
-                        // box.prop('checked', !box.prop('checked')).change();
-
-                        // if (!checkbox.prop('checked')) {
-                        //
-                        //     checkbox.prop('checked', true).change();
-                        //     console.log(checkbox.is('checked'));
-                        // } else {
-                        //     checkbox.prop('checked', false).change();
-                        //     console.log(checkbox.is('checked'));
-                        // }
-
                     }
 
                     return false;
                 }
             });
-
-
         });
     </script>
 @endpush

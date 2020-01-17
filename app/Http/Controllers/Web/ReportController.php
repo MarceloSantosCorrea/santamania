@@ -15,42 +15,40 @@ class ReportController extends AbstractController
 
     public function out(Request $request)
     {
-        $data     = $productModel = $dataPost = null;
+        $data     = $productModel = null;
         $products = Product::where('active', 1)->orderBy('name')->get();
 
         if ($request->method() == 'POST') {
 
-            $dataPost = $request->all();
-            if (isset($dataPost['product_id'])) {
+            $query = \DB::table('checklist_totals')
+                        ->join('checklist_products', 'checklist_products.id', '=',
+                            'checklist_totals.checklist_product_id')
+                        ->join('products', 'products.id', '=', 'checklist_products.product_id')
+                        ->join('checklists', 'checklists.id', '=', 'checklist_products.checklist_id')
+                        ->join('units_measures', 'units_measures.id', '=', 'products.units_measure_id')
+                        ->groupBy('products.id');
 
-                $productModel = Product::find($dataPost['product_id']);
-                $date_start   = isset($dataPost['date_start']) ? date('Y-m-d',
-                    strtotime($dataPost['date_start'].'-1day')) : date('Y-m-d', strtotime(date('Y-m-01').'-1day'));
-                $date_end     = isset($dataPost['date_end']) ? date('Y-m-d',
-                    strtotime($dataPost['date_end'].'+1day')) : date('Y-m-d', strtotime(date('Y-m-d').'+1day'));
+            if ($request->product_id) {
+                $query->where('checklist_products.product_id', $request->product_id);
+            }
 
-                $rows = \DB::table('checklist_products')
-                           ->join('checklists', 'checklists.id', '=', 'checklist_products.checklist_id')
-                           ->join('checklist_totals', 'checklist_products.id', '=',
-                               'checklist_totals.checklist_product_id')
-                           ->where('checklist_products.product_id', $dataPost['product_id'])
-                           ->whereBetween('checklists.date', [$date_start, $date_end])
-                           ->get();
+            $date_start = date('Y-m-d', strtotime($request->date_start ?? date('Y-m-01')));
+            $date_end   = date('Y-m-d', strtotime($request->date_end ?? date('Y-m-01')));
+            $query->whereBetween('checklists.date', [$date_start, $date_end]);
 
-                if ($rows->count()) {
-                    foreach ($rows as $row) {
-                        $data[] = [
-                            'y' => $row->date,
-                            'a' => $row->difference,
-                        ];
-                    }
+            $result = $query->get([
+                'checklist_products.product_id',
+                'products.name',
+                'units_measures.symbol',
+                \DB::raw('SUM(output) as "total"'),
+            ]);
 
-                    $data = json_encode($data);
-                }
+            if ($result->count()) {
+                $data = $result;
             }
         }
 
-        return view('pages.report.out', compact('products', 'data', 'productModel', 'dataPost'));
+        return view('pages.report.out', compact('products', 'data'));
     }
 
     public function production(Request $request)

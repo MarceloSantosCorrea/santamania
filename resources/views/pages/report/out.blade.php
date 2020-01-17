@@ -43,9 +43,9 @@
                                                 <div class="form-group">
                                                     <label class="control-label" for="product_id">Produto</label>
                                                     <select name="product_id" id="product_id" class="form-control select2">
-                                                        <option>Selecione...</option>
+                                                        <option value="">Selecione...</option>
                                                         @foreach($products as $product)
-                                                            <option value="{{ $product->id }}" {{ isset($dataPost) && $product->id == $dataPost['product_id'] ? 'selected="selected"': null }}>{{ $product->name }}</option>
+                                                            <option value="{{ $product->id }}" {{ isset(request()->product_id) && $product->id == request()->product_id ? 'selected="selected"': null }}>{{ $product->name }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -54,14 +54,14 @@
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label class="control-label" for="date_start">Data Início</label>
-                                                    <input type="date" class="form-control" name="date_start" id="date_start" value="{{ isset($dataPost)? $dataPost['date_start']: '' }}">
+                                                    <input type="date" class="form-control" name="date_start" id="date_start" value="{{ isset(request()->date_start)? request()->date_start: '' }}">
                                                 </div>
                                             </div>
 
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label class="control-label" for="date_end">Data Fim</label>
-                                                    <input type="date" class="form-control" name="date_end" id="date_end" value="{{ isset($dataPost)? $dataPost['date_end']: '' }}">
+                                                    <input type="date" class="form-control" name="date_end" id="date_end" value="{{ isset(request()->date_end)? request()->date_end: '' }}">
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
@@ -84,17 +84,19 @@
                                                         <table class="table table-striped table-hover m-t-10">
                                                             <thead>
                                                                 <tr>
+                                                                    <th>{{ __('ID') }}</th>
                                                                     <th>{{ __('Produto') }}</th>
-                                                                    <th>{{ __('Fornecedor') }}</th>
                                                                     <th class="text-right">{{ __('Total') }}</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
                                                                 @foreach($data as $item)
                                                                     <tr>
-                                                                        <td>{{ $item->product->name }}</td>
-                                                                        <td>{{ $item->product->supplier ? $item->product->supplier->name : '-' }}</td>
-                                                                        <td class="text-right">{{ $item->product->unitsMeasure->symbol == 'Un' ? number_format($item->total) : $item->total }} {{ $item->product->unitsMeasure->symbol }}</td>
+                                                                        <td>{{ $item->product_id }}</td>
+                                                                        <td>{{ $item->name }}</td>
+                                                                        <td class="text-right">
+                                                                            {{ $item->total }} {{ $item->symbol }}
+                                                                        </td>
                                                                     </tr>
                                                                 @endforeach
                                                             </tbody>

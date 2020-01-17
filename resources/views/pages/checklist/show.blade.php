@@ -63,16 +63,19 @@
                                             <thead>
                                                 <tr>
                                                     <th>{{ __('Produto') }}</th>
-                                                    <th>{{ __('Total') }}</th>
-                                                    <th>{{ __('Status') }}</th>
-                                                    <th class="text-center" style="width: 150px">{{ __('Options') }}</th>
+                                                    <th class="text-right">{{ __('Un. Medida') }}</th>
+                                                    <th class="text-right">{{ __('Anterior') }}</th>
+                                                    <th class="text-right">{{ __('Total') }}</th>
+                                                    <th class="text-right">{{ __('Saída') }}</th>
+                                                    <th class="text-right">{{ __('Status') }}</th>
+                                                    <th class="text-right" style="width: 150px">{{ __('Options') }}</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @if($checklist->checklistSectors->count())
                                                     @foreach($checklist->checklistSectors->sortBy('name') as $sector)
                                                         <tr>
-                                                            <th colspan="4" class="text-center" style="background-color: rgba(29,145,53,0.19)">{{ $sector->name }}</th>
+                                                            <th colspan="7" class="text-center" style="background-color: rgba(29,145,53,0.19)">{{ $sector->name }}</th>
                                                         </tr>
                                                         @foreach($sector->products as $product)
                                                             <?php
@@ -94,13 +97,16 @@
                                                             ?>
                                                             <tr>
                                                                 <td>{{ $product->name }}</td>
-                                                                <td>{{ $total }} {{ $product->unitsMeasure->symbol }}</td>
-                                                                <td>
-                                                                <span class="label label-{{ $alterado ? 'primary' : 'danger'  }}">
-                                                                    {{ $alterado ? 'Conferido' : 'Conferir' }}
-                                                                </span>
+                                                                <td class="text-right">{{ $product->unitsMeasure->symbol }}</td>
+                                                                <td class="text-right">{{ $product->current_quantity }}</td>
+                                                                <td class="text-right">{{ $total }}</td>
+                                                                <td class="text-right">{{ $alterado ? ($product->current_quantity - $total) : '0' }}</td>
+                                                                <td class="text-right">
+                                                                    <span class="label label-{{ $alterado ? 'primary' : 'danger'}}">
+                                                                        {{ $alterado ? 'Conferido' : 'Conferir' }}
+                                                                    </span>
                                                                 </td>
-                                                                <td>
+                                                                <td class="text-right">
                                                                     <a href="{{ route( $checklistProduct ? 'web.checklist-product.edit' : 'web.checklist-product.create',[$checklist, $product]) }}"
                                                                        class="btn btn-success btn-sm tooltips"
                                                                        data-toggle="tooltip" data-placement="top"

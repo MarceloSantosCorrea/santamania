@@ -28,8 +28,8 @@
         <![endif]-->
         <script src="{{ asset('assets/js/modernizr.min.js') }}"></script>
     </head>
-    <body class="fixed-left">
-        <div id="wrapper">
+    <body class="fixed-left fixed-left-void">
+        <div id="wrapper" class="forced enlarged">
             @include('layouts.components.topbar')
             @include('layouts.components.side-menu')
             @yield('content')
