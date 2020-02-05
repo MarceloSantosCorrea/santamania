@@ -11,16 +11,16 @@
 <div class="form-group">
     <label class="col-md-2 control-label" for="firstname">{{ __('Nome') }}</label>
     <div class="col-md-8">
-        <input type="text" name="firstname" id="firstname" class="form-control" value="{{ old('name', isset($user)? $user->firstname: null) }}">
-        <span class="help-block"></span>
+        <input type="text" name="firstname" id="firstname" class="form-control" value="{{ old('firstname', isset($user)? $user->firstname: null) }}">
+        <span class="help-block">{{ $errors->has('firstname') ? $errors->first('firstname'): null }}</span>
     </div>
 </div>
 
 <div class="form-group">
     <label class="col-md-2 control-label" for="lastname">{{ __('Sobrenome') }}</label>
     <div class="col-md-8">
-        <input type="text" name="lastname" id="lastname" class="form-control" value="{{ old('name', isset($user)? $user->lastname: null) }}">
-        <span class="help-block"></span>
+        <input type="text" name="lastname" id="lastname" class="form-control" value="{{ old('lastname', isset($user)? $user->lastname: null) }}">
+        <span class="help-block">{{ $errors->has('lastname') ? $errors->first('lastname'): null }}</span>
     </div>
 </div>
 
@@ -28,8 +28,8 @@
     <label class="col-md-2 control-label" for="email">{{ __('E-mail') }}</label>
     <div class="col-md-8">
         <input type="text" name="email" id="email_fake" autocomplete="off" style="display: none;"/>
-        <input type="text" name="email" id="email" class="form-control" value="{{ old('name', isset($user)? $user->email: null) }}">
-        <span class="help-block"></span>
+        <input type="text" name="email" id="email" class="form-control" value="{{ old('email', isset($user)? $user->email: null) }}">
+        <span class="help-block">{{ $errors->has('email') ? $errors->first('email'): null }}</span>
     </div>
 </div>
 
@@ -37,7 +37,7 @@
     <label class="col-md-2 control-label" for="password">{{ __('Senha') }}</label>
     <div class="col-md-8">
         <input type="password" name="password" id="password" class="form-control">
-        <span class="help-block"></span>
+        <span class="help-block">{{ $errors->has('password') ? $errors->first('password'): null }}</span>
     </div>
 </div>
 
@@ -51,6 +51,7 @@
                 @endforeach
             @endif
         </select>
+        <span class="help-block">{{ $errors->has('roles') ? $errors->first('roles'): null }}</span>
     </div>
 </div>
 

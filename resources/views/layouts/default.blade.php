@@ -27,6 +27,12 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
         <script src="{{ asset('assets/js/modernizr.min.js') }}"></script>
+
+        <style>
+            .help-block {
+                color: #f05050;
+            }
+        </style>
     </head>
     <body class="fixed-left fixed-left-void">
         <div id="wrapper" class="forced enlarged">

@@ -25,7 +25,6 @@
                         <div class="card-box">
                             <div class="row">
                                 <div class="col-md-12">
-                                    @include('form._form_errors')
                                     <form class="form-horizontal" method="post" action="{{ route('web.user.update', ['user' => $user->id]) }}">
                                         @csrf @method('put')
                                         @include('pages.user._form')

@@ -29,7 +29,9 @@ class UserRequest extends FormRequest
                 return [
                     'firstname' => 'required|min:3',
                     'lastname'  => 'required|min:3',
-                    'email'     => 'required',
+                    'password'  => 'required|min:6',
+                    "email"     => "required|unique:users,email",
+                    'roles'     => 'required',
                 ];
 
             case'PUT':
@@ -48,7 +50,21 @@ class UserRequest extends FormRequest
                     'firstname' => 'required|min:3',
                     'lastname'  => 'required|min:3',
                     "email"     => "required|unique:users,email,".$id,
+                    'roles'     => 'required',
                 ];
         }
+    }
+
+    public function messages()
+    {
+        $default = "Campo Obrigatório";
+
+        return [
+            'firstname.required' => $default,
+            'lastname.required'  => $default,
+            'password.required'  => $default,
+            'email.required'     => $default,
+            'roles.required'     => $default,
+        ];
     }
 }
