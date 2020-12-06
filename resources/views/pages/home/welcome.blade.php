@@ -83,7 +83,7 @@
                                                 @php $i = 0; @endphp
                                                 @foreach($item['products'] as $product)
                                                     <tr style="{{ ($i % 2 != 0) ? 'background-color: #f8f9fa' : null }}">
-                                                        <td class="text-nowrap">{{ $product['product']->name }}</td>
+                                                        <td class="text-nowrap">{{ $product['product']->name }} - {{ $product['product']->unitsMeasure->symbol }}</td>
                                                         <td class="text-nowrap">{{ $product['product']->current_quantity }}</td>
                                                         <td class="text-nowrap"></td>
                                                         @foreach($product['values'] as $key => $value)
